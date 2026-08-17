@@ -1,0 +1,6 @@
+{
+  "name": "AIGENESIS.TECH - Physical AI Stack",
+  "description": "Interactive operational platform combining Reasoning, Agents, Multimodality, World Models, and Robotics to execute real-world objective pipelines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
