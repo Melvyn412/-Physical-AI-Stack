@@ -3,7 +3,8 @@ import {
   Cpu, Activity, Terminal, Network, Box, ShieldCheck, Sparkles, 
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
-  Calculator, ChevronDown, DollarSign, ExternalLink
+  Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
+  Target, GitFork
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 
@@ -46,6 +47,74 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'simulator' as ActiveTab,
       btnText: 'Launch 5-Layer Simulator'
+    },
+    {
+      id: 'slam',
+      title: 'SLAM & Occupancy Grid Studio',
+      category: 'Perception & Localization',
+      icon: Compass,
+      badge: 'Nav2 / Cartographer',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Interactive Simultaneous Localization and Mapping with 360° LiDAR raycasting, Bresenham occupancy grid generation, Ceres graph loop closure optimization, and Nav2 parameter synthesis.',
+      deliverables: [
+        '2D LiDAR & Visual SLAM (vSLAM) feature point tracking',
+        'Real-time occupancy grid mapping (free vs. occupied space)',
+        'Odometry drift vs. Graph SLAM pose error estimation',
+        'Production ROS 2 slam_toolbox_params.yaml & Nav2 bringup export'
+      ],
+      targetTab: 'slam' as ActiveTab,
+      btnText: 'Open SLAM Studio'
+    },
+    {
+      id: 'pid',
+      title: 'PID Control & Step-Response Studio',
+      category: 'Closed-Loop Actuation',
+      icon: Sliders,
+      badge: '1 kHz ros2_control',
+      badgeColor: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      description: 'High-frequency Proportional-Integral-Derivative closed-loop tuning. Simulate robotic arm joints, drone thrust, and motor velocity with anti-windup clamping and disturbance rejection.',
+      deliverables: [
+        'Real-time step-response oscilloscope (setpoint vs. process variable)',
+        'P, I, D individual term telemetry & actuator saturation limits',
+        'Ziegler-Nichols & critically damped auto-tuning presets',
+        'C++ header-only & ROS 2 ros2_control YAML firmware export'
+      ],
+      targetTab: 'pid' as ActiveTab,
+      btnText: 'Open PID Studio'
+    },
+    {
+      id: 'ik',
+      title: 'Inverse Kinematics (IK) & MoveIt 2 Studio',
+      category: 'Manipulators & Arm Planning',
+      icon: Target,
+      badge: '6-DoF MoveGroup',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Cartesian coordinate solver with Jacobian Damped Least Squares and CCD algorithms. Detects boundary singularities and generates ROS 2 MoveIt 2 kinematics.yaml and C++ trajectory nodes.',
+      deliverables: [
+        'Interactive draggable end-effector target & reachable workspace envelope',
+        'Singularity & Jacobian condition monitoring',
+        'Cartesian spline & inspection arc trajectory interpolation',
+        'ROS 2 MoveIt 2 kinematics.yaml & C++ MoveGroup action exporter'
+      ],
+      targetTab: 'ik' as ActiveTab,
+      btnText: 'Open IK Studio'
+    },
+    {
+      id: 'bt',
+      title: 'Behavior Tree (BT.CPP) Mission Studio',
+      category: 'Autonomous Decision Engine',
+      icon: GitFork,
+      badge: 'Nav2 BT Navigator',
+      badgeColor: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      description: 'Visual execution graph engine for complex robotics mission workflows. Simulate sequences, reactive fallbacks, battery condition gates, and spin recovery behaviors with BehaviorTree.CPP v4 export.',
+      deliverables: [
+        'Real-time tree ticking simulation (Success / Running / Failure states)',
+        'Fault injection and obstacle spin-recovery branch execution',
+        'ROS 2 Nav2 BT Navigator XML specification export',
+        'C++ custom StatefulActionNode template generator'
+      ],
+      targetTab: 'bt' as ActiveTab,
+      btnText: 'Open Behavior Tree Studio'
     },
     {
       id: 'export',

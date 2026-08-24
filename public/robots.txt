@@ -1,0 +1,16 @@
+# User-Agent configuration for Googlebot, Bingbot, and modern web crawlers
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /sitemap.xml
+Allow: /api/health
+Allow: /api/quota-status
+
+# Protect backend webhook and private diagnostic routes from search indexing
+Disallow: /api/paypal/webhook
+Disallow: /api/paypal/test-webhook
+Disallow: /api/paypal/webhook-logs
+Disallow: /data/
+
+# XML Sitemap location for search engines
+Sitemap: https://aigenesis.tech/sitemap.xml

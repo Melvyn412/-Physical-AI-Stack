@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Main Platform Overview -->
+  <url>
+    <loc>https://aigenesis.tech/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80</image:loc>
+      <image:title>AIGENESIS Physical AI Platform</image:title>
+      <image:caption>Operational Physical AI Stack and Robotics Simulation Platform</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Pricing & PayPal Subscription Plans -->
+  <url>
+    <loc>https://aigenesis.tech/#pricing</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Autonomous Objective Decomposition Pipeline -->
+  <url>
+    <loc>https://aigenesis.tech/#objectives</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 2D / 3D Physical Simulation Canvas -->
+  <url>
+    <loc>https://aigenesis.tech/#simulation</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- SLAM & Occupancy Grid Studio -->
+  <url>
+    <loc>https://aigenesis.tech/#slam</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- PID Control & Step-Response Studio -->
+  <url>
+    <loc>https://aigenesis.tech/#pid</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Inverse Kinematics & MoveIt 2 Studio -->
+  <url>
+    <loc>https://aigenesis.tech/#ik</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Behavior Tree (BT.CPP) Mission Studio -->
+  <url>
+    <loc>https://aigenesis.tech/#bt</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Swarm Sandbox -->
+  <url>
+    <loc>https://aigenesis.tech/#swarm</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- URDF Kinematics Synthesizer -->
+  <url>
+    <loc>https://aigenesis.tech/#urdf</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ROS 2 Humble & Isaac Sim Exporter -->
+  <url>
+    <loc>https://aigenesis.tech/#ros2</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Safety & ISO 13849 Compliance Exporter -->
+  <url>
+    <loc>https://aigenesis.tech/#safety</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Hardware Stress Simulator -->
+  <url>
+    <loc>https://aigenesis.tech/#stress</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

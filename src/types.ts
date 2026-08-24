@@ -1,6 +1,10 @@
 export type ActiveTab = 
   | 'landing'
   | 'simulator' 
+  | 'slam'
+  | 'pid'
+  | 'ik'
+  | 'bt'
   | 'pillars' 
   | 'architecture' 
   | 'pricing' 

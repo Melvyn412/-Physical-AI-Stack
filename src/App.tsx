@@ -11,6 +11,10 @@ import { SwarmSandbox } from './components/SwarmSandbox';
 import { UrdfKinematicsBuilder } from './components/UrdfKinematicsBuilder';
 import { SafetyAuditExporter } from './components/SafetyAuditExporter';
 import { HardwareStressSimulator } from './components/HardwareStressSimulator';
+import { SlamStudio } from './components/SlamStudio';
+import { PidControllerStudio } from './components/PidControllerStudio';
+import { KinematicsIkStudio } from './components/KinematicsIkStudio';
+import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
 import { QuotaBarrierModal } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { DynamicDecomposition, StackPillar, ActiveTab, PlanTier } from './types';
@@ -102,6 +106,34 @@ export default function App() {
               />
             </div>
           </div>
+        )}
+
+        {activeTab === 'slam' && (
+          <SlamStudio
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+          />
+        )}
+
+        {activeTab === 'pid' && (
+          <PidControllerStudio
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+          />
+        )}
+
+        {activeTab === 'ik' && (
+          <KinematicsIkStudio
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+          />
+        )}
+
+        {activeTab === 'bt' && (
+          <BehaviorTreeStudio
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+          />
         )}
 
         {activeTab === 'export' && (
