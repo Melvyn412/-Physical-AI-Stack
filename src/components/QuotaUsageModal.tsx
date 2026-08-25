@@ -102,7 +102,7 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
                 >
                   <div className="text-xs font-bold truncate">{def.name.split('/')[0]}</div>
                   <div className="text-[10px] text-slate-500 mt-0.5">
-                    {def.priceMonthly === 0 ? 'Free' : `$${def.priceMonthly}/mo`}
+                    {def.priceMonthly === 0 ? 'Free' : `£${def.priceMonthly}/mo`}
                   </div>
                 </button>
               );

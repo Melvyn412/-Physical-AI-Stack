@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Bot, Users, Network, Activity, Zap, Shield, Sparkles, RefreshCw, 
-  Layers, ChevronRight, CheckCircle2, AlertTriangle, Radio
+  Layers, ChevronRight, CheckCircle2, AlertTriangle, Radio, Lock, Download, Crown
 } from 'lucide-react';
+import { useQuota } from '../hooks/useQuota';
+import { PLAN_DEFINITIONS } from '../utils/quotaManager';
 
-export const SwarmSandbox: React.FC = () => {
+interface SwarmSandboxProps {
+  onOpenBarrier?: (barrierInfo: any) => void;
+  onNavigateToPricing?: () => void;
+}
+
+export const SwarmSandbox: React.FC<SwarmSandboxProps> = ({
+  onOpenBarrier,
+  onNavigateToPricing
+}) => {
+  const { quota, limits } = useQuota();
+  const isTeamTierOrAbove = quota.plan === 'team' || quota.plan === 'enterprise';
+
   const [agentCount, setAgentCount] = useState<number>(5);
   const [topology, setTopology] = useState<'mesh' | 'star' | 'decentralized'>('mesh');
   const [latencyMs, setLatencyMs] = useState<number>(12);
@@ -23,8 +36,8 @@ export const SwarmSandbox: React.FC = () => {
       status: 'SYNCHRONIZED',
       role: roles[i % roles.length],
       battery: Math.floor(88 + Math.random() * 12),
-      x: 20 + (i * 70) / agentCount,
-      y: 30 + (i % 2 === 0 ? 20 : -10)
+      x: 15 + (i * 70) / Math.max(1, agentCount - 1),
+      y: 25 + (i % 2 === 0 ? 30 : -5)
     }));
     setAgents(newAgents);
   }, [agentCount]);
@@ -47,14 +60,84 @@ export const SwarmSandbox: React.FC = () => {
     return () => clearInterval(interval);
   }, [isSimulating]);
 
+  const handleAgentCountChange = (newVal: number) => {
+    if (newVal > 8 && !isTeamTierOrAbove) {
+      if (onOpenBarrier) {
+        onOpenBarrier({
+          title: 'High-Density Swarm Scaling (Team Studio)',
+          description: 'Deploying swarms larger than 8 agents with distributed DAG consensus and real-time mesh routing requires the Team Studio or Enterprise plan (supports 100+ boids).',
+          currentPlan: quota.plan,
+          recommendedPlan: 'team',
+          used: agentCount,
+          limit: 8,
+          featureName: 'High-Density Swarm Engine'
+        });
+      }
+      return;
+    }
+    setAgentCount(newVal);
+  };
+
+  const handleExportMultiAgentLaunch = () => {
+    if (!isTeamTierOrAbove) {
+      if (onOpenBarrier) {
+        onOpenBarrier({
+          title: 'ROS 2 Multi-Agent Launch Package (Team Studio)',
+          description: 'Exporting multi-robot namespace launchfiles (`ros2 launch aigenesis_swarm swarm_bringup.launch.py`) with CycloneDDS zenoh bridge requires the Team Studio plan.',
+          currentPlan: quota.plan,
+          recommendedPlan: 'team',
+          used: 0,
+          limit: 0,
+          featureName: 'Multi-Agent Launch Generator'
+        });
+      }
+      return;
+    }
+
+    const launchContent = `from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    ld = LaunchDescription()
+    
+    # AIGENESIS.TECH Team Studio - Multi-Robot Swarm Bringup
+    # Agents Active: ${agentCount}
+    # Topology: ${topology}
+    
+    for i in range(1, ${agentCount + 1}):
+        ld.add_action(
+            Node(
+                package='aigenesis_agent',
+                namespace=f'robot_{i}',
+                executable='swarm_node',
+                name='mesh_controller',
+                parameters=[{
+                    'mesh_latency_ms': ${latencyMs},
+                    'consensus_threshold': ${consensusScore},
+                    'topology': '${topology}'
+                }],
+                output='screen'
+            )
+        )
+    return ld
+`;
+    const blob = new Blob([launchContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `aigenesis_swarm_${agentCount}_agents_bringup.launch.py`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6">
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
         <div className="space-y-1">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 text-xs font-mono font-semibold">
-            <Network className="w-3.5 h-3.5 text-indigo-400" />
-            <span>Multi-Agent Consensus Engine</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30 text-xs font-mono font-semibold">
+            <Network className="w-3.5 h-3.5 text-teal-400" />
+            <span>Multi-Agent Consensus Engine • Team Studio</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold text-white font-mono">
             Interactive Multi-Agent Swarm Sandbox
@@ -64,10 +147,10 @@ export const SwarmSandbox: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 font-mono">
+        <div className="flex flex-wrap items-center gap-2 font-mono">
           <button
             onClick={() => setIsSimulating(!isSimulating)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
               isSimulating
                 ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
                 : 'bg-amber-500/20 text-amber-300 border-amber-500/40'
@@ -78,13 +161,25 @@ export const SwarmSandbox: React.FC = () => {
 
           <button
             onClick={() => setObstaclesSpawned(!obstaclesSpawned)}
-            className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold transition-all border ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-semibold transition-all border cursor-pointer ${
               obstaclesSpawned
                 ? 'bg-red-500/20 text-red-300 border-red-500/40'
                 : 'bg-slate-800 text-slate-300 border-slate-700'
             }`}
           >
             {obstaclesSpawned ? 'Clear Obstacles' : 'Spawn Obstacles'}
+          </button>
+
+          <button
+            onClick={handleExportMultiAgentLaunch}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+              isTeamTierOrAbove
+                ? 'bg-teal-600 hover:bg-teal-500 text-white border-teal-400'
+                : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-amber-300 hover:border-amber-500/50'
+            }`}
+          >
+            {isTeamTierOrAbove ? <Download className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5 text-amber-400" />}
+            <span>Export ROS 2 Launch</span>
           </button>
         </div>
       </div>
@@ -94,7 +189,7 @@ export const SwarmSandbox: React.FC = () => {
         {/* Left: Swarm Configuration */}
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
           <h3 className="text-xs font-bold text-slate-200 font-mono uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-3">
-            <Bot className="w-4 h-4 text-indigo-400" />
+            <Bot className="w-4 h-4 text-teal-400" />
             <span>Swarm Topology & Network</span>
           </h3>
 
@@ -102,16 +197,20 @@ export const SwarmSandbox: React.FC = () => {
             <div>
               <div className="flex justify-between text-slate-300 mb-1">
                 <span>Active Swarm Size:</span>
-                <span className="text-indigo-400 font-bold">{agentCount} AIGENESIS Agents</span>
+                <span className="text-teal-400 font-bold">{agentCount} AIGENESIS Agents</span>
               </div>
               <input
                 type="range"
                 min="3"
-                max="8"
+                max={isTeamTierOrAbove ? "24" : "12"}
                 value={agentCount}
-                onChange={(e) => setAgentCount(Number(e.target.value))}
-                className="w-full accent-indigo-400 bg-slate-950 h-2 rounded-lg cursor-pointer"
+                onChange={(e) => handleAgentCountChange(Number(e.target.value))}
+                className="w-full accent-teal-400 bg-slate-950 h-2 rounded-lg cursor-pointer"
               />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-0.5">
+                <span>3 Agents</span>
+                <span>{isTeamTierOrAbove ? '24 Active Nodes (Team)' : '8 Max (Free/Pro) • Up to 100 on Team'}</span>
+              </div>
             </div>
 
             <div>
@@ -121,9 +220,9 @@ export const SwarmSandbox: React.FC = () => {
                   <button
                     key={top}
                     onClick={() => setTopology(top)}
-                    className={`py-2 px-2 rounded-xl text-[10px] font-bold uppercase transition-all border ${
+                    className={`py-2 px-2 rounded-xl text-[10px] font-bold uppercase transition-all border cursor-pointer ${
                       topology === top
-                        ? 'bg-indigo-600 text-white border-indigo-400 shadow-md'
+                        ? 'bg-teal-600 text-white border-teal-400 shadow-md'
                         : 'bg-slate-950 text-slate-400 border-slate-800 hover:text-slate-200'
                     }`}
                   >
@@ -156,7 +255,7 @@ export const SwarmSandbox: React.FC = () => {
               </div>
               <div className="flex justify-between text-slate-300">
                 <span>DAG Sub-Goal Status:</span>
-                <span className="text-indigo-400 font-bold">LOCKED & VERIFIED</span>
+                <span className="text-teal-400 font-bold">LOCKED & VERIFIED</span>
               </div>
             </div>
           </div>
@@ -171,7 +270,7 @@ export const SwarmSandbox: React.FC = () => {
               <span className="text-slate-200 font-bold">Collaborative Mesh Arena ({topology.toUpperCase()})</span>
             </div>
 
-            <div className="px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-full text-[10px] font-bold">
+            <div className="px-2.5 py-1 bg-teal-500/10 border border-teal-500/30 text-teal-300 rounded-full text-[10px] font-bold">
               {agentCount} AGENTS ACTIVE
             </div>
           </div>
@@ -202,7 +301,7 @@ export const SwarmSandbox: React.FC = () => {
                     y1={`${agentA.y}%`}
                     x2={`${agentB.x}%`}
                     y2={`${agentB.y}%`}
-                    stroke="rgba(99, 102, 241, 0.25)"
+                    stroke="rgba(20, 184, 166, 0.25)"
                     strokeWidth="1.5"
                     strokeDasharray="4 2"
                   />
@@ -217,7 +316,7 @@ export const SwarmSandbox: React.FC = () => {
                 className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-700 flex flex-col items-center gap-1 group"
                 style={{ left: `${agent.x}%`, top: `${agent.y}%` }}
               >
-                <div className="relative flex items-center justify-center w-8 h-8 bg-slate-950 border border-indigo-500 rounded-xl shadow-lg shadow-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold">
+                <div className="relative flex items-center justify-center w-8 h-8 bg-slate-950 border border-teal-500 rounded-xl shadow-lg shadow-teal-500/20 text-teal-300 font-mono text-[10px] font-bold">
                   <Bot className="w-4 h-4 text-cyan-400" />
                   <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-400 rounded-full border border-slate-950" />
                 </div>

@@ -56,7 +56,7 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     tier: 'enterprise',
     name: 'Enterprise & Safety',
     badge: 'Zero-Risk SLA',
-    priceMonthly: 1500,
+    priceMonthly: 100000,
     aiSynthesesLimit: 100000, // Effectively Unlimited
     simulationsLimit: 1000000,
     stressTestsLimit: 1000000,
@@ -67,7 +67,7 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     hasComplianceAudit: true,
     hasAirGapped: true,
     seats: 100,
-    description: 'Air-gapped VPC containers, ISO 10218 & FDA safety certification, and custom CAD twins.'
+    description: 'Air-gapped VPC clusters, ISO 10218 & FDA safety certification, custom foundation fine-tuning, and dedicated solutions architects.'
   }
 };
 

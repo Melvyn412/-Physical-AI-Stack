@@ -45,7 +45,7 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
   const [email, setEmail] = useState('engineer@robotics-lab.ai');
   const [name, setName] = useState('Senior Robotics Engineer');
   const [organization, setOrganization] = useState('Autonomous Systems Lab');
-  const [currency, setCurrency] = useState('USD');
+  const [currency, setCurrency] = useState('GBP');
   const [paymentMethod, setPaymentMethod] = useState<'paypal' | 'card' | 'paylater'>('paypal');
   
   const [isLoading, setIsLoading] = useState(false);
@@ -72,7 +72,7 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
     developer: { monthly: 0, annual: 0 },
     pro: { monthly: 79, annual: 63 * 12 },
     team: { monthly: 399, annual: 319 * 12 },
-    enterprise: { monthly: 1500, annual: 1200 * 12 }
+    enterprise: { monthly: 100000, annual: 80000 * 12 }
   };
 
   const currentPrice = billingCycle === 'annual' ? prices[tier].annual : prices[tier].monthly;
@@ -271,9 +271,9 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
                   </span>
                 </div>
                 <div className="text-right">
-                  <div className="text-xl font-extrabold text-white">${currentPrice}</div>
+                  <div className="text-xl font-extrabold text-white">£{currentPrice}</div>
                   <span className="text-[10px] text-slate-400">
-                    {billingCycle === 'annual' ? `$${monthlyEquivalent}/mo` : '/month'}
+                    {billingCycle === 'annual' ? `£${monthlyEquivalent}/mo` : '/month'}
                   </span>
                 </div>
               </div>
@@ -313,9 +313,9 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
                   onChange={(e) => setCurrency(e.target.value)}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-[#0079C1]"
                 >
+                  <option value="GBP">GBP (£) - British Pound</option>
                   <option value="USD">USD ($) - US Dollar</option>
                   <option value="EUR">EUR (€) - Euro</option>
-                  <option value="GBP">GBP (£) - British Pound</option>
                   <option value="CAD">CAD ($) - Canadian Dollar</option>
                   <option value="JPY">JPY (¥) - Japanese Yen</option>
                   <option value="AUD">AUD ($) - Australian Dollar</option>
@@ -416,7 +416,7 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
                         <span className="text-[#0079C1]">Pal</span>
                       </span>
                       <span className="text-xs font-semibold text-slate-800 font-sans ml-1">
-                        Pay ${currentPrice} {currency}
+                        Pay £{currentPrice} {currency}
                       </span>
                     </>
                   )}
@@ -441,7 +441,7 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
                         <span className="text-[#0079C1]">Pal</span>
                       </span>
                       <span className="px-2 py-0.5 rounded bg-[#0079C1]/40 text-[10px] font-bold">
-                        Pay Later (4 × ${(currentPrice / 4).toFixed(2)})
+                        Pay Later (4 × £{(currentPrice / 4).toFixed(2)})
                       </span>
                     </>
                   )}

@@ -479,7 +479,7 @@ app.get("/api/paypal/config", (req, res) => {
     fullClientId: clientId || null,
     mode: clientId && hasSecret ? mode : 'sandbox_simulation',
     webhookConfigured: hasWebhook,
-    currency: 'USD',
+    currency: 'GBP',
     supportedTiers: ['pro', 'team', 'enterprise'],
   });
 });
@@ -490,7 +490,7 @@ app.post("/api/paypal/create-order", async (req, res) => {
     const { 
       tier = 'pro', 
       billingCycle = 'monthly', 
-      currency = 'USD', 
+      currency = 'GBP', 
       email = 'user@example.com',
       payerName = 'Robotics Engineer',
       organization = 'Autonomous Systems Lab'
@@ -499,7 +499,7 @@ app.post("/api/paypal/create-order", async (req, res) => {
     const prices: Record<string, { monthly: number; annual: number; name: string }> = {
       pro: { monthly: 79, annual: 63 * 12, name: 'Pro Innovator' },
       team: { monthly: 399, annual: 319 * 12, name: 'Team / Studio' },
-      enterprise: { monthly: 1500, annual: 1200 * 12, name: 'Enterprise & Safety' },
+      enterprise: { monthly: 100000, annual: 80000 * 12, name: 'Enterprise & Safety' },
     };
 
     const planInfo = prices[tier] || prices.pro;
@@ -717,7 +717,7 @@ app.post("/api/paypal/capture-order", async (req, res) => {
       billingCycle: billingCycle as any,
       status: 'COMPLETED',
       amount,
-      currency: 'USD',
+      currency: 'GBP',
       licenseKey,
       apiKey: `pp_sbx_${Math.random().toString(36).substring(2, 10)}`,
       createdAt: new Date().toISOString(),
@@ -920,8 +920,8 @@ app.post("/api/paypal/test-webhook", express.json(), (req, res) => {
     payerEmail: email,
     tier: updatedTier as any,
     billingCycle: 'annual',
-    amount: updatedTier === 'team' ? 399 : 79,
-    currency: 'USD',
+    amount: updatedTier === 'enterprise' ? 100000 : updatedTier === 'team' ? 399 : 79,
+    currency: 'GBP',
     lastWebhookEvent: eventType
   });
 

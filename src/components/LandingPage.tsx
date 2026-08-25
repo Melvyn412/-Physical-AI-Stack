@@ -22,7 +22,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   // ROI Calculator State
   const [robotCount, setRobotCount] = useState<number>(12);
-  const [avgDevRate, setAvgDevRate] = useState<number>(125); // $/hr
+  const [avgDevRate, setAvgDevRate] = useState<number>(125); // £/hr
 
   // Calculated ROI estimates
   const savedDevHoursPerRobot = 180; // hours saved per deployment
@@ -437,7 +437,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div>
               <div className="flex justify-between text-slate-300 mb-1">
                 <span>Engineering Hourly Rate:</span>
-                <span className="text-emerald-400 font-bold">${avgDevRate} / hr</span>
+                <span className="text-emerald-400 font-bold">£{avgDevRate} / hr</span>
               </div>
               <input
                 type="range"
@@ -470,7 +470,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
               <span className="text-xs text-slate-500 uppercase">Total Financial Savings</span>
               <div className="text-3xl font-extrabold text-emerald-400 my-2">
-                ${totalCostSaved.toLocaleString()}
+                £{totalCostSaved.toLocaleString()}
               </div>
               <span className="text-[10px] text-slate-400">Direct engineering budget saved</span>
             </div>

@@ -6,20 +6,32 @@ import {
 import { PlanTier, PlanLimits } from '../types';
 import { PLAN_DEFINITIONS } from '../utils/quotaManager';
 
+export interface BarrierData {
+  title: string;
+  description: string;
+  currentPlan: PlanTier;
+  recommendedPlan: PlanTier;
+  used?: number;
+  limit?: number;
+  featureName?: string;
+}
+
 interface QuotaBarrierModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onNavigateToPricing: () => void;
-  onQuickUpgrade: (targetPlan: PlanTier) => void;
-  barrierInfo: {
-    title: string;
-    description: string;
-    currentPlan: PlanTier;
-    recommendedPlan: PlanTier;
-    used: number;
-    limit: number;
-    featureName: string;
-  } | null;
+  onNavigateToPricing?: () => void;
+  onQuickUpgrade?: (targetPlan: PlanTier) => void;
+  onUpgrade?: () => void;
+  onQuickActivate?: (targetPlan: PlanTier) => void;
+  barrierInfo?: BarrierData | null;
+  // Also support flat props
+  title?: string;
+  description?: string;
+  currentPlan?: PlanTier;
+  recommendedPlan?: PlanTier;
+  used?: number;
+  limit?: number;
+  featureName?: string;
 }
 
 export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
@@ -27,14 +39,51 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
   onClose,
   onNavigateToPricing,
   onQuickUpgrade,
-  barrierInfo
+  onUpgrade,
+  onQuickActivate,
+  barrierInfo,
+  title: propTitle,
+  description: propDescription,
+  currentPlan: propCurrentPlan,
+  recommendedPlan: propRecommendedPlan,
+  used: propUsed,
+  limit: propLimit,
+  featureName: propFeatureName
 }) => {
-  if (!isOpen || !barrierInfo) return null;
+  if (!isOpen) return null;
 
-  const currentPlanDef = PLAN_DEFINITIONS[barrierInfo.currentPlan] || PLAN_DEFINITIONS.developer;
-  const recommendedPlanDef = PLAN_DEFINITIONS[barrierInfo.recommendedPlan] || PLAN_DEFINITIONS.pro;
+  const activeTitle = barrierInfo?.title || propTitle || 'Tier Barrier Triggered';
+  const activeDesc = barrierInfo?.description || propDescription || 'This feature is exclusive to higher-tier plans.';
+  const currentPlan = barrierInfo?.currentPlan || propCurrentPlan || 'developer';
+  const recommendedPlan = barrierInfo?.recommendedPlan || propRecommendedPlan || 'pro';
+  const used = barrierInfo?.used ?? propUsed ?? 0;
+  const limit = barrierInfo?.limit ?? propLimit ?? 0;
+  const featureName = barrierInfo?.featureName || propFeatureName || 'Feature';
 
-  const isFeatureLocked = barrierInfo.limit === 0;
+  const currentPlanDef = PLAN_DEFINITIONS[currentPlan] || PLAN_DEFINITIONS.developer;
+  const recommendedPlanDef = PLAN_DEFINITIONS[recommendedPlan] || PLAN_DEFINITIONS.pro;
+
+  const isFeatureLocked = limit === 0;
+
+  const handleUpgradeAction = () => {
+    if (onQuickUpgrade) {
+      onQuickUpgrade(recommendedPlan);
+    } else if (onQuickActivate) {
+      onQuickActivate(recommendedPlan);
+    } else if (onUpgrade) {
+      onUpgrade();
+    }
+    onClose();
+  };
+
+  const handlePricingNav = () => {
+    onClose();
+    if (onNavigateToPricing) {
+      onNavigateToPricing();
+    } else if (onUpgrade) {
+      onUpgrade();
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in font-mono">
@@ -63,7 +112,7 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
               <span>{isFeatureLocked ? 'Tier Barrier Triggered' : 'Monthly Quota Limit Reached'}</span>
             </div>
             <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
-              {barrierInfo.title}
+              {activeTitle}
             </h3>
           </div>
         </div>
@@ -71,14 +120,14 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
         {/* Barrier Description & Current Meter */}
         <div className="space-y-4 font-sans text-xs">
           <p className="text-slate-300 leading-relaxed">
-            {barrierInfo.description}
+            {activeDesc}
           </p>
 
-          {!isFeatureLocked && (
+          {!isFeatureLocked && limit > 0 && (
             <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-2 font-mono">
               <div className="flex justify-between items-center text-xs">
-                <span className="text-slate-400">{barrierInfo.featureName} Usage:</span>
-                <span className="text-amber-400 font-bold">{barrierInfo.used} / {barrierInfo.limit} used (100%)</span>
+                <span className="text-slate-400">{featureName} Usage:</span>
+                <span className="text-amber-400 font-bold">{used} / {limit} used (100%)</span>
               </div>
               <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div className="bg-gradient-to-r from-amber-500 to-red-500 h-full w-full" />
@@ -98,32 +147,29 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
                 <span className="text-xs font-bold text-white">Recommended: {recommendedPlanDef.name}</span>
               </div>
               <span className="text-xs font-bold text-cyan-400">
-                ${recommendedPlanDef.priceMonthly}/mo
+                {recommendedPlanDef.priceMonthly === 0 ? 'Free' : `£${recommendedPlanDef.priceMonthly}/mo`}
               </span>
             </div>
 
             <ul className="space-y-1.5 text-[11px] text-slate-300 font-sans">
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span><strong>{recommendedPlanDef.aiSynthesesLimit.toLocaleString()}</strong> Custom AI Goal Syntheses / mo</span>
+                <span><strong>{recommendedPlanDef.aiSynthesesLimit >= 100000 ? 'Unlimited' : recommendedPlanDef.aiSynthesesLimit.toLocaleString()}</strong> Custom AI Goal Syntheses / mo</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span><strong>{recommendedPlanDef.simulationsLimit.toLocaleString()}</strong> 1000Hz Physical Simulation Rollouts</span>
+                <span><strong>{recommendedPlanDef.simulationsLimit >= 100000 ? 'Unlimited' : recommendedPlanDef.simulationsLimit.toLocaleString()}</strong> 1000Hz Physical Simulation Rollouts</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span>Full ROS 2 & NVIDIA Isaac Sim Code Exporter</span>
+                <span>Full ROS 2 & NVIDIA Isaac Sim Code Exporters</span>
               </li>
             </ul>
 
             <button
               id="barrier-upgrade-btn"
-              onClick={() => {
-                onQuickUpgrade(barrierInfo.recommendedPlan);
-                onClose();
-              }}
-              className="w-full py-2.5 bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5"
+              onClick={handleUpgradeAction}
+              className="w-full py-2.5 bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
               <span className="font-sans font-bold text-slate-900 ml-1">Upgrade to {recommendedPlanDef.name}</span>
@@ -134,19 +180,16 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
         {/* Footer Actions */}
         <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
           <button
-            onClick={() => {
-              onClose();
-              onNavigateToPricing();
-            }}
-            className="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1"
+            onClick={handlePricingNav}
+            className="text-cyan-400 hover:text-cyan-300 underline font-mono text-[11px] flex items-center gap-1 cursor-pointer"
           >
-            <span>Compare all 4 plans</span>
+            <span>Compare all 4 plans & custom edition</span>
             <ArrowRight className="w-3 h-3" />
           </button>
 
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-mono text-xs font-semibold transition-all"
+            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-mono text-xs font-semibold transition-all cursor-pointer"
           >
             Dismiss
           </button>

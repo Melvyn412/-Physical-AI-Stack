@@ -15,7 +15,7 @@ import { SlamStudio } from './components/SlamStudio';
 import { PidControllerStudio } from './components/PidControllerStudio';
 import { KinematicsIkStudio } from './components/KinematicsIkStudio';
 import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
-import { QuotaBarrierModal } from './components/QuotaBarrierModal';
+import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { DynamicDecomposition, StackPillar, ActiveTab, PlanTier } from './types';
 import { useQuota } from './hooks/useQuota';
@@ -25,21 +25,13 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('landing');
   const [isCustomModalOpen, setIsCustomModalOpen] = useState<boolean>(false);
   const [isQuotaModalOpen, setIsQuotaModalOpen] = useState<boolean>(false);
-  const [barrierModalData, setBarrierModalData] = useState<{
-    title: string;
-    description: string;
-    currentPlan: PlanTier;
-    recommendedPlan: PlanTier;
-    used?: number;
-    limit?: number;
-    featureName?: string;
-  } | null>(null);
+  const [barrierModalData, setBarrierModalData] = useState<BarrierData | null>(null);
 
   const [customDecomposition, setCustomDecomposition] = useState<DynamicDecomposition | null>(null);
   const [customObjectiveTitle, setCustomObjectiveTitle] = useState<string | null>(null);
   const [hasApiKey, setHasApiKey] = useState<boolean>(false);
 
-  const { changePlan } = useQuota();
+  const { quota, limits, changePlan, reset, fillToLimit } = useQuota();
 
   // Check backend server health & Gemini API key status
   useEffect(() => {
@@ -73,13 +65,15 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-slate-950">
-      {/* Top Navigation */}
+      {/* Top Navigation Organized by Plans & Editions */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         hasApiKey={hasApiKey}
         onOpenCustomModal={() => setIsCustomModalOpen(true)}
         onOpenQuotaModal={() => setIsQuotaModalOpen(true)}
+        onOpenBarrier={setBarrierModalData}
+        onSwitchPlan={changePlan}
       />
 
       {/* Main App Workspace */}
@@ -144,7 +138,10 @@ export default function App() {
         )}
 
         {activeTab === 'swarm' && (
-          <SwarmSandbox />
+          <SwarmSandbox
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+          />
         )}
 
         {activeTab === 'kinematics' && (
@@ -183,33 +180,32 @@ export default function App() {
         onNavigateToPricing={() => setActiveTab('pricing')}
       />
 
-      {/* Modal for Quota Usage & Testing */}
+      {/* Modal for Quota Usage & Rate Limit Testing */}
       <QuotaUsageModal
         isOpen={isQuotaModalOpen}
         onClose={() => setIsQuotaModalOpen(false)}
-        onUpgrade={() => {
+        quota={quota}
+        limits={limits}
+        onChangePlan={changePlan}
+        onResetUsage={reset}
+        onFillToLimit={fillToLimit}
+        onNavigateToPricing={() => {
           setIsQuotaModalOpen(false);
           setActiveTab('pricing');
         }}
       />
 
-      {/* Modal for Quota Barrier */}
+      {/* Modal for Quota & Tier Barriers */}
       {barrierModalData && (
         <QuotaBarrierModal
           isOpen={!!barrierModalData}
           onClose={() => setBarrierModalData(null)}
-          title={barrierModalData.title}
-          description={barrierModalData.description}
-          currentPlan={barrierModalData.currentPlan}
-          recommendedPlan={barrierModalData.recommendedPlan}
-          used={barrierModalData.used}
-          limit={barrierModalData.limit}
-          featureName={barrierModalData.featureName}
-          onUpgrade={() => {
+          barrierInfo={barrierModalData}
+          onNavigateToPricing={() => {
             setBarrierModalData(null);
             setActiveTab('pricing');
           }}
-          onQuickActivate={(tier) => handleUpgradePlan(tier)}
+          onQuickUpgrade={handleUpgradePlan}
         />
       )}
 
@@ -237,4 +233,3 @@ export default function App() {
     </div>
   );
 }
-

@@ -28,6 +28,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
 
   const proPrice = Math.round(79 * discountMultiplier);
   const teamPrice = Math.round(399 * discountMultiplier);
+  const enterprisePrice = Math.round(100000 * discountMultiplier);
 
   // Hardware cost savings calculation
   const physicalTestingCost = (simulationsPerMonth * hardwareCostPerTest);
@@ -168,7 +169,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
               )}
             </div>
             <div>
-              <div className="text-3xl font-extrabold text-white font-mono">$0</div>
+              <div className="text-3xl font-extrabold text-white font-mono">£0</div>
               <p className="text-xs text-slate-400 mt-1">Free forever for evaluation & students</p>
             </div>
 
@@ -226,11 +227,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
             </div>
             <div>
               <div className="flex items-baseline gap-1 font-mono">
-                <span className="text-3xl font-extrabold text-white">${proPrice}</span>
+                <span className="text-3xl font-extrabold text-white">£{proPrice}</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                {isAnnual ? 'Billed $756 annually (20% off)' : 'Billed monthly'}
+                {isAnnual ? 'Billed £756 annually (20% off)' : 'Billed monthly'}
               </p>
             </div>
 
@@ -298,11 +299,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
             </div>
             <div>
               <div className="flex items-baseline gap-1 font-mono">
-                <span className="text-3xl font-extrabold text-white">${teamPrice}</span>
+                <span className="text-3xl font-extrabold text-white">£{teamPrice}</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                {isAnnual ? 'Billed $3,828 annually (20% off)' : 'Billed monthly'}
+                {isAnnual ? 'Billed £3,828 annually (20% off)' : 'Billed monthly'}
               </p>
             </div>
 
@@ -369,8 +370,13 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
               )}
             </div>
             <div>
-              <div className="text-3xl font-extrabold text-white font-mono">Custom</div>
-              <p className="text-xs text-slate-400 mt-1">Starting at $1,500/mo or CapEx site license</p>
+              <div className="flex items-baseline gap-1 font-mono">
+                <span className="text-3xl font-extrabold text-white">£{enterprisePrice.toLocaleString()}</span>
+                <span className="text-xs text-slate-400">/ month</span>
+              </div>
+              <p className="text-xs text-slate-400 mt-1">
+                {isAnnual ? 'Billed £960,000 annually (20% off)' : 'Billed £100,000 monthly or CapEx'}
+              </p>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-300 font-sans pt-2">
@@ -509,7 +515,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
           <div className="bg-slate-950 border border-emerald-500/30 p-4 rounded-2xl text-right font-mono">
             <span className="text-[10px] text-slate-400 block uppercase">Estimated Annual Cost Savings</span>
             <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400">
-              ${annualSavings.toLocaleString()}
+              £{annualSavings.toLocaleString()}
             </span>
           </div>
         </div>
@@ -538,7 +544,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-mono">
               <label className="text-slate-300 font-semibold">Avg. Cost Per Physical Rig Test:</label>
-              <span className="text-emerald-400 font-bold text-sm">${hardwareCostPerTest} / test</span>
+              <span className="text-emerald-400 font-bold text-sm">£{hardwareCostPerTest} / test</span>
             </div>
             <input
               type="range"
