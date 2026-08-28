@@ -8,6 +8,7 @@ import { PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
 import { PLAN_DEFINITIONS } from '../utils/quotaManager';
 import { PayPalCheckoutModal } from './PayPalCheckoutModal';
+import { EnterpriseFeaturesSection } from './EnterpriseFeaturesSection';
 
 interface PricingPageProps {
   onOpenQuotaModal?: () => void;
@@ -379,26 +380,38 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
               </p>
             </div>
 
-            <ul className="space-y-2.5 text-xs text-slate-300 font-sans pt-2">
+            <ul className="space-y-2 text-xs text-slate-300 font-sans pt-2">
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span><strong>Unlimited Custom AI Goal Pipeline</strong></span>
+                <span><strong>Unlimited 5-Layer AI Pipeline & 1M Sims</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>On-Premise Air-Gapped VPC Container</span>
+                <span>1 kHz Hardware-in-the-Loop CAN / EtherCAT Bridge</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>ISO 10218 & FDA Safety Compliance Audit</span>
+                <span>ISO 10218 (PL-e) & FDA Audit Dossier Generator</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Custom CAD Hardware Digital Twins</span>
+                <span>Air-Gapped VPC & On-Prem Kubernetes Cluster</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Dedicated Enterprise SLA & 24/7 Engineers</span>
+                <span>100+ Robot Fleet & VDA 5050 AMR Orchestration</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span>Proprietary VLA Foundation Model Fine-Tuning</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span>Auto SolidWorks / STEP / MuJoCo Kinematic Ingestion</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <span>Named Field Robotics Architect & 15-Min SLA</span>
               </li>
             </ul>
           </div>
@@ -617,23 +630,61 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
                 <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">ISO 10218 / FDA Safety Audit Exporter</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Hardware-in-the-Loop (HIL) CAN / EtherCAT Bridge</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (1 kHz Real-Time)</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Single-Tenant Air-Gapped Deployment</td>
+                <td className="py-3.5 px-4 font-semibold text-white">ISO 10218, ISO 13849 & FDA Safety Dossiers</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Audit-Ready PL-e)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-white">Air-Gapped Dedicated VPC Cluster & Helm Charts</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Zero Egress)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-white">Custom VLA Model Fine-Tuning on Fleet Data</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Dedicated GPUs)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-white">100+ Robot Fleet & VDA 5050 AMR Orchestration</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (MAPF & CBS)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-white">Automated SolidWorks / STEP / MJCF Ingestion</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Auto-Inertia)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 px-4 font-semibold text-white">Dedicated Field Robotics Architect & 15-Min SLA</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (24/7/365)</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Enterprise Capabilities Deep-Dive */}
+      <EnterpriseFeaturesSection />
 
       {/* Frequently Asked Questions (FAQ) */}
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">

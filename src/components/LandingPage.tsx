@@ -200,6 +200,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'compliance' as ActiveTab,
       btnText: 'Export Safety Certificate'
+    },
+    {
+      id: 'enterprise_hil',
+      title: 'Enterprise Air-Gapped VPC & 1 kHz HIL Bridge',
+      category: 'Enterprise Infrastructure',
+      icon: Cpu,
+      badge: 'Zero Telemetry Egress',
+      badgeColor: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      description: 'Air-gapped Kubernetes clusters, real-time CANopen/EtherCAT Hardware-in-the-Loop motor drivers, VDA 5050 fleet orchestration, and custom VLA foundation model fine-tuning.',
+      deliverables: [
+        '1 kHz CANopen / EtherCAT Hardware-in-the-Loop controller bridge',
+        'Self-hosted Air-Gapped VPC with Kubernetes Helm charts',
+        '100+ Robot Fleet & VDA 5050 AMR Factory Orchestration',
+        'Dedicated Named Field Robotics Architect with 15-min SLA'
+      ],
+      targetTab: 'pricing' as ActiveTab,
+      btnText: 'Explore Enterprise Tier (£100k/mo)'
     }
   ];
 
