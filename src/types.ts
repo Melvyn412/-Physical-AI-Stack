@@ -5,6 +5,7 @@ export type ActiveTab =
   | 'pid'
   | 'ik'
   | 'bt'
+  | 'cad'
   | 'pillars' 
   | 'architecture' 
   | 'pricing' 

@@ -77,9 +77,17 @@
   <!-- URDF Kinematics Synthesizer -->
   <url>
     <loc>https://aigenesis.tech/#kinematics</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- CAD Ingestion & 3D Digital Twin Studio -->
+  <url>
+    <loc>https://aigenesis.tech/#cad</loc>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- ROS 2 Humble & Isaac Sim Exporter -->

@@ -15,6 +15,7 @@ import { SlamStudio } from './components/SlamStudio';
 import { PidControllerStudio } from './components/PidControllerStudio';
 import { KinematicsIkStudio } from './components/KinematicsIkStudio';
 import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
+import { CadIngestionStudio } from './components/CadIngestionStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { DynamicDecomposition, StackPillar, ActiveTab, PlanTier } from './types';
@@ -146,6 +147,14 @@ export default function App() {
 
         {activeTab === 'kinematics' && (
           <UrdfKinematicsBuilder onOpenBarrier={setBarrierModalData} />
+        )}
+
+        {activeTab === 'cad' && (
+          <CadIngestionStudio 
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+            onNavigateToIk={() => setActiveTab('ik')}
+          />
         )}
 
         {activeTab === 'compliance' && (

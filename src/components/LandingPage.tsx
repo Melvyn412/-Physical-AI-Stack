@@ -168,6 +168,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       btnText: 'Build Custom URDF Arm'
     },
     {
+      id: 'cad',
+      title: 'CAD Ingestion & 3D Digital Twin Studio',
+      category: 'Digital Twin & Modeling',
+      icon: Box,
+      badge: 'CAD-to-Sim',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Connect Onshape, SolidWorks, or Fusion 360 models, or upload STL/OBJ/STEP files. Automatically compute mass & moments of inertia, generate V-HACD convex hulls, and synthesize URDF and MuJoCo models.',
+      deliverables: [
+        'Direct Onshape REST API cloud assembly sync',
+        'In-browser 3D STL & OBJ file drag-and-drop parsing',
+        'Automated mass, CoM, and 3x3 inertia tensor calculation',
+        'V-HACD collision decomposition & MuJoCo/URDF synthesis'
+      ],
+      targetTab: 'cad' as ActiveTab,
+      btnText: 'Open CAD Ingestion Studio'
+    },
+    {
       id: 'swarm',
       title: 'Multi-Agent Swarm Consensus Sandbox',
       category: 'Collaborative Robotics',

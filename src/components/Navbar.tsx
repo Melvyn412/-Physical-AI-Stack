@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles
+  Gauge, Sparkles, Boxes
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -72,6 +72,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'kinematics',
     label: 'URDF Builder',
     icon: Box
+  },
+  {
+    id: 'tab-cad',
+    tab: 'cad',
+    label: 'CAD Studio',
+    icon: Boxes
   },
   {
     id: 'tab-swarm',
