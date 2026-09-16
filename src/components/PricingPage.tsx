@@ -12,10 +12,11 @@ import { EnterpriseFeaturesSection } from './EnterpriseFeaturesSection';
 
 interface PricingPageProps {
   onOpenQuotaModal?: () => void;
+  onOpenProTrialModal?: () => void;
 }
 
-export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) => {
-  const { quota, limits, changePlan, activatePayPal, reset, fillToLimit } = useQuota();
+export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOpenProTrialModal }) => {
+  const { quota, limits, changePlan, activatePayPal, startTrial, reset, fillToLimit } = useQuota();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [isPayPalModalOpen, setIsPayPalModalOpen] = useState<boolean>(false);
   const [selectedTierForCheckout, setSelectedTierForCheckout] = useState<PlanTier>('pro');
@@ -127,13 +128,64 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
           </div>
         </div>
 
+        {/* 14-Day Pro Trial Banner (No Credit Card Required) */}
+        <div className="mt-4 p-5 bg-gradient-to-r from-cyan-950/60 via-slate-900 to-indigo-950/60 border border-cyan-500/40 rounded-3xl shadow-xl shadow-cyan-500/5 flex flex-col md:flex-row items-center justify-between gap-4 text-left">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-cyan-500/15 border border-cyan-500/30 rounded-2xl shrink-0">
+              <Sparkles className="w-6 h-6 text-cyan-400" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  No Credit Card Required
+                </span>
+                <span className="text-xs font-mono text-cyan-300 font-bold">Approach A: Frictionless Evaluation</span>
+              </div>
+              <h3 className="text-sm sm:text-base font-bold text-white font-mono mt-1">
+                Evaluate Pro Innovator Free for 14 Days
+              </h3>
+              <p className="text-xs text-slate-400 font-sans mt-0.5">
+                Robotics and clinical engineers shouldn't need a corporate card to test 1 kHz kinematics and ROS 2 exports. Instant 1-click access.
+              </p>
+            </div>
+          </div>
+
+          <div className="shrink-0 w-full md:w-auto">
+            {quota.isTrialActive ? (
+              <div className="px-4 py-2.5 bg-emerald-500/20 border border-emerald-500/40 rounded-xl text-xs font-mono text-emerald-300 font-bold flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Trial Active: {quota.trialDaysRemaining ?? 14} Days Left</span>
+              </div>
+            ) : quota.plan === 'developer' ? (
+              <button
+                onClick={() => {
+                  if (onOpenProTrialModal) {
+                    onOpenProTrialModal();
+                  } else {
+                    startTrial();
+                  }
+                }}
+                className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
+              >
+                <Zap className="w-4 h-4 fill-slate-950" />
+                <span>Start 14-Day Free Pro Trial</span>
+              </button>
+            ) : (
+              <div className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-300 flex items-center justify-center gap-2">
+                <Check className="w-4 h-4 text-cyan-400" />
+                <span>Full Pro/Enterprise Active</span>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Current Active Plan Status Bar */}
         <div className="mt-4 p-4 bg-slate-900/90 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
           <div className="flex items-center gap-2.5">
             <Gauge className="w-4 h-4 text-cyan-400" />
             <span className="text-slate-300">Your Current Workspace Tier:</span>
             <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-full font-bold">
-              {limits.name}
+              {limits.name} {quota.isTrialActive ? `(14-Day Trial: ${quota.trialDaysRemaining ?? 14}d left)` : ''}
             </span>
           </div>
 
@@ -260,27 +312,59 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal }) =>
             </ul>
           </div>
 
-          <button
-            id="plan-btn-pro"
-            onClick={() => {
-              if (quota.plan === 'pro') return;
-              handleOpenPayPalCheckout('pro');
-            }}
-            className={`w-full py-2.5 rounded-xl text-xs font-mono font-extrabold transition-all shadow-lg flex items-center justify-center gap-1.5 ${
-              quota.plan === 'pro'
-                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 cursor-default'
-                : 'bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] shadow-[#FFC439]/20'
-            }`}
-          >
-            {quota.plan === 'pro' ? (
-              '✓ Currently Active'
+          <div className="space-y-2">
+            {quota.isTrialActive ? (
+              <div className="space-y-2">
+                <div className="w-full py-2 bg-emerald-500/15 border border-emerald-500/40 rounded-xl text-xs font-mono text-emerald-300 font-bold text-center flex items-center justify-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Pro Trial Active ({quota.trialDaysRemaining ?? 14}d Left)</span>
+                </div>
+                <button
+                  id="plan-btn-pro-convert"
+                  onClick={() => handleOpenPayPalCheckout('pro')}
+                  className="w-full py-2 bg-[#FFC439] hover:bg-[#F2BA36] text-[#003087] font-bold text-xs font-mono rounded-xl shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
+                  <span className="font-sans font-bold text-slate-900 ml-1">Lock In Annual Pro (20% Off)</span>
+                </button>
+              </div>
+            ) : quota.plan === 'developer' ? (
+              <div className="space-y-2">
+                <button
+                  id="plan-btn-pro-trial"
+                  onClick={() => {
+                    if (onOpenProTrialModal) {
+                      onOpenProTrialModal();
+                    } else {
+                      startTrial();
+                    }
+                  }}
+                  className="w-full py-2.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-mono font-black text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer hover:scale-[1.02]"
+                >
+                  <Zap className="w-3.5 h-3.5 fill-slate-950" />
+                  <span>Start 14-Day Free Trial</span>
+                </button>
+                <div className="text-[10px] text-center text-slate-400 font-mono">
+                  No credit card required • Instant access
+                </div>
+                <button
+                  id="plan-btn-pro-direct"
+                  onClick={() => handleOpenPayPalCheckout('pro')}
+                  className="w-full py-1.5 bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-[11px] font-mono transition-all flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <span>Or Subscribe Direct (£{proPrice}/mo)</span>
+                </button>
+              </div>
             ) : (
-              <>
-                <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
-                <span className="font-sans font-bold text-slate-900 ml-1">Subscribe to Pro</span>
-              </>
+              <button
+                id="plan-btn-pro"
+                disabled
+                className="w-full py-2.5 rounded-xl text-xs font-mono font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 cursor-default flex items-center justify-center gap-1.5"
+              >
+                <span>✓ Currently Active</span>
+              </button>
             )}
-          </button>
+          </div>
         </div>
 
         {/* Plan 3: Team / Studio */}

@@ -11,6 +11,7 @@ import {
   simulateExhaustedQuota,
   activatePayPalOrder,
   checkUrlForPayPalCheckout,
+  startProTrial,
   QuotaCheckResult 
 } from '../utils/quotaManager';
 
@@ -96,6 +97,12 @@ export function useQuota() {
     setQuota(updated);
   }, []);
 
+  const startTrial = useCallback((workEmail?: string) => {
+    const updated = startProTrial(workEmail);
+    setQuota(updated);
+    return updated;
+  }, []);
+
   const reset = useCallback(() => {
     const updated = resetUsageMetrics();
     setQuota(updated);
@@ -121,6 +128,7 @@ export function useQuota() {
     limits,
     changePlan,
     activatePayPal,
+    startTrial,
     reset,
     fillToLimit,
     check,

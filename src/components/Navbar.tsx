@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes
+  Gauge, Sparkles, Boxes, Zap
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -13,6 +13,7 @@ interface NavbarProps {
   hasApiKey: boolean;
   onOpenCustomModal: () => void;
   onOpenQuotaModal?: () => void;
+  onOpenProTrialModal?: () => void;
   onOpenBarrier?: (barrierInfo: any) => void;
   onSwitchPlan?: (plan: PlanTier) => void;
 }
@@ -110,7 +111,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   setActiveTab,
   hasApiKey,
   onOpenCustomModal,
-  onOpenQuotaModal
+  onOpenQuotaModal,
+  onOpenProTrialModal
 }) => {
   const { quota, limits } = useQuota();
 
@@ -146,6 +148,37 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-2.5">
+          {/* 14-Day Pro Trial Button / Active Pill */}
+          {quota.isTrialActive ? (
+            <button
+              id="btn-trial-active-nav"
+              onClick={() => {
+                if (onOpenProTrialModal) onOpenProTrialModal();
+                else setActiveTab('pricing');
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-500/15 via-cyan-500/15 to-indigo-500/15 border border-emerald-500/40 hover:border-emerald-400 rounded-full text-xs font-mono text-emerald-300 transition-all shadow-sm cursor-pointer hover:scale-[1.02]"
+              title="14-Day Pro Trial Active (No Credit Card Required)"
+            >
+              <Zap className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400/30" />
+              <span className="font-bold text-slate-200">Pro Trial:</span>
+              <span className="text-emerald-400 font-bold">{quota.trialDaysRemaining ?? 14}d left</span>
+            </button>
+          ) : quota.plan === 'developer' ? (
+            <button
+              id="btn-start-trial-nav"
+              onClick={() => {
+                if (onOpenProTrialModal) onOpenProTrialModal();
+                else setActiveTab('pricing');
+              }}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-indigo-500/20 hover:from-emerald-500/30 hover:to-cyan-500/30 text-cyan-200 hover:text-white border border-cyan-500/40 hover:border-cyan-400 rounded-full text-xs font-mono font-bold transition-all shadow-sm hover:scale-[1.02] cursor-pointer"
+              title="Start 14-Day Free Pro Trial (No Credit Card Required)"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
+              <span>14-Day Pro Trial</span>
+              <span className="text-[10px] text-emerald-400 font-bold px-1.5 py-0.5 bg-emerald-500/20 rounded-full">No Card</span>
+            </button>
+          ) : null}
+
           {/* Quota & Usage Meter Pill */}
           {onOpenQuotaModal && (
             <button

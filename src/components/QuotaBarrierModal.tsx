@@ -1,10 +1,10 @@
 import React from 'react';
 import { 
   X, AlertTriangle, ShieldAlert, Sparkles, Zap, ArrowRight, 
-  Check, Lock, RefreshCw, Layers, ShieldCheck, Crown
+  Check, Lock, RefreshCw, Layers, ShieldCheck, Crown, Shield
 } from 'lucide-react';
 import { PlanTier, PlanLimits } from '../types';
-import { PLAN_DEFINITIONS } from '../utils/quotaManager';
+import { PLAN_DEFINITIONS, startProTrial } from '../utils/quotaManager';
 
 export interface BarrierData {
   title: string;
@@ -23,6 +23,7 @@ interface QuotaBarrierModalProps {
   onQuickUpgrade?: (targetPlan: PlanTier) => void;
   onUpgrade?: () => void;
   onQuickActivate?: (targetPlan: PlanTier) => void;
+  onStartTrial?: () => void;
   barrierInfo?: BarrierData | null;
   // Also support flat props
   title?: string;
@@ -41,6 +42,7 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
   onQuickUpgrade,
   onUpgrade,
   onQuickActivate,
+  onStartTrial,
   barrierInfo,
   title: propTitle,
   description: propDescription,
@@ -72,6 +74,15 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
       onQuickActivate(recommendedPlan);
     } else if (onUpgrade) {
       onUpgrade();
+    }
+    onClose();
+  };
+
+  const handleStartTrialAction = () => {
+    if (onStartTrial) {
+      onStartTrial();
+    } else {
+      startProTrial();
     }
     onClose();
   };
@@ -166,13 +177,35 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
               </li>
             </ul>
 
+            {currentPlan === 'developer' && (
+              <div className="space-y-1.5 pt-1">
+                <button
+                  id="barrier-start-trial-btn"
+                  onClick={handleStartTrialAction}
+                  className="w-full py-2.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
+                >
+                  <Zap className="w-4 h-4 fill-slate-950" />
+                  <span>Unlock Instantly: 14-Day Free Pro Trial</span>
+                </button>
+                <div className="text-[10px] text-center text-emerald-400/90 font-mono">
+                  ✓ No credit card required • Instant 1 kHz access
+                </div>
+              </div>
+            )}
+
             <button
               id="barrier-upgrade-btn"
               onClick={handleUpgradeAction}
-              className="w-full py-2.5 bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer ${
+                currentPlan === 'developer'
+                  ? 'bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                  : 'bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087]'
+              }`}
             >
               <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
-              <span className="font-sans font-bold text-slate-900 ml-1">Upgrade to {recommendedPlanDef.name}</span>
+              <span className="font-sans font-bold ml-1">
+                {currentPlan === 'developer' ? `Or Subscribe Directly (${recommendedPlanDef.name})` : `Upgrade to ${recommendedPlanDef.name}`}
+              </span>
             </button>
           </div>
         </div>

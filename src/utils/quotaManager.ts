@@ -100,7 +100,26 @@ export function getStoredQuota(): QuotaUsage {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
       return initial;
     }
-    return JSON.parse(raw);
+    const parsed: QuotaUsage = JSON.parse(raw);
+
+    // Evaluate 14-day trial expiry if trial is active
+    if (parsed.isTrialActive && parsed.trialEndDate) {
+      const now = new Date();
+      const end = new Date(parsed.trialEndDate);
+      const diffMs = end.getTime() - now.getTime();
+      const daysRemaining = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+      parsed.trialDaysRemaining = daysRemaining;
+
+      // If trial has expired and user hasn't paid via PayPal or card
+      if (daysRemaining <= 0 && !parsed.isPayPalActive) {
+        parsed.isTrialActive = false;
+        parsed.plan = 'developer';
+        parsed.apiKey = 'eai_dev_free_09x4a';
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+      }
+    }
+
+    return parsed;
   } catch (e) {
     console.error('Failed to parse quota from storage:', e);
     return getDefaultQuota();
@@ -289,6 +308,27 @@ export function updatePlanTier(plan: PlanTier): QuotaUsage {
       ? 'eai_pro_live_8943_key'
       : 'eai_dev_free_09x4a'
   };
+  saveQuota(updated);
+  return updated;
+}
+
+export function startProTrial(workEmail?: string): QuotaUsage {
+  const current = getStoredQuota();
+  const now = new Date();
+  const trialEnd = new Date(now);
+  trialEnd.setDate(trialEnd.getDate() + 14); // 14-day trial period
+
+  const updated: QuotaUsage = {
+    ...current,
+    plan: 'pro',
+    isTrialActive: true,
+    trialStartDate: now.toISOString().split('T')[0],
+    trialEndDate: trialEnd.toISOString().split('T')[0],
+    trialDaysRemaining: 14,
+    customerEmail: workEmail || current.customerEmail || 'engineer@robotics-eval.com',
+    apiKey: `trial_pro_14d_${Math.random().toString(36).substring(2, 9)}`
+  };
+
   saveQuota(updated);
   return updated;
 }

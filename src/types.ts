@@ -172,6 +172,10 @@ export interface QuotaUsage {
   licenseKey?: string;
   billingCycle?: 'monthly' | 'annual';
   isPayPalActive?: boolean;
+  isTrialActive?: boolean;
+  trialStartDate?: string;
+  trialEndDate?: string;
+  trialDaysRemaining?: number;
 }
 
 export interface PayPalCheckoutResponse {

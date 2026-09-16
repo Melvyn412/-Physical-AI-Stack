@@ -18,6 +18,7 @@ import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
 import { CadIngestionStudio } from './components/CadIngestionStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
+import { ProTrialModal } from './components/ProTrialModal';
 import { DynamicDecomposition, StackPillar, ActiveTab, PlanTier } from './types';
 import { useQuota } from './hooks/useQuota';
 import { Cpu, Sparkles, Activity, Layers, BookOpen, ShieldCheck } from 'lucide-react';
@@ -26,6 +27,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('landing');
   const [isCustomModalOpen, setIsCustomModalOpen] = useState<boolean>(false);
   const [isQuotaModalOpen, setIsQuotaModalOpen] = useState<boolean>(false);
+  const [isTrialModalOpen, setIsTrialModalOpen] = useState<boolean>(false);
   const [barrierModalData, setBarrierModalData] = useState<BarrierData | null>(null);
 
   const [customDecomposition, setCustomDecomposition] = useState<DynamicDecomposition | null>(null);
@@ -73,6 +75,7 @@ export default function App() {
         hasApiKey={hasApiKey}
         onOpenCustomModal={() => setIsCustomModalOpen(true)}
         onOpenQuotaModal={() => setIsQuotaModalOpen(true)}
+        onOpenProTrialModal={() => setIsTrialModalOpen(true)}
         onOpenBarrier={setBarrierModalData}
         onSwitchPlan={changePlan}
       />
@@ -83,6 +86,7 @@ export default function App() {
           <LandingPage
             onNavigate={setActiveTab}
             onOpenCustomModal={() => setIsCustomModalOpen(true)}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
           />
         )}
 
@@ -176,6 +180,7 @@ export default function App() {
         {activeTab === 'pricing' && (
           <PricingPage
             onOpenQuotaModal={() => setIsQuotaModalOpen(true)}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
           />
         )}
       </main>
@@ -215,8 +220,21 @@ export default function App() {
             setActiveTab('pricing');
           }}
           onQuickUpgrade={handleUpgradePlan}
+          onStartTrial={() => {
+            setBarrierModalData(null);
+            setIsTrialModalOpen(true);
+          }}
         />
       )}
+
+      {/* 14-Day Pro Trial Modal (No Credit Card Required) */}
+      <ProTrialModal
+        isOpen={isTrialModalOpen}
+        onClose={() => setIsTrialModalOpen(false)}
+        onTrialStarted={() => {
+          // Stay on current or switch if needed
+        }}
+      />
 
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 py-8 px-4 lg:px-8 mt-16">
