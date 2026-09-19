@@ -52,6 +52,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       btnText: 'Launch 5-Layer Simulator'
     },
     {
+      id: 'mechanism-sim',
+      title: 'Company Mechanism End-to-End Simulation & Savings',
+      category: 'Digital Twin & Hardware ROI',
+      icon: Cpu,
+      badge: 'Failure & Savings Report',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Simulate any company mechanism (surgical wrists, cycloidal legs, EO/IR gimbals, steer-by-wire) end-to-end at 1000 Hz. Identify critical failure modes and export an executive iteration savings report.',
+      deliverables: [
+        'Multi-axis kinematic workspace & 1000 Hz dynamic torque load simulation',
+        'Singularity, thermal saturation, and gear backlash resonance detection',
+        'Quantified physical prototype cycles avoided ($80k-$245k saved)',
+        'One-click shareable executive report (Markdown, PDF, Email draft)'
+      ],
+      targetTab: 'mechanism-sim' as ActiveTab,
+      btnText: 'Simulate Mechanism & View Savings'
+    },
+    {
       id: 'slam',
       title: 'SLAM & Occupancy Grid Studio',
       category: 'Perception & Localization',
@@ -339,6 +356,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <Sparkles className="w-4 h-4 text-cyan-400" />
               <span>Custom Objective AI Synthesizer</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('mechanism-sim')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-500/40 hover:border-emerald-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-emerald-500/10 hover:scale-[1.02] cursor-pointer"
+            >
+              <Cpu className="w-4 h-4 text-emerald-400" />
+              <span>Simulate Mechanism & ROI Report</span>
             </button>
           </div>
 

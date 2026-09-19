@@ -81,6 +81,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     icon: Boxes
   },
   {
+    id: 'tab-mechanism-sim',
+    tab: 'mechanism-sim',
+    label: 'Mechanism Studio',
+    icon: Cpu
+  },
+  {
     id: 'tab-swarm',
     tab: 'swarm',
     label: 'Swarm Sandbox',

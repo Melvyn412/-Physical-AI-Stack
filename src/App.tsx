@@ -16,6 +16,7 @@ import { PidControllerStudio } from './components/PidControllerStudio';
 import { KinematicsIkStudio } from './components/KinematicsIkStudio';
 import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
 import { CadIngestionStudio } from './components/CadIngestionStudio';
+import { MechanismSimulatorStudio } from './components/MechanismSimulatorStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -158,6 +159,14 @@ export default function App() {
             onOpenBarrier={setBarrierModalData}
             onNavigateToPricing={() => setActiveTab('pricing')}
             onNavigateToIk={() => setActiveTab('ik')}
+          />
+        )}
+
+        {activeTab === 'mechanism-sim' && (
+          <MechanismSimulatorStudio
+            onOpenBarrier={setBarrierModalData}
+            onNavigateToPricing={() => setActiveTab('pricing')}
+            onNavigateTab={setActiveTab}
           />
         )}
 

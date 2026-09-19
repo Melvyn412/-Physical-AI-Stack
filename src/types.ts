@@ -6,6 +6,7 @@ export type ActiveTab =
   | 'ik'
   | 'bt'
   | 'cad'
+  | 'mechanism-sim'
   | 'pillars' 
   | 'architecture' 
   | 'pricing' 
@@ -13,6 +14,55 @@ export type ActiveTab =
   | 'kinematics' 
   | 'swarm' 
   | 'compliance';
+
+export interface CompanyMechanism {
+  id: string;
+  companyName: string;
+  mechanismName: string;
+  industry: 'Surgical & Medical' | 'Defense & Aerospace' | 'Industrial Robotics' | 'Autonomous Vehicles' | 'Humanoid Robotics';
+  dof: number;
+  nominalPayloadKg: number;
+  operatingFrequencyHz: number;
+  actuatorType: string;
+  gearReduction: string;
+  nominalCycleDurationSec: number;
+  typicalIterationCostUsd: number;
+  typicalIterationWeeks: number;
+  cadModelDescription: string;
+  nominalTorqueNm: number;
+  maxTorqueNm: number;
+  gearBacklashArcmin: number;
+  thermalLimitCelsius: number;
+}
+
+export interface FailureModeItem {
+  id: string;
+  title: string;
+  severity: 'CRITICAL' | 'HIGH' | 'MEDIUM';
+  subsystem: 'Kinematics & Singularity' | 'Thermal & Winding' | 'Backlash & Resonance' | 'Structural / Fatigue' | 'Control Loop Latency';
+  telemetryTrigger: string;
+  rootCause: string;
+  hardwareRisk: string;
+  simulatedFix: string;
+  confidenceScore: number;
+}
+
+export interface IterationSavingsReport {
+  mechanismId: string;
+  mechanismName: string;
+  companyName: string;
+  generatedDate: string;
+  physicalIterationsAvoided: number;
+  machiningCostSavedUsd: number;
+  benchTestHoursSaved: number;
+  scrappedHardwareSavedUsd: number;
+  scheduleWeeksAccelerated: number;
+  totalFinancialSavingsUsd: number;
+  energyEfficiencyGainPct: number;
+  roiMultiplier: number;
+  failureModesCount: number;
+  summaryNote: string;
+}
 
 export type StackPillar = 
   | 'multimodality'
