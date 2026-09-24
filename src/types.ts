@@ -7,6 +7,7 @@ export type ActiveTab =
   | 'bt'
   | 'cad'
   | 'mechanism-sim'
+  | 'innovations'
   | 'pillars' 
   | 'architecture' 
   | 'pricing' 
@@ -14,6 +15,14 @@ export type ActiveTab =
   | 'kinematics' 
   | 'swarm' 
   | 'compliance';
+
+export type InnovationModuleId = 
+  | 'vla-distillation'
+  | 'tactile-reflex'
+  | 'gps-denied'
+  | 'sim2real-cert'
+  | 'firmware-synth'
+  | 'neuromorphic-dvs';
 
 export interface CompanyMechanism {
   id: string;

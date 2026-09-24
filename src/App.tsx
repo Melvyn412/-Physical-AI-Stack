@@ -17,6 +17,7 @@ import { KinematicsIkStudio } from './components/KinematicsIkStudio';
 import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
 import { CadIngestionStudio } from './components/CadIngestionStudio';
 import { MechanismSimulatorStudio } from './components/MechanismSimulatorStudio';
+import { InnovationsLab } from './components/InnovationsLab';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -166,6 +167,12 @@ export default function App() {
           <MechanismSimulatorStudio
             onOpenBarrier={setBarrierModalData}
             onNavigateToPricing={() => setActiveTab('pricing')}
+            onNavigateTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'innovations' && (
+          <InnovationsLab
             onNavigateTab={setActiveTab}
           />
         )}

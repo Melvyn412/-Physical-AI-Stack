@@ -69,6 +69,25 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       btnText: 'Simulate Mechanism & View Savings'
     },
     {
+      id: 'innovations',
+      title: 'Next-Gen Innovations Lab (2025–2026 SOTA)',
+      category: 'Physical AI & Cutting-Edge Autonomy',
+      icon: Sparkles,
+      badge: '6 Bleeding-Edge Modules',
+      badgeColor: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      description: '6 state-of-the-art physical AI breakthroughs: VLA foundation model distillation to 1000 Hz, <3ms optical tactile slip reflex, GPS-denied & EW navigation, Sim2Real digital certification, bare-metal EtherCAT firmware, and neuromorphic DVS vision.',
+      deliverables: [
+        'VLA Action Distillation (OpenVLA / Octo / π₀ continuous joint flows)',
+        'Optical Tactile Array & <3ms closed-loop micro-slip reflex governor',
+        'Electronic-Warfare & GPS-denied VIO + UWB swarm navigation',
+        'Sim2Real Monte Carlo certification (ISO 26262, IEC 62304, MIL-STD-810H)',
+        'Bare-metal C++20 / Rust firmware synthesizer for STM32, TI & Orin',
+        'Event-based neuromorphic vision (DVS) with zero motion blur'
+      ],
+      targetTab: 'innovations' as ActiveTab,
+      btnText: 'Explore Innovations Lab'
+    },
+    {
       id: 'slam',
       title: 'SLAM & Occupancy Grid Studio',
       category: 'Perception & Localization',
@@ -364,6 +383,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <Cpu className="w-4 h-4 text-emerald-400" />
               <span>Simulate Mechanism & ROI Report</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('innovations')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-purple-950/60 hover:bg-purple-900/80 text-purple-300 border border-purple-500/40 hover:border-purple-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-purple-500/10 hover:scale-[1.02] cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span>Explore Innovations Lab</span>
             </button>
           </div>
 

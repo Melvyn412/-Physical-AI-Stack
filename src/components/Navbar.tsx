@@ -87,6 +87,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     icon: Cpu
   },
   {
+    id: 'tab-innovations',
+    tab: 'innovations',
+    label: 'Innovations Lab',
+    icon: Sparkles
+  },
+  {
     id: 'tab-swarm',
     tab: 'swarm',
     label: 'Swarm Sandbox',
