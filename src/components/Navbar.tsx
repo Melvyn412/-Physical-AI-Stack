@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -37,6 +37,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'simulator',
     label: '5-Layer Engine',
     icon: Activity
+  },
+  {
+    id: 'tab-teleop',
+    tab: 'teleop',
+    label: 'UR10e Vision Teleop',
+    icon: Hand
   },
   {
     id: 'tab-slam',

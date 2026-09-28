@@ -19,6 +19,7 @@ import { CadIngestionStudio } from './components/CadIngestionStudio';
 import { MechanismSimulatorStudio } from './components/MechanismSimulatorStudio';
 import { InnovationsLab } from './components/InnovationsLab';
 import { ExecutiveAnalyticsDashboard } from './components/ExecutiveAnalyticsDashboard';
+import { VisionTeleopStudio } from './components/VisionTeleopStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -110,6 +111,10 @@ export default function App() {
               />
             </div>
           </div>
+        )}
+
+        {activeTab === 'teleop' && (
+          <VisionTeleopStudio />
         )}
 
         {activeTab === 'slam' && (

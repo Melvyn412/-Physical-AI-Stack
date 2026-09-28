@@ -258,6 +258,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       btnText: 'Export Safety Certificate'
     },
     {
+      id: 'teleop',
+      title: 'Webcam & MediaPipe → UR10e + Robotiq 2F-85 Vision Teleop',
+      category: 'Vision Teleoperation & Isaac Sim',
+      icon: Target,
+      badge: 'Live Hand Tracking',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Real-time vision-based teleoperation using a laptop webcam, Google MediaPipe 21-point 3D hand skeleton, One-Euro jitter filtering, and Lula 6-DOF inverse kinematics driving a Universal Robots UR10e and Robotiq 2F-85 parallel gripper.',
+      deliverables: [
+        'Live Laptop Webcam + 21-Keypoint MediaPipe 3D hand tracking',
+        'Thumb-to-index pinch distance mapped to Robotiq 2F-85 grasp force',
+        'One-Euro / EMA low-pass filter suppressing webcam hand tremor (-89%)',
+        '1-click export of NVIDIA Isaac Sim 4.2+ & ROS 2 Humble Python nodes'
+      ],
+      targetTab: 'teleop' as ActiveTab,
+      btnText: 'Launch UR10e Vision Teleop'
+    },
+    {
       id: 'analytics',
       title: 'Executive Visitor Telemetry & B2B Deanonymization',
       category: 'B2B Intelligence & Analytics',

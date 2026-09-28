@@ -1,6 +1,7 @@
 export type ActiveTab = 
   | 'landing'
   | 'simulator' 
+  | 'teleop'
   | 'slam'
   | 'pid'
   | 'ik'
