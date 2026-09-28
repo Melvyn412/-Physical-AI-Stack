@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap
+  Gauge, Sparkles, Boxes, Zap, BarChart3
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -91,6 +91,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'innovations',
     label: 'Innovations Lab',
     icon: Sparkles
+  },
+  {
+    id: 'tab-analytics',
+    tab: 'analytics',
+    label: 'Executive Analytics',
+    icon: BarChart3
   },
   {
     id: 'tab-swarm',
@@ -190,6 +196,25 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-[10px] text-emerald-400 font-bold px-1.5 py-0.5 bg-emerald-500/20 rounded-full">No Card</span>
             </button>
           ) : null}
+
+          {/* Executive Analytics Pill */}
+          <button
+            id="btn-analytics-nav"
+            onClick={() => setActiveTab('analytics')}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all shadow-sm cursor-pointer ${
+              activeTab === 'analytics'
+                ? 'bg-cyan-500 text-slate-950 font-bold shadow-cyan-500/20'
+                : 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-cyan-500/60'
+            }`}
+            title="Open Executive Analytics & Visitor Telemetry Console"
+          >
+            <BarChart3 className={`w-3.5 h-3.5 ${activeTab === 'analytics' ? 'text-slate-950' : 'text-cyan-400'}`} />
+            <span className="font-semibold">Analytics</span>
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+          </button>
 
           {/* Quota & Usage Meter Pill */}
           {onOpenQuotaModal && (

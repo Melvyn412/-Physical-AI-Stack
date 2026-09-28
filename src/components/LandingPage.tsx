@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork
+  Target, GitFork, BarChart3
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -256,6 +256,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'compliance' as ActiveTab,
       btnText: 'Export Safety Certificate'
+    },
+    {
+      id: 'analytics',
+      title: 'Executive Visitor Telemetry & B2B Deanonymization',
+      category: 'B2B Intelligence & Analytics',
+      icon: BarChart3,
+      badge: 'Live Traffic Intelligence',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Real-time telemetry console identifying visiting defense contractors, surgical robotics companies, and research institutions via reverse-IP deanonymization, tracking their session journeys, module engagement, and 14-day trial conversions.',
+      deliverables: [
+        'Live reverse-IP B2B enterprise deanonymization (BAE, Intuitive, Anduril, etc.)',
+        'Chronological module audit trails and high-intent engagement scores',
+        'LinkedIn outreach campaign attribution (Melvyn Defense 14-Day Trial)',
+        'One-click HubSpot / Salesforce CSV lead export and GA4 / PostHog integration'
+      ],
+      targetTab: 'analytics' as ActiveTab,
+      btnText: 'Open Executive Analytics'
     },
     {
       id: 'enterprise_hil',

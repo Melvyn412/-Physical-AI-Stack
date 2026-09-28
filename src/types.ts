@@ -14,7 +14,8 @@ export type ActiveTab =
   | 'export' 
   | 'kinematics' 
   | 'swarm' 
-  | 'compliance';
+  | 'compliance'
+  | 'analytics';
 
 export type InnovationModuleId = 
   | 'vla-distillation'
@@ -23,6 +24,68 @@ export type InnovationModuleId =
   | 'sim2real-cert'
   | 'firmware-synth'
   | 'neuromorphic-dvs';
+
+export interface VisitorSessionEvent {
+  id: string;
+  sessionId: string;
+  visitorId: string;
+  timestamp: string;
+  tab: string;
+  eventType: 'pageview' | 'action' | 'trial_open' | 'trial_start' | 'export' | 'simulation_run';
+  details?: Record<string, any>;
+  path?: string;
+  referrer?: string;
+  durationSec?: number;
+  userAgent?: string;
+  companyName?: string;
+  industry?: string;
+  country?: string;
+  countryCode?: string;
+  city?: string;
+}
+
+export interface IdentifiedCompany {
+  id: string;
+  name: string;
+  domain: string;
+  industry: 'Defense & Aerospace' | 'Surgical & Medical' | 'Autonomous Systems' | 'Industrial Robotics' | 'Research & Government';
+  size: string;
+  location: string;
+  country: string;
+  countryCode: string;
+  flag: string;
+  totalVisits: number;
+  totalPageviews: number;
+  firstSeen: string;
+  lastSeen: string;
+  intentScore: number; // 0 - 100
+  intentLevel: 'HOT LEAD' | 'HIGH' | 'MEDIUM' | 'EVALUATING';
+  modulesExplored: string[];
+  likelyDecisionMaker: string;
+  status: 'Active Now' | 'Visited Today' | 'Follow-Up Recommended' | 'Trial Activated';
+  sourceCampaign: string;
+  journey: {
+    timestamp: string;
+    action: string;
+    module: string;
+    details?: string;
+  }[];
+}
+
+export interface AnalyticsSummary {
+  activeNow: number;
+  totalSessions: number;
+  totalPageviews: number;
+  uniqueCompaniesCount: number;
+  avgSessionDurationSec: number;
+  trialConversionsCount: number;
+  trialConversionRatePct: number;
+  topModules: { id: string; name: string; views: number; timeSpentSec: number; pct: number }[];
+  funnel: { step: string; count: number; dropoffPct: number; conversionPct: number }[];
+  topReferrers: { source: string; visits: number; leads: number; conversionRate: number }[];
+  geoDistribution: { country: string; countryCode: string; visits: number; companies: number }[];
+  recentActivity: { id: string; timestamp: string; companyName: string; action: string; module: string; location: string }[];
+}
 
 export interface CompanyMechanism {
   id: string;

@@ -18,11 +18,13 @@ import { BehaviorTreeStudio } from './components/BehaviorTreeStudio';
 import { CadIngestionStudio } from './components/CadIngestionStudio';
 import { MechanismSimulatorStudio } from './components/MechanismSimulatorStudio';
 import { InnovationsLab } from './components/InnovationsLab';
+import { ExecutiveAnalyticsDashboard } from './components/ExecutiveAnalyticsDashboard';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
 import { DynamicDecomposition, StackPillar, ActiveTab, PlanTier } from './types';
 import { useQuota } from './hooks/useQuota';
+import { useAnalyticsTracker } from './hooks/useAnalyticsTracker';
 import { Cpu, Sparkles, Activity, Layers, BookOpen, ShieldCheck } from 'lucide-react';
 
 export default function App() {
@@ -37,6 +39,7 @@ export default function App() {
   const [hasApiKey, setHasApiKey] = useState<boolean>(false);
 
   const { quota, limits, changePlan, reset, fillToLimit } = useQuota();
+  const { trackAction } = useAnalyticsTracker(activeTab);
 
   // Check backend server health & Gemini API key status
   useEffect(() => {
@@ -173,6 +176,12 @@ export default function App() {
 
         {activeTab === 'innovations' && (
           <InnovationsLab
+            onNavigateTab={setActiveTab}
+          />
+        )}
+
+        {activeTab === 'analytics' && (
+          <ExecutiveAnalyticsDashboard
             onNavigateTab={setActiveTab}
           />
         )}

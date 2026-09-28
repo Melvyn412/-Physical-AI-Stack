@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import { SubscriptionDatabase, StoredSubscription } from "./src/db/subscriptionStore";
+import { AnalyticsDatabase } from "./src/db/analyticsStore";
 
 dotenv.config();
 
@@ -1001,6 +1002,74 @@ app.get("/api/paypal/verify/:orderId", (req, res) => {
     valid: false,
     message: 'PayPal order or license record not found in database'
   });
+});
+
+// ==========================================
+// EXECUTIVE ANALYTICS & VISITOR TELEMETRY API
+// ==========================================
+
+// 1. Record live client telemetry event
+app.post("/api/analytics/track", (req, res) => {
+  try {
+    const eventData = req.body;
+    const ip = req.ip || (req.headers["x-forwarded-for"] as string) || "127.0.0.1";
+    const userAgent = req.headers["user-agent"] || "";
+
+    const recorded = AnalyticsDatabase.recordEvent(eventData, ip, userAgent);
+    res.json({ success: true, eventId: recorded.id });
+  } catch (err: any) {
+    console.error("Error in /api/analytics/track:", err);
+    res.status(500).json({ error: "Failed to record event" });
+  }
+});
+
+// 2. Fetch aggregated analytics overview
+app.get("/api/analytics/stats", (req, res) => {
+  try {
+    const stats = AnalyticsDatabase.getStats();
+    res.json(stats);
+  } catch (err: any) {
+    console.error("Error in /api/analytics/stats:", err);
+    res.status(500).json({ error: "Failed to fetch analytics stats" });
+  }
+});
+
+// 3. Fetch identified B2B enterprise accounts list
+app.get("/api/analytics/companies", (req, res) => {
+  try {
+    const industry = req.query.industry as string | undefined;
+    const query = req.query.query as string | undefined;
+    const companies = AnalyticsDatabase.getCompanies({ industry, query });
+    res.json({ count: companies.length, companies });
+  } catch (err: any) {
+    console.error("Error in /api/analytics/companies:", err);
+    res.status(500).json({ error: "Failed to fetch companies" });
+  }
+});
+
+// 4. Simulate an incoming B2B visitor for testing alerts & deanonymization
+app.post("/api/analytics/simulate", (req, res) => {
+  try {
+    const preset = req.body?.preset;
+    const company = AnalyticsDatabase.simulateVisitor(preset);
+    res.json({ success: true, company });
+  } catch (err: any) {
+    console.error("Error in /api/analytics/simulate:", err);
+    res.status(500).json({ error: "Failed to simulate visitor" });
+  }
+});
+
+// 5. Export identified leads to CSV for HubSpot/Salesforce CRM
+app.get("/api/analytics/export-csv", (req, res) => {
+  try {
+    const csv = AnalyticsDatabase.exportLeadsCsv();
+    res.setHeader("Content-Type", "text/csv; charset=utf-8");
+    res.setHeader("Content-Disposition", 'attachment; filename="aigenesis_deanonymized_b2b_leads.csv"');
+    res.send(csv);
+  } catch (err: any) {
+    console.error("Error in /api/analytics/export-csv:", err);
+    res.status(500).json({ error: "Failed to generate CSV" });
+  }
 });
 
 // ==========================================
