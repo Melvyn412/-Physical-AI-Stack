@@ -1026,7 +1026,8 @@ app.post("/api/analytics/track", (req, res) => {
 // 2. Fetch aggregated analytics overview
 app.get("/api/analytics/stats", (req, res) => {
   try {
-    const stats = AnalyticsDatabase.getStats();
+    const mode = (req.query.mode as 'real' | 'all') || 'real';
+    const stats = AnalyticsDatabase.getStats(mode);
     res.json(stats);
   } catch (err: any) {
     console.error("Error in /api/analytics/stats:", err);
@@ -1039,11 +1040,23 @@ app.get("/api/analytics/companies", (req, res) => {
   try {
     const industry = req.query.industry as string | undefined;
     const query = req.query.query as string | undefined;
-    const companies = AnalyticsDatabase.getCompanies({ industry, query });
+    const mode = ((req.query.mode as string) === 'all' ? 'all' : 'real') as 'real' | 'all';
+    const companies = AnalyticsDatabase.getCompanies({ industry, query, mode });
     res.json({ count: companies.length, companies });
   } catch (err: any) {
     console.error("Error in /api/analytics/companies:", err);
     res.status(500).json({ error: "Failed to fetch companies" });
+  }
+});
+
+// 3b. Purge demo placeholder companies from store
+app.post("/api/analytics/purge-demo", (req, res) => {
+  try {
+    const result = AnalyticsDatabase.purgeDemoCompanies();
+    res.json({ success: true, ...result });
+  } catch (err: any) {
+    console.error("Error in /api/analytics/purge-demo:", err);
+    res.status(500).json({ error: "Failed to purge demo companies" });
   }
 });
 

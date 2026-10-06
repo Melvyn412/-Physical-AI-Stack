@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -37,6 +37,18 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'simulator',
     label: '5-Layer Engine',
     icon: Activity
+  },
+  {
+    id: 'tab-flywheel',
+    tab: 'flywheel',
+    label: 'Data Flywheel',
+    icon: RefreshCw
+  },
+  {
+    id: 'tab-coanda',
+    tab: 'coanda',
+    label: 'Coandă Fluidic Twin',
+    icon: Wind
   },
   {
     id: 'tab-teleop',
@@ -117,16 +129,28 @@ export const NAV_ITEMS: NavItemConfig[] = [
     icon: ShieldCheck
   },
   {
+    id: 'tab-vv-evidence',
+    tab: 'vv-evidence',
+    label: 'V&V Evidence Pack',
+    icon: FileCheck
+  },
+  {
+    id: 'tab-fault-injection',
+    tab: 'fault-injection',
+    label: 'Fault Injection',
+    icon: AlertOctagon
+  },
+  {
+    id: 'tab-twin-trust',
+    tab: 'twin-trust',
+    label: 'Twin Trust',
+    icon: Scale
+  },
+  {
     id: 'tab-pillars',
     tab: 'pillars',
     label: '5 Pillars',
     icon: Layers
-  },
-  {
-    id: 'tab-pricing',
-    tab: 'pricing',
-    label: 'Pricing & Plans',
-    icon: DollarSign
   }
 ];
 
@@ -220,6 +244,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
+          </button>
+
+          {/* Pricing & Plans Button */}
+          <button
+            id="btn-pricing-nav"
+            onClick={() => setActiveTab('pricing')}
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono transition-all shadow-sm cursor-pointer ${
+              activeTab === 'pricing'
+                ? 'bg-amber-400 text-slate-950 font-bold shadow-amber-400/20'
+                : 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 hover:border-amber-400/60'
+            }`}
+            title="View Pricing & Plans"
+          >
+            <DollarSign className={`w-3.5 h-3.5 ${activeTab === 'pricing' ? 'text-slate-950' : 'text-amber-400'}`} />
+            <span className="font-semibold">Pricing</span>
           </button>
 
           {/* Quota & Usage Meter Pill */}

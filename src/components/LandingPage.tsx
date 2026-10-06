@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -258,6 +258,57 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       btnText: 'Export Safety Certificate'
     },
     {
+      id: 'vv-evidence',
+      title: 'V&V Evidence Engine (Exportable Evidence Pack)',
+      category: 'Airworthiness & Regulated Systems',
+      icon: FileCheck,
+      badge: 'MIL-STD / FAA Ready',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Generate verifiable, exportable engineering evidence packs: result summaries, failure-mode video exhibits, key coupled multi-physics plots, calibrated parameter sets, and SHA-256 signed audit logs.',
+      deliverables: [
+        'Complete Verification & Validation requirements matrix',
+        'Failure-mode video exhibits with synchronized timestamps',
+        'Commanded vs. achieved trajectory and residual plots',
+        '1-click export of cryptographically signed Evidence Pack (.JSON)'
+      ],
+      targetTab: 'vv-evidence' as ActiveTab,
+      btnText: 'Launch V&V Evidence Engine'
+    },
+    {
+      id: 'fault-injection',
+      title: 'Automated Fault-Injection Studio',
+      category: 'Adversarial Discovery & Robustness',
+      icon: AlertOctagon,
+      badge: 'Boundary & Sobol Search',
+      badgeColor: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
+      description: 'Automatically discover failure frontiers: minimum degradation causing requirement failure, worst-case condition combinations, global Sobol sensitivity rankings, and failure clustering.',
+      deliverables: [
+        'Boundary search (minimum latency, sensor noise, friction drop)',
+        'Worst-case search (CMA-ES multi-parameter trap combinations)',
+        'Global Sobol variance decomposition & elasticity rankings',
+        'DBSCAN / UMAP failure mode clustering into safety barriers'
+      ],
+      targetTab: 'fault-injection' as ActiveTab,
+      btnText: 'Open Fault-Injection Studio'
+    },
+    {
+      id: 'twin-trust',
+      title: 'Twin Trust: Log-to-Sim Calibration Studio',
+      category: 'Sim-to-Real Alignment & Certification',
+      icon: Scale,
+      badge: 'Subsystem Calibration',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Empirical log-to-sim calibration loop: measures 4 discrepancy modalities, tunes inverted physics parameters, shows the model’s certified validity range, and tracks trust by individual subsystem.',
+      deliverables: [
+        'Physical telemetry vs. simulation scenario temporal alignment',
+        '4-modality mismatch: trajectory, force, latency & visual delta',
+        'Parameter inversion: friction, damping, stiffness & actuator delay',
+        'Certified validity envelope & granular subsystem trust scores'
+      ],
+      targetTab: 'twin-trust' as ActiveTab,
+      btnText: 'Launch Twin Trust Studio'
+    },
+    {
       id: 'teleop',
       title: 'Webcam & MediaPipe → UR10e + Robotiq 2F-85 Vision Teleop',
       category: 'Vision Teleoperation & Isaac Sim',
@@ -273,6 +324,40 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'teleop' as ActiveTab,
       btnText: 'Launch UR10e Vision Teleop'
+    },
+    {
+      id: 'flywheel',
+      title: 'Embodied AI Verification & Closed-Loop Data Flywheel',
+      category: 'Sim-to-Real & Synthetic Data Engine',
+      icon: Layers,
+      badge: 'Closed-Loop Flywheel',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Stress-test mechanisms and control policies in a parameterized Digital Twin, synthesize hard corner-case scenarios and RLDS/LeRobot datasets, validate against physical hardware, and continuously auto-calibrate both the model and the twin.',
+      deliverables: [
+        '4,096-env adversarial stress-testing (friction drops, CoM shift, backlash)',
+        'Multi-modal synthetic data generation (RGB-D, 18µs DVS, 6-axis force/torque)',
+        'Real-time Hardware-in-the-Loop (HiL) Sim-to-Real Reality Gap auditing',
+        'Automated URDF/USD System Identification & 1000 Hz policy LoRA distillation'
+      ],
+      targetTab: 'flywheel' as ActiveTab,
+      btnText: 'Launch Data Flywheel'
+    },
+    {
+      id: 'coanda',
+      title: 'Coandă Fluidic & Thrust-Vectoring Digital Twin',
+      category: 'Pre-Machining Coupled CFD & Control',
+      icon: Zap,
+      badge: 'Pre-Machining Twin',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Simulate boundary-layer fluid flow, fluidic thrust vectoring (±26°), crosswind vortex turbulence, high-speed solenoid valve response, and 1000 Hz closed-loop stabilization together before CNC-machining or 3D-printing a physical prototype.',
+      deliverables: [
+        'Coupled Newman slot-to-radius (h/R) & boundary-layer stall verification',
+        '360-streamline 60 FPS 3D Coandă jet attachment & detachment visualizer',
+        '1000 Hz closed-loop fluidic bleed-valve stabilization under turbulence',
+        '1-click export of NVIDIA Modulus PINN, ROS 2 valve node & CNC GD&T specs'
+      ],
+      targetTab: 'coanda' as ActiveTab,
+      btnText: 'Launch Coandă Fluidic Twin'
     },
     {
       id: 'analytics',
@@ -403,6 +488,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </button>
             ) : null}
 
+            {/* Prominent Pricing & Plans Button */}
+            <button
+              onClick={() => onNavigate('pricing')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-sm transition-all shadow-xl shadow-amber-500/20 hover:scale-[1.02] cursor-pointer"
+            >
+              <DollarSign className="w-4 h-4 text-slate-950 stroke-[3]" />
+              <span>View Pricing & Enterprise Plans</span>
+            </button>
+
             <button
               onClick={onOpenCustomModal}
               className="flex items-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold rounded-2xl text-sm transition-all shadow-md cursor-pointer"
@@ -469,7 +563,153 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 2. Core Services Offered Section */}
+      {/* 2. Prominent Pricing & Plans Showcase Section */}
+      <section className="bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border-b border-slate-800 pb-8 relative z-10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold">
+              <DollarSign className="w-3.5 h-3.5 text-amber-400" />
+              <span>Transparent Pricing & Licensing</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
+              Flexible Plans for Startups to Defense Primes
+            </h2>
+            <p className="text-sm text-slate-400 max-w-2xl font-sans">
+              Choose the right tier to accelerate your robotics development. All plans include 1000 Hz physics simulation, ROS 2 export, and compliance audits.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            {onOpenProTrialModal ? (
+              <button
+                onClick={onOpenProTrialModal}
+                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition cursor-pointer"
+              >
+                <Zap className="w-4 h-4" />
+                <span>Start 14-Day Free Trial</span>
+              </button>
+            ) : null}
+
+            <button
+              onClick={() => onNavigate('pricing')}
+              className="flex items-center gap-2 px-5 py-2.5 bg-slate-950 border border-slate-700 hover:border-amber-400 text-slate-200 hover:text-white font-mono font-bold text-xs rounded-xl transition cursor-pointer"
+            >
+              <span>Compare All Plan Details</span>
+              <ArrowRight className="w-4 h-4 text-amber-400" />
+            </button>
+          </div>
+        </div>
+
+        {/* 3 Featured Pricing Plan Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+          {/* Plan 1: Developer */}
+          <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 space-y-5 flex flex-col justify-between transition-all">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Developer</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">Free Tier</span>
+              </div>
+              <div>
+                <div className="text-3xl font-extrabold text-white font-mono">£0</div>
+                <div className="text-xs text-slate-500 font-mono mt-0.5">Free forever / Sandbox evaluation</div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Ideal for individual researchers and hardware prototyping engineers exploring physical reasoning.
+              </p>
+              <ul className="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-900 pt-4">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 100 daily simulation syntheses</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 5-Layer stack visualization</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Community ROS 2 export</li>
+              </ul>
+            </div>
+
+            <button
+              onClick={() => onNavigate('pricing')}
+              className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-mono text-xs font-bold border border-slate-800 transition cursor-pointer"
+            >
+              Current Plan
+            </button>
+          </div>
+
+          {/* Plan 2: Pro (Highlighted) */}
+          <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-2 border-emerald-500/60 shadow-xl shadow-emerald-500/10 space-y-5 flex flex-col justify-between relative">
+            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-mono font-black text-[10px] uppercase tracking-wider shadow-md">
+              Most Popular
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Professional</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">14-Day Free Trial</span>
+              </div>
+              <div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-white font-mono">£2,500</span>
+                  <span className="text-xs text-slate-400 font-mono">/month</span>
+                </div>
+                <div className="text-xs text-emerald-400 font-mono mt-0.5">Includes full 14-day zero-risk trial</div>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Full-stack physical AI for growing robotics teams shipping commercial manipulators and drones.
+              </p>
+              <ul className="space-y-2 text-xs text-slate-200 font-sans border-t border-slate-900 pt-4">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> <strong>1,000 daily compute units</strong></li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Coandă & Twin Trust calibration loops</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 1-click V&V Evidence Pack export</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Automated Fault-Injection & Sobol Search</li>
+              </ul>
+            </div>
+
+            <button
+              onClick={() => {
+                if (onOpenProTrialModal) onOpenProTrialModal();
+                else onNavigate('pricing');
+              }}
+              className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs font-black shadow-lg shadow-emerald-500/25 transition cursor-pointer"
+            >
+              Start 14-Day Free Pro Trial
+            </button>
+          </div>
+
+          {/* Plan 3: Enterprise */}
+          <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 space-y-5 flex flex-col justify-between transition-all">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Enterprise Air-Gapped</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/30">Defense & Regulated</span>
+              </div>
+              <div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold text-white font-mono">£100,000</span>
+                  <span className="text-xs text-slate-400 font-mono">/month</span>
+                </div>
+                <div className="text-xs text-slate-500 font-mono mt-0.5">Air-gapped VPC / Dedicated Cluster</div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Mission-critical deployments for aerospace primes, defense contractors, and medical device leaders.
+              </p>
+              <ul className="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-900 pt-4">
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> Unlimited parallel simulation rollouts</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> Air-gapped on-premise Kubernetes cluster</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> ISO 10218, IEC 62304 & MIL-STD audits</li>
+                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> 15-minute SLA dedicated robotics engineer</li>
+              </ul>
+            </div>
+
+            <button
+              onClick={() => onNavigate('pricing')}
+              className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-mono text-xs font-bold border border-slate-800 hover:border-amber-400/50 transition cursor-pointer"
+            >
+              Contact Enterprise Sales
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Core Services Offered Section */}
       <section className="space-y-8">
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 text-xs font-mono font-semibold">

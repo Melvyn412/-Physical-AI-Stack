@@ -1,6 +1,8 @@
 export type ActiveTab = 
   | 'landing'
   | 'simulator' 
+  | 'flywheel'
+  | 'coanda'
   | 'teleop'
   | 'slam'
   | 'pid'
@@ -16,6 +18,9 @@ export type ActiveTab =
   | 'kinematics' 
   | 'swarm' 
   | 'compliance'
+  | 'vv-evidence'
+  | 'fault-injection'
+  | 'twin-trust'
   | 'analytics';
 
 export type InnovationModuleId = 

@@ -30,6 +30,21 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
 
     setTimeout(() => {
       startTrial(workEmail.trim() || undefined);
+      fetch('/api/analytics/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: localStorage.getItem('aigen_session_id') || undefined,
+          visitorId: localStorage.getItem('aigen_visitor_id') || undefined,
+          tab: 'pricing',
+          eventType: 'trial_start',
+          details: {
+            email: workEmail.trim() || undefined,
+            company: company.trim() || undefined,
+            action: `Started 14-Day Free Trial (${company.trim() || workEmail.trim() || 'Direct'})`,
+          },
+        }),
+      }).catch(() => {});
       setIsActivating(false);
       setIsSuccess(true);
       if (onTrialStarted) {

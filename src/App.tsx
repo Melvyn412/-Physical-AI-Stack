@@ -20,6 +20,11 @@ import { MechanismSimulatorStudio } from './components/MechanismSimulatorStudio'
 import { InnovationsLab } from './components/InnovationsLab';
 import { ExecutiveAnalyticsDashboard } from './components/ExecutiveAnalyticsDashboard';
 import { VisionTeleopStudio } from './components/VisionTeleopStudio';
+import { DataFlywheelStudio } from './components/DataFlywheelStudio';
+import { CoandaFluidicStudio } from './components/CoandaFluidicStudio';
+import { VVEvidenceEngineStudio } from './components/VVEvidenceEngineStudio';
+import { AutomatedFaultInjectionStudio } from './components/AutomatedFaultInjectionStudio';
+import { TwinTrustCalibrationStudio } from './components/TwinTrustCalibrationStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -113,6 +118,14 @@ export default function App() {
           </div>
         )}
 
+        {activeTab === 'flywheel' && (
+          <DataFlywheelStudio />
+        )}
+
+        {activeTab === 'coanda' && (
+          <CoandaFluidicStudio />
+        )}
+
         {activeTab === 'teleop' && (
           <VisionTeleopStudio />
         )}
@@ -197,6 +210,18 @@ export default function App() {
             onNavigateToPricing={() => setActiveTab('pricing')}
             onQuickUpgrade={handleUpgradePlan}
           />
+        )}
+
+        {activeTab === 'vv-evidence' && (
+          <VVEvidenceEngineStudio />
+        )}
+
+        {activeTab === 'fault-injection' && (
+          <AutomatedFaultInjectionStudio />
+        )}
+
+        {activeTab === 'twin-trust' && (
+          <TwinTrustCalibrationStudio />
         )}
 
         {activeTab === 'pillars' && (
