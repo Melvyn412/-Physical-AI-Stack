@@ -25,6 +25,8 @@ import { CoandaFluidicStudio } from './components/CoandaFluidicStudio';
 import { VVEvidenceEngineStudio } from './components/VVEvidenceEngineStudio';
 import { AutomatedFaultInjectionStudio } from './components/AutomatedFaultInjectionStudio';
 import { TwinTrustCalibrationStudio } from './components/TwinTrustCalibrationStudio';
+import { AiScenarioGenerationStudio } from './components/AiScenarioGenerationStudio';
+import { SyntheticDataPipelineStudio } from './components/SyntheticDataPipelineStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -222,6 +224,14 @@ export default function App() {
 
         {activeTab === 'twin-trust' && (
           <TwinTrustCalibrationStudio />
+        )}
+
+        {activeTab === 'scenario-gen' && (
+          <AiScenarioGenerationStudio />
+        )}
+
+        {activeTab === 'synthetic-data' && (
+          <SyntheticDataPipelineStudio />
         )}
 
         {activeTab === 'pillars' && (

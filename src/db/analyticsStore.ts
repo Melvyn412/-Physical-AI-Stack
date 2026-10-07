@@ -397,6 +397,8 @@ class AnalyticsStore {
       'vv-evidence': 'V&V Evidence Engine',
       'fault-injection': 'Automated Fault-Injection Studio',
       'twin-trust': 'Twin Trust Calibration Studio',
+      'scenario-gen': 'AI Scenario Generation Studio',
+      'synthetic-data': 'Simulation-to-Synthetic-Data Studio',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

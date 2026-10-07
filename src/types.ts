@@ -21,6 +21,8 @@ export type ActiveTab =
   | 'vv-evidence'
   | 'fault-injection'
   | 'twin-trust'
+  | 'scenario-gen'
+  | 'synthetic-data'
   | 'analytics';
 
 export type InnovationModuleId = 

@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -307,6 +307,40 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'twin-trust' as ActiveTab,
       btnText: 'Launch Twin Trust Studio'
+    },
+    {
+      id: 'scenario-gen',
+      title: 'AI-Assisted Scenario Generation & Test Matrix',
+      category: 'Automated CI/CD Verification & Testing',
+      icon: Calendar,
+      badge: 'Stochastic Synthesis',
+      badgeColor: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      description: 'Generate parameter distributions, 3D scene & asset layout variations, active sensor and actuator fault profiles, formal acceptance gates, and scheduled CI/CD test sweeps.',
+      deliverables: [
+        'Gaussian, Latin Hypercube & long-tail parameter sampling',
+        'USD / Isaac Sim procedural layout & environmental clutter',
+        'Sensor drift, actuator deadband & network dropout fault profiles',
+        'Scheduled test matrix for nightly GPU cluster regression'
+      ],
+      targetTab: 'scenario-gen' as ActiveTab,
+      btnText: 'Open Scenario Gen Studio'
+    },
+    {
+      id: 'synthetic-data',
+      title: 'Simulation-to-Synthetic-Data Pipeline Studio',
+      category: 'Foundation Model & VLA Training Engine',
+      icon: Database,
+      badge: '9 Modalities',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Extract 9 synchronized annotations from a single run (RGB, depth, segmentation, 6D pose, flow, wrench, tactile, joint states, events), deep domain randomization, replayable seeds, and 1-click export to Hugging Face LeRobot, Isaac Lab, BOP, and ROS 2.',
+      deliverables: [
+        '9 synchronized modalities from a single 1000 Hz physics run',
+        '7-dimension domain randomization across lighting, BRDFs & noise',
+        'Replayable deterministic scene YAML configurations & seeds',
+        'Direct export to LeRobot / RLDS, Isaac Lab, BOP & ROS 2 MCAP bags'
+      ],
+      targetTab: 'synthetic-data' as ActiveTab,
+      btnText: 'Launch Synthetic Data Studio'
     },
     {
       id: 'teleop',

@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -145,6 +145,18 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'twin-trust',
     label: 'Twin Trust',
     icon: Scale
+  },
+  {
+    id: 'tab-scenario-gen',
+    tab: 'scenario-gen',
+    label: 'Scenario Gen',
+    icon: Calendar
+  },
+  {
+    id: 'tab-synthetic-data',
+    tab: 'synthetic-data',
+    label: 'Synthetic Data',
+    icon: Database
   },
   {
     id: 'tab-pillars',
