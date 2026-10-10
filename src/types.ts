@@ -23,6 +23,10 @@ export type ActiveTab =
   | 'twin-trust'
   | 'scenario-gen'
   | 'synthetic-data'
+  | 'surgical-vv'
+  | 'defense-pack'
+  | 'secure-deployment'
+  | 'video-producer'
   | 'analytics';
 
 export type InnovationModuleId = 

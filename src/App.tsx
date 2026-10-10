@@ -27,6 +27,10 @@ import { AutomatedFaultInjectionStudio } from './components/AutomatedFaultInject
 import { TwinTrustCalibrationStudio } from './components/TwinTrustCalibrationStudio';
 import { AiScenarioGenerationStudio } from './components/AiScenarioGenerationStudio';
 import { SyntheticDataPipelineStudio } from './components/SyntheticDataPipelineStudio';
+import { SurgicalRoboticsVVStudio } from './components/SurgicalRoboticsVVStudio';
+import { DefenseRoboticsAssuranceStudio } from './components/DefenseRoboticsAssuranceStudio';
+import { SecureDeploymentArchitectureStudio } from './components/SecureDeploymentArchitectureStudio';
+import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -232,6 +236,22 @@ export default function App() {
 
         {activeTab === 'synthetic-data' && (
           <SyntheticDataPipelineStudio />
+        )}
+
+        {activeTab === 'surgical-vv' && (
+          <SurgicalRoboticsVVStudio />
+        )}
+
+        {activeTab === 'defense-pack' && (
+          <DefenseRoboticsAssuranceStudio />
+        )}
+
+        {activeTab === 'secure-deployment' && (
+          <SecureDeploymentArchitectureStudio />
+        )}
+
+        {activeTab === 'video-producer' && (
+          <AutoVideoGeneratorStudio />
         )}
 
         {activeTab === 'pillars' && (

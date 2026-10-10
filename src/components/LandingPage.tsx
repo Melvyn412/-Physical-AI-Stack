@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -341,6 +341,74 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'synthetic-data' as ActiveTab,
       btnText: 'Launch Synthetic Data Studio'
+    },
+    {
+      id: 'surgical-vv',
+      title: 'Surgical Robotics V&V Pack (FDA / IEC 80601)',
+      category: 'Medical Device Verification (RAMS)',
+      icon: Stethoscope,
+      badge: 'DHF Traceable',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Recognisable surgical robotics V&V workflow: RCM pivot drift, trocar collision zones, singularity avoidance, latency & encoder faults, viscoelastic tissue uncertainties, 6 procedure-task templates, and forbidden safety volumes mapped to DHF design controls.',
+      deliverables: [
+        'Remote-Centre-of-Motion (RCM) lateral fulcrum deviation audit (<= 0.50mm)',
+        'Trocar port placement & external arm elbow collision clearance matrix',
+        '6 procedure templates: camera, reach, needle driving, cutting, suturing, knot-tying',
+        'Audit-ready DHF test reports mapped to FDA 21 CFR 820.30 & ISO 14971'
+      ],
+      targetTab: 'surgical-vv' as ActiveTab,
+      btnText: 'Open Surgical V&V Studio'
+    },
+    {
+      id: 'defense-pack',
+      title: 'Defence Robotics Assurance Pack (STANAG 4586)',
+      category: 'Sovereign Contested Autonomy',
+      icon: Shield,
+      badge: 'Air-Gapped Sovereign',
+      badgeColor: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      description: 'Mission assurance for contested operations: GPS-denied/degraded VIO navigation, spot jamming & meaconing resilience, brownout dust & 14.5G vibration stress, multi-threat scenario generation, and deterministic fail-safe abort logic.',
+      deliverables: [
+        'GPS-denied visual-inertial odometry + factor graph anti-spoofing decoupling',
+        'Electronic Warfare (EW) barrage jamming, packet drops & FHSS hopping',
+        'Contested-environment scenario generator across desert, urban & littoral theaters',
+        'Sub-20ms fail-safe abort logic with air-gapped cryptographic SHA-256 audit logs'
+      ],
+      targetTab: 'defense-pack' as ActiveTab,
+      btnText: 'Launch Defence Assurance Pack'
+    },
+    {
+      id: 'secure-deployment',
+      title: 'Secure Edge-to-Cloud Deployment & HIL Studio',
+      category: 'Enterprise Infrastructure & Sovereign Compute',
+      icon: Server,
+      badge: '1 kHz HIL Bridge',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Deploy across 4 secure tiers: developer workstations, sovereign on-premise clusters, private cloud VPCs, and air-gapped SCIF environments. Connect physical hardware via 1 kHz EtherCAT/CANopen HIL, ingest physical telemetry logs, and maintain an immutable CAD-to-firmware digital thread.',
+      deliverables: [
+        '4 secure topologies: local workstation, on-prem cluster, private VPC, air-gapped offline',
+        '1 kHz Hardware-in-the-Loop (HIL) EtherCAT & CANopen real-time controller bridges',
+        'Automated hardware telemetry log ingestion (MCAP / CSV / ROS 2 bags)',
+        'Immutable digital thread linking CAD STEP, URDF, firmware commits & flight logs'
+      ],
+      targetTab: 'secure-deployment' as ActiveTab,
+      btnText: 'Open Secure Deployment Studio'
+    },
+    {
+      id: 'video-producer',
+      title: 'Automated Video Production Studio',
+      category: 'Autonomous Content & Demonstration Engine',
+      icon: Film,
+      badge: 'Zero Editing Skills Needed',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Never worry about video production! AIGENESIS automatically scripts, animates, narrates, and renders 60 FPS robotics demonstration videos for you—complete with live telemetry HUDs, burned-in subtitles, browser voiceover, and 1-click WebM video export.',
+      deliverables: [
+        'Automated 4-act scripts (Problem, Root Cause, AI Rectification, Verified Success)',
+        'Live 60 FPS physical canvas animations with real-time HUD telemetry stream',
+        'Built-in speech synthesis narration + burned-in lower-third subtitles',
+        '1-click video rendering and instant browser download (.WebM HD)'
+      ],
+      targetTab: 'video-producer' as ActiveTab,
+      btnText: 'Launch Video Production Studio'
     },
     {
       id: 'teleop',

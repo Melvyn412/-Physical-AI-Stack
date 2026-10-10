@@ -399,6 +399,10 @@ class AnalyticsStore {
       'twin-trust': 'Twin Trust Calibration Studio',
       'scenario-gen': 'AI Scenario Generation Studio',
       'synthetic-data': 'Simulation-to-Synthetic-Data Studio',
+      'surgical-vv': 'Surgical Robotics V&V Studio',
+      'defense-pack': 'Defence Robotics Assurance Studio',
+      'secure-deployment': 'Secure Edge-to-Cloud Deployment Studio',
+      'video-producer': 'Automated Video Production Studio',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

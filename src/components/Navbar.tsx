@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -157,6 +157,30 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'synthetic-data',
     label: 'Synthetic Data',
     icon: Database
+  },
+  {
+    id: 'tab-surgical-vv',
+    tab: 'surgical-vv',
+    label: 'Surgical V&V',
+    icon: Stethoscope
+  },
+  {
+    id: 'tab-defense-pack',
+    tab: 'defense-pack',
+    label: 'Defence Pack',
+    icon: Shield
+  },
+  {
+    id: 'tab-secure-deployment',
+    tab: 'secure-deployment',
+    label: 'Edge-to-Cloud',
+    icon: Server
+  },
+  {
+    id: 'tab-video-producer',
+    tab: 'video-producer',
+    label: 'Auto Video Maker',
+    icon: Film
   },
   {
     id: 'tab-pillars',
