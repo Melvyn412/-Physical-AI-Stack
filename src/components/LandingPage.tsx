@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -13,12 +13,14 @@ interface LandingPageProps {
   onNavigate: (tab: ActiveTab) => void;
   onOpenCustomModal: () => void;
   onOpenProTrialModal?: () => void;
+  onOpenTour?: () => void;
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   onNavigate,
   onOpenCustomModal,
-  onOpenProTrialModal
+  onOpenProTrialModal,
+  onOpenTour
 }) => {
   const [activeService, setActiveService] = useState<string>('simulation');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -589,6 +591,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <span>Start 14-Day Free Pro Trial</span>
               </button>
             ) : null}
+
+            {/* Getting Started Interactive Tour Button */}
+            {onOpenTour && (
+              <button
+                id="btn-hero-tour"
+                onClick={onOpenTour}
+                className="flex items-center gap-2 px-6 py-3.5 bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-300 border border-cyan-500/40 hover:border-cyan-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-cyan-500/10 hover:scale-[1.02] cursor-pointer"
+              >
+                <HelpCircle className="w-4 h-4 text-cyan-400" />
+                <span>Take Interactive Tour</span>
+              </button>
+            )}
 
             {/* Prominent Pricing & Plans Button */}
             <button

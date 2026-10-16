@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -16,6 +16,7 @@ interface NavbarProps {
   onOpenProTrialModal?: () => void;
   onOpenBarrier?: (barrierInfo: any) => void;
   onSwitchPlan?: (plan: PlanTier) => void;
+  onOpenTour?: () => void;
 }
 
 export interface NavItemConfig {
@@ -196,7 +197,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   hasApiKey,
   onOpenCustomModal,
   onOpenQuotaModal,
-  onOpenProTrialModal
+  onOpenProTrialModal,
+  onOpenTour
 }) => {
   const { quota, limits } = useQuota();
 
@@ -232,6 +234,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-2.5">
+          {/* Getting Started Tour Button */}
+          {onOpenTour && (
+            <button
+              id="btn-tour-nav"
+              onClick={onOpenTour}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 rounded-full text-xs font-mono font-bold transition-all shadow-sm hover:scale-[1.02] cursor-pointer"
+              title="Launch Getting Started Interactive Workflow Tour"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Getting Started</span>
+            </button>
+          )}
           {/* 14-Day Pro Trial Button / Active Pill */}
           {quota.isTrialActive ? (
             <button

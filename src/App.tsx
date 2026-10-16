@@ -31,6 +31,7 @@ import { SurgicalRoboticsVVStudio } from './components/SurgicalRoboticsVVStudio'
 import { DefenseRoboticsAssuranceStudio } from './components/DefenseRoboticsAssuranceStudio';
 import { SecureDeploymentArchitectureStudio } from './components/SecureDeploymentArchitectureStudio';
 import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio';
+import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
 import { ProTrialModal } from './components/ProTrialModal';
@@ -44,6 +45,7 @@ export default function App() {
   const [isCustomModalOpen, setIsCustomModalOpen] = useState<boolean>(false);
   const [isQuotaModalOpen, setIsQuotaModalOpen] = useState<boolean>(false);
   const [isTrialModalOpen, setIsTrialModalOpen] = useState<boolean>(false);
+  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
   const [barrierModalData, setBarrierModalData] = useState<BarrierData | null>(null);
 
   const [customDecomposition, setCustomDecomposition] = useState<DynamicDecomposition | null>(null);
@@ -52,6 +54,22 @@ export default function App() {
 
   const { quota, limits, changePlan, reset, fillToLimit } = useQuota();
   const { trackAction } = useAnalyticsTracker(activeTab);
+
+  // Auto-launch Getting Started Tour on first visit if not dismissed
+  useEffect(() => {
+    try {
+      const tourCompleted = localStorage.getItem('aigenesis_onboarding_completed');
+      if (!tourCompleted) {
+        // Small delay to let the landing page render nicely first
+        const timer = setTimeout(() => {
+          setIsTourOpen(true);
+        }, 1200);
+        return () => clearTimeout(timer);
+      }
+    } catch (e) {
+      // localStorage may fail in some restricted iframes
+    }
+  }, []);
 
   // Check backend server health & Gemini API key status
   useEffect(() => {
@@ -93,6 +111,7 @@ export default function App() {
         onOpenCustomModal={() => setIsCustomModalOpen(true)}
         onOpenQuotaModal={() => setIsQuotaModalOpen(true)}
         onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+        onOpenTour={() => setIsTourOpen(true)}
         onOpenBarrier={setBarrierModalData}
         onSwitchPlan={changePlan}
       />
@@ -104,6 +123,7 @@ export default function App() {
             onNavigate={setActiveTab}
             onOpenCustomModal={() => setIsCustomModalOpen(true)}
             onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
           />
         )}
 
@@ -318,6 +338,20 @@ export default function App() {
         onClose={() => setIsTrialModalOpen(false)}
         onTrialStarted={() => {
           // Stay on current or switch if needed
+        }}
+      />
+
+      {/* Getting Started Interactive Tour & Onboarding Overlay */}
+      <GettingStartedTourOverlay
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        onNavigateTab={(tab) => {
+          setActiveTab(tab);
+          setIsTourOpen(false);
+        }}
+        onOpenProTrial={() => {
+          setIsTourOpen(false);
+          setIsTrialModalOpen(true);
         }}
       />
 
