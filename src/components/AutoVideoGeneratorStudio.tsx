@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useQuota } from '../hooks/useQuota';
 
-export type DemoScenarioId = 'tactile_slip_fix' | 'coanda_stall_fix' | 'surgical_singularity_fix';
+export type DemoScenarioId = 'slam_3d_in_progress' | 'tactile_slip_fix' | 'coanda_stall_fix' | 'surgical_singularity_fix';
 
 interface SceneStep {
   startSec: number;
@@ -39,6 +39,103 @@ interface DemoVideoScript {
 }
 
 const DEMO_SCRIPTS: Record<DemoScenarioId, DemoVideoScript> = {
+  slam_3d_in_progress: {
+    id: 'slam_3d_in_progress',
+    name: '3D LiDAR SLAM Studio: Ceres Graph Optimization & Real-Time Mapping in Progress',
+    targetDomain: 'Autonomous Mobile Robots · 3D LiDAR, Nav2 & Cartographer',
+    aspectRatio: '16:9 (Landscape HD)',
+    durationSeconds: 12,
+    headline: 'Real-Time 3D LiDAR Raycasting, Occupancy Voxels & Ceres Non-Linear Graph SLAM',
+    exportFilename: 'AIGENESIS_3D_SLAM_Studio_In_Progress.webm',
+    steps: [
+      {
+        startSec: 0,
+        endSec: 3,
+        phaseLabel: '01. DRIFT ACCUMULATION',
+        badgeType: 'problem',
+        title: 'Dead-Reckoning Wheel Odometry Divergence (>180mm)',
+        narrationVoiceover: 'Wheel odometry dead-reckoning accumulates wheel slip and terrain errors, causing over 180 millimeters of trajectory divergence and severe map ghosting.',
+        subtitle: '🚨 Raw wheel odometry accumulates wheel slip drift (>180mm error), distorting spatial grid...',
+        metricLabel: 'Odometry Drift Error',
+        metricValue: '184.2 mm (DIVERGENT)',
+      },
+      {
+        startSec: 3,
+        endSec: 6,
+        phaseLabel: '02. 3D PERCEPTION IN PROGRESS',
+        badgeType: 'analysis',
+        title: '64-Beam 3D LiDAR Raycasting & Point Cloud Voxels',
+        narrationVoiceover: 'AIGENESIS activates 64-beam 360-degree LiDAR raycasting and ORB-SLAM3 visual features, extracting 1,200 surface points per second.',
+        subtitle: '🔍 64-beam LiDAR sweeps 360° arena, raycasting 1,240 points/sec and voxelizing obstacles...',
+        metricLabel: 'Point Cloud Scan Rate',
+        metricValue: '1,240 pts/sec (20 Hz)',
+      },
+      {
+        startSec: 6,
+        endSec: 9,
+        phaseLabel: '03. CERES GRAPH OPTIMIZATION',
+        badgeType: 'ai_fix',
+        title: 'Loop Closure & Ceres Non-Linear Graph Solver',
+        narrationVoiceover: 'Loop closure candidate recognized! Ceres Levenberg-Marquardt solver optimizes the Mahalanobis pose graph constraints, instantly correcting spatial deformation.',
+        subtitle: '⚡ Loop closure detected! Ceres sparse normal Cholesky solver eliminates accumulated drift in 4.8ms.',
+        metricLabel: 'Ceres Residual χ²',
+        metricValue: '0.0042 (CONVERGED)',
+      },
+      {
+        startSec: 9,
+        endSec: 12,
+        phaseLabel: '04. VERIFIED 3D MAP RECONSTRUCTION',
+        badgeType: 'success',
+        title: 'Unified 3D Occupancy Grid & Sub-Centimeter Accuracy',
+        narrationVoiceover: 'Loop closed successfully. The 3D occupancy grid is fully unified with 4.2 millimeter precision, export-ready for Nav2 costmaps and ROS 2 Humble.',
+        subtitle: '✅ 98.6% arena mapped with sub-centimeter (4.2mm) precision. Ready for Nav2 autonomous navigation.',
+        metricLabel: 'Final Pose Accuracy',
+        metricValue: '4.2 mm (SUB-CM LOCKED)',
+      },
+    ],
+    socialPostCaption: `🛰️ 3D LiDAR SLAM Studio In Progress with Ceres Graph Optimization:
+
+Simulating autonomous mobile robot (AMR) navigation without real-time graph constraints causes catastrophic dead-reckoning odometry drift (>180mm) and warped occupancy grids.
+
+Inside AIGENESIS 3D SLAM Studio in progress:
+• 64-beam 360° LiDAR raycasting with 3D elevation point cloud generation
+• Real-time Bresenham 3D occupancy voxel grid mapping
+• Automated loop closure detection with Ceres Levenberg-Marquardt non-linear least-squares optimization
+• Odometry drift reduced from 184mm down to 4.2mm with export-ready Nav2 & Cartographer YAML configurations
+
+Watch the real-time 3D simulation rollout: https://aigenesis.tech
+
+#Robotics #SLAM #ROS2 #Nav2 #AutonomousVehicles #LIDAR #PhysicalAI`,
+    universityOutreachEmail: {
+      subject: 'ROS 2 3D SLAM & Nav2 Simulation Suite for [University Name] Robotics Lab (14-Day Trial)',
+      targetDepartments: 'Robotics Engineering, Autonomous Navigation Labs, Mechatronics Institutes',
+      emailBody: `Dear Professor [Last Name] / Robotics Research Group,
+
+I hope this email finds you well.
+
+I am writing from AIGENESIS (https://aigenesis.tech). We have released an interactive 3D SLAM & Occupancy Grid Simulation Studio that models real-time 360° LiDAR raycasting, wheel slip odometry drift, and Ceres graph optimization loop closures (3D simulation video attached).
+
+We would like to offer your faculty and graduate researchers a complimentary 14-day zero-risk trial of our Pro Research Tier.
+
+What your robotics lab can access right away:
+• Real-time 2D/3D LiDAR & visual SLAM (vSLAM) benchmarking
+• Ceres Levenberg-Marquardt graph solver with loop closure constraint visualization
+• 1-Click export to ROS 2 Humble slam_toolbox_params.yaml & Nav2 bringup launch files
+• 1000 Hz hardware-in-the-loop (HIL) telemetry ingestion
+
+You can launch your lab trial immediately:
+https://aigenesis.tech
+
+Would you be open to a brief 10-minute technical walkthrough with your research team this week?
+
+Warm regards,
+
+[Your Name]
+Robotics & Academic Research Lead | AIGENESIS
+https://aigenesis.tech
+[Your Email / Phone]`,
+    },
+  },
   tactile_slip_fix: {
     id: 'tactile_slip_fix',
     name: 'Tactile Slip Reflex: High-Speed Deceleration Recovery',
@@ -336,7 +433,7 @@ https://aigenesis.tech
 };
 
 export const AutoVideoGeneratorStudio: React.FC = () => {
-  const [selectedScenarioId, setSelectedScenarioId] = useState<DemoScenarioId>('tactile_slip_fix');
+  const [selectedScenarioId, setSelectedScenarioId] = useState<DemoScenarioId>('slam_3d_in_progress');
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0);
   const [isVoiceoverEnabled, setIsVoiceoverEnabled] = useState<boolean>(true);
@@ -363,16 +460,22 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
 
   // Browser Web Speech API Voiceover narration
   useEffect(() => {
-    if (!isVoiceoverEnabled || !isPlaying) return;
+    if (!isVoiceoverEnabled || !isPlaying || !currentStep) return;
 
     if (currentStepIndex !== lastSpokenStepIndex.current) {
       lastSpokenStepIndex.current = currentStepIndex;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Stop prior narration
-        const utterance = new SpeechSynthesisUtterance(currentStep.narrationVoiceover);
-        utterance.rate = 1.05;
-        utterance.pitch = 1.0;
-        window.speechSynthesis.speak(utterance);
+      try {
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+          window.speechSynthesis.cancel(); // Stop prior narration
+          if (currentStep.narrationVoiceover) {
+            const utterance = new SpeechSynthesisUtterance(currentStep.narrationVoiceover);
+            utterance.rate = 1.05;
+            utterance.pitch = 1.0;
+            window.speechSynthesis.speak(utterance);
+          }
+        }
+      } catch (err) {
+        console.warn('Speech synthesis unavailable in current environment:', err);
       }
     }
   }, [currentStepIndex, isVoiceoverEnabled, isPlaying, currentStep]);
@@ -384,25 +487,28 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let startTime = performance.now() - currentTimeSec * 1000;
+    let startTime = performance.now() - (currentTimeSec || 0) * 1000;
+    let lastTimeUpdate = 0;
 
     const render = (now: number) => {
-      let elapsedSec = (now - startTime) / 1000;
-      if (elapsedSec >= script.durationSeconds) {
-        elapsedSec = 0;
-        startTime = now;
-        lastSpokenStepIndex.current = -1;
-      }
+      try {
+        let elapsedSec = (now - startTime) / 1000;
+        if (elapsedSec >= script.durationSeconds) {
+          elapsedSec = 0;
+          startTime = now;
+          lastSpokenStepIndex.current = -1;
+        }
 
-      if (isPlaying) {
-        setCurrentTimeSec(elapsedSec);
-      }
+        if (isPlaying && (now - lastTimeUpdate > 120)) {
+          lastTimeUpdate = now;
+          setCurrentTimeSec(elapsedSec);
+        }
 
-      const w = canvas.width;
-      const h = canvas.height;
-      const progress = elapsedSec / script.durationSeconds;
-      const activeStep = script.steps.find(s => elapsedSec >= s.startSec && elapsedSec < s.endSec) || script.steps[0];
-      const isProblemPhase = activeStep.badgeType === 'problem' || activeStep.badgeType === 'analysis';
+        const w = canvas.width;
+        const h = canvas.height;
+        const progress = Math.min(Math.max(elapsedSec / script.durationSeconds, 0), 1);
+        const activeStep = script.steps.find(s => elapsedSec >= s.startSec && elapsedSec < s.endSec) || script.steps[0];
+        const isProblemPhase = activeStep.badgeType === 'problem' || activeStep.badgeType === 'analysis';
 
       // 1. Cinema Dark Gradient Background
       const bgGradient = ctx.createLinearGradient(0, 0, w, h);
@@ -442,9 +548,278 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
       ctx.font = 'bold 11px monospace';
       ctx.fillText(activeStep.phaseLabel, w - 204, 33);
 
-      // 4. ANIMATED PHYSICAL 2D VISUALIZATION
+      // 4. ANIMATED PHYSICAL 3D / 2D VISUALIZATION
+      // SCENARIO 0: 3D LIDAR SLAM STUDIO IN PROGRESS
+      if (selectedScenarioId === 'slam_3d_in_progress') {
+        // 3D Isometric projection helper
+        const originX = 265;
+        const originY = 275;
+        const iso = (x: number, y: number, z: number) => ({
+          sx: originX + (x - y) * 0.866 * 0.70,
+          sy: originY + (x + y) * 0.5 * 0.70 * 0.62 - z * 0.70
+        });
+
+        // 4.1 Ground Plane Grid (Isometric)
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 1;
+        for (let gx = -130; gx <= 170; gx += 30) {
+          const p1 = iso(gx, -130, 0);
+          const p2 = iso(gx, 170, 0);
+          ctx.beginPath();
+          ctx.moveTo(p1.sx, p1.sy);
+          ctx.lineTo(p2.sx, p2.sy);
+          ctx.stroke();
+        }
+        for (let gy = -130; gy <= 170; gy += 30) {
+          const p1 = iso(-130, gy, 0);
+          const p2 = iso(170, gy, 0);
+          ctx.beginPath();
+          ctx.moveTo(p1.sx, p1.sy);
+          ctx.lineTo(p2.sx, p2.sy);
+          ctx.stroke();
+        }
+
+        // Coordinate axes
+        const oCenter = iso(0, 0, 0);
+        const xEnd = iso(45, 0, 0);
+        const yEnd = iso(0, 45, 0);
+        const zEnd = iso(0, 0, 45);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#f43f5e';
+        ctx.beginPath(); ctx.moveTo(oCenter.sx, oCenter.sy); ctx.lineTo(xEnd.sx, xEnd.sy); ctx.stroke();
+        ctx.strokeStyle = '#10b981';
+        ctx.beginPath(); ctx.moveTo(oCenter.sx, oCenter.sy); ctx.lineTo(yEnd.sx, yEnd.sy); ctx.stroke();
+        ctx.strokeStyle = '#38bdf8';
+        ctx.beginPath(); ctx.moveTo(oCenter.sx, oCenter.sy); ctx.lineTo(zEnd.sx, zEnd.sy); ctx.stroke();
+
+        // 4.2 Helper function to draw 3D extruded bounding obstacle boxes
+        const drawBox3D = (bx: number, by: number, bw: number, bh: number, bz: number, fillTop: string, fillSide: string) => {
+          // Bottom vertices
+          const b0 = iso(bx, by, 0);
+          const b1 = iso(bx + bw, by, 0);
+          const b2 = iso(bx + bw, by + bh, 0);
+          const b3 = iso(bx, by + bh, 0);
+          // Top vertices
+          const t0 = iso(bx, by, bz);
+          const t1 = iso(bx + bw, by, bz);
+          const t2 = iso(bx + bw, by + bh, bz);
+          const t3 = iso(bx, by + bh, bz);
+
+          // Left / Front Face
+          ctx.fillStyle = fillSide;
+          ctx.beginPath();
+          ctx.moveTo(b0.sx, b0.sy);
+          ctx.lineTo(b1.sx, b1.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.lineTo(t0.sx, t0.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = '#334155';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Right Face
+          ctx.fillStyle = fillSide;
+          ctx.beginPath();
+          ctx.moveTo(b1.sx, b1.sy);
+          ctx.lineTo(b2.sx, b2.sy);
+          ctx.lineTo(t2.sx, t2.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+
+          // Top Face
+          ctx.fillStyle = fillTop;
+          ctx.beginPath();
+          ctx.moveTo(t0.sx, t0.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.lineTo(t2.sx, t2.sy);
+          ctx.lineTo(t3.sx, t3.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        };
+
+        // Draw 3D Arena Obstacles
+        drawBox3D(10, 10, 55, 55, 65, '#1e293b', '#0f172a');    // Central Pillar Machinery
+        drawBox3D(-85, 40, 20, 80, 50, '#1e293b', '#0f172a');   // Left Wall Partition
+        drawBox3D(75, -80, 55, 40, 42, '#1e293b', '#0f172a');   // Corner Cargo Container
+
+        // 4.3 Autonomous Mobile Robot Navigation Loop
+        const loopRate = 0.95;
+        const robotAngle = elapsedSec * loopRate;
+        const radiusX = 115;
+        const radiusY = 95;
+        const rx = 10 + Math.cos(robotAngle) * radiusX;
+        const ry = 10 + Math.sin(robotAngle) * radiusY;
+
+        // Ground-Truth Trajectory Ribbon in 3D
+        ctx.strokeStyle = '#06b6d4';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        for (let a = 0; a <= Math.PI * 2; a += 0.2) {
+          const tx = 10 + Math.cos(a) * radiusX;
+          const ty = 10 + Math.sin(a) * radiusY;
+          const pt = iso(tx, ty, 0);
+          if (a === 0) ctx.moveTo(pt.sx, pt.sy);
+          else ctx.lineTo(pt.sx, pt.sy);
+        }
+        ctx.closePath();
+        ctx.stroke();
+
+        // 4.4 Odometry Drift (Problem Phase) vs Ceres Loop Closure Snap (AI Fix Phase)
+        const hasLoopClosed = elapsedSec >= 6.0;
+        let odomX = rx;
+        let odomY = ry;
+
+        if (!hasLoopClosed) {
+          // Drifts progressively outward due to wheel slip and noise
+          const driftMag = Math.min((elapsedSec / 6.0) * 45, 45);
+          odomX = rx + Math.cos(robotAngle - 0.7) * driftMag;
+          odomY = ry + Math.sin(robotAngle - 0.7) * driftMag;
+
+          // Draw noisy divergent path (red dashed)
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([5, 4]);
+          ctx.beginPath();
+          const rPt = iso(rx, ry, 0);
+          const oPt = iso(odomX, odomY, 0);
+          ctx.moveTo(rPt.sx, rPt.sy);
+          ctx.lineTo(oPt.sx, oPt.sy);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Drift ghost marker
+          ctx.fillStyle = 'rgba(244, 63, 94, 0.4)';
+          ctx.beginPath();
+          ctx.arc(oPt.sx, oPt.sy, 8, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          // Ceres Loop Closure Optimization Engaged
+          const loopKeyframe = iso(10 + radiusX, 10, 0);
+          const currPt = iso(rx, ry, 0);
+
+          // Pulsing Ceres constraint laser link
+          const pulse = Math.sin(elapsedSec * 12.0) * 0.5 + 0.5;
+          ctx.strokeStyle = `rgba(236, 72, 153, ${0.4 + pulse * 0.6})`;
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(loopKeyframe.sx, loopKeyframe.sy);
+          ctx.lineTo(currPt.sx, currPt.sy);
+          ctx.stroke();
+
+          // Optimization convergence ripple ring
+          if (elapsedSec >= 6.0 && elapsedSec <= 8.5) {
+            const rippleR = ((elapsedSec - 6.0) / 2.5) * 80;
+            ctx.strokeStyle = `rgba(6, 182, 212, ${1 - (elapsedSec - 6.0) / 2.5})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(currPt.sx, currPt.sy, rippleR, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+
+        // 4.5 Mapped 3D Occupancy Grid Voxels (Green/Cyan elevation blocks)
+        const voxels = [
+          { x: 10, y: 70, z: 12 }, { x: 30, y: 70, z: 12 }, { x: 50, y: 70, z: 12 },
+          { x: -85, y: 125, z: 14 }, { x: -65, y: 125, z: 14 }, { x: -85, y: 35, z: 14 },
+          { x: 75, y: -40, z: 10 }, { x: 95, y: -40, z: 10 }, { x: 115, y: -40, z: 10 }
+        ];
+        voxels.forEach(v => {
+          const pt = iso(v.x, v.y, v.z);
+          ctx.fillStyle = hasLoopClosed ? '#059669' : '#0284c7';
+          ctx.fillRect(pt.sx - 4, pt.sy - 4, 8, 8);
+          ctx.strokeStyle = hasLoopClosed ? '#34d399' : '#38bdf8';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(pt.sx - 4, pt.sy - 4, 8, 8);
+        });
+
+        // 4.6 360° 3D LiDAR Raycasting & Point Cloud from Robot Puck
+        const robotBase = iso(rx, ry, 0);
+        const robotDeck = iso(rx, ry, 14);
+        const lidarPuck = iso(rx, ry, 28);
+
+        // 3D Robot Chassis
+        ctx.fillStyle = '#334155';
+        ctx.beginPath();
+        ctx.arc(robotBase.sx, robotBase.sy, 12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Upper deck
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(robotDeck.sx, robotDeck.sy, 9, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Spinning 3D LiDAR puck
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.arc(lidarPuck.sx, lidarPuck.sy, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Direction vector arrow
+        const headingAngle = robotAngle + Math.PI / 2;
+        const dirPt = iso(rx + Math.cos(headingAngle) * 25, ry + Math.sin(headingAngle) * 25, 0);
+        ctx.strokeStyle = '#10b981';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(robotBase.sx, robotBase.sy);
+        ctx.lineTo(dirPt.sx, dirPt.sy);
+        ctx.stroke();
+
+        // Sweeping 3D LiDAR laser beams
+        const beamCount = 32;
+        const puckSpin = elapsedSec * 24.0;
+        for (let b = 0; b < beamCount; b++) {
+          const bAngle = puckSpin + (b / beamCount) * Math.PI * 2;
+          const beamElevation = Math.sin(b * 0.75 + elapsedSec * 5.0) * 22;
+          const beamRange = 90 + (b % 4) * 22;
+          const hitX = rx + Math.cos(bAngle) * beamRange;
+          const hitY = ry + Math.sin(bAngle) * beamRange;
+          const hitPt = iso(hitX, hitY, Math.max(0, beamElevation));
+
+          // Laser beam ray
+          ctx.strokeStyle = b % 2 === 0 ? 'rgba(56, 189, 248, 0.45)' : 'rgba(52, 211, 153, 0.35)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(lidarPuck.sx, lidarPuck.sy);
+          ctx.lineTo(hitPt.sx, hitPt.sy);
+          ctx.stroke();
+
+          // Laser impact 3D point cloud dot
+          ctx.fillStyle = b % 3 === 0 ? '#38bdf8' : b % 3 === 1 ? '#34d399' : '#a855f7';
+          ctx.beginPath();
+          ctx.arc(hitPt.sx, hitPt.sy, 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 4.7 3D HUD Badge in Canvas Viewport
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.fillRect(20, 70, 240, 52);
+        ctx.strokeStyle = '#334155';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(20, 70, 240, 52);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 11px monospace';
+        ctx.fillText('3D LiDAR SLAM · ENGINE ACTIVE', 30, 88);
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '10px monospace';
+        ctx.fillText(hasLoopClosed ? 'Ceres Solver: CONVERGED (4.2mm)' : 'Wheel Odom: ACCUMULATING DRIFT', 30, 108);
+      }
+
       // SCENARIO 1: GRIPPER SLIP RECTIFICATION
-      if (selectedScenarioId === 'tactile_slip_fix') {
+      else if (selectedScenarioId === 'tactile_slip_fix') {
         const baseX = 180;
         const baseY = 290;
         const link1 = 140;
@@ -622,6 +997,9 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
       ctx.fillRect(0, h - 6, w, 6);
       ctx.fillStyle = badgeColor;
       ctx.fillRect(0, h - 6, w * progress, 6);
+      } catch (err) {
+        console.error('Video canvas render frame error:', err);
+      }
 
       if (isPlaying) {
         animationFrameRef.current = requestAnimationFrame(render);
@@ -751,7 +1129,7 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
       )}
 
       {/* Scenario Picker Selector Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {(Object.keys(DEMO_SCRIPTS) as DemoScenarioId[]).map((id) => {
           const item = DEMO_SCRIPTS[id];
           const isSelected = selectedScenarioId === id;

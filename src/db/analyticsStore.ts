@@ -382,6 +382,7 @@ class AnalyticsStore {
 
     const tabLabelMap: Record<string, string> = {
       landing: 'Landing Overview',
+      tutorials: 'Tutorials, Project Library & Showcase',
       simulator: '5-Layer Physical AI Engine',
       flywheel: 'Embodied AI Data Flywheel',
       coanda: 'Coandă Fluidic Digital Twin',

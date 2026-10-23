@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle, BookOpen
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -32,6 +32,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'landing',
     label: 'Overview',
     icon: Globe
+  },
+  {
+    id: 'tab-tutorials',
+    tab: 'tutorials',
+    label: 'Tutorials & Showcase',
+    icon: BookOpen
   },
   {
     id: 'tab-simulator',

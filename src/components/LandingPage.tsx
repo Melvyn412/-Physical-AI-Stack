@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -36,6 +36,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const hazardReductionPercent = 99.8;
 
   const servicesList = [
+    {
+      id: 'tutorials',
+      title: 'Hands-On Interactive Tutorials & Project Library',
+      category: 'Guided Labs & Production Blueprints',
+      icon: BookOpen,
+      badge: 'Interactive Hub · 18+ Studios',
+      badgeColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      description: 'Run interactive hands-on labs with live parameter tuning and automated step verification. Explore 6 production-grade robotics blueprints with ROS 2 / Isaac Sim commands and launch any of our 18+ specialized studios.',
+      deliverables: [
+        'Hands-on interactive tutorials with live tuning & step verification',
+        '6 production blueprints (warehouse cobots, AMR swarms, surgical wrists, Coandă jets, defence rovers)',
+        'Full directory of 18+ physical AI studios with 1-click launch',
+        'Filterable by Industrial, Medical, Mobile, and Aerospace/Defence'
+      ],
+      targetTab: 'tutorials' as ActiveTab,
+      btnText: 'Open Tutorials & Showcase'
+    },
     {
       id: 'simulation',
       title: '5-Layer Physical AI Reasoning Engine',
@@ -603,6 +620,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <span>Take Interactive Tour</span>
               </button>
             )}
+
+            {/* Hands-On Tutorials & Project Library Button */}
+            <button
+              onClick={() => onNavigate('tutorials')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-indigo-950/70 hover:bg-indigo-900 text-indigo-300 border border-indigo-500/50 hover:border-indigo-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-indigo-500/15 hover:scale-[1.02] cursor-pointer"
+            >
+              <BookOpen className="w-4 h-4 text-indigo-400" />
+              <span>Tutorials & Project Library</span>
+            </button>
 
             {/* Prominent Pricing & Plans Button */}
             <button

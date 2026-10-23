@@ -31,6 +31,7 @@ import { SurgicalRoboticsVVStudio } from './components/SurgicalRoboticsVVStudio'
 import { DefenseRoboticsAssuranceStudio } from './components/DefenseRoboticsAssuranceStudio';
 import { SecureDeploymentArchitectureStudio } from './components/SecureDeploymentArchitectureStudio';
 import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio';
+import { TutorialsAndShowcaseStudio } from './components/TutorialsAndShowcaseStudio';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -127,6 +128,13 @@ export default function App() {
           />
         )}
 
+        {activeTab === 'tutorials' && (
+          <TutorialsAndShowcaseStudio
+            onNavigateTab={setActiveTab}
+            onOpenProTrial={() => setIsTrialModalOpen(true)}
+          />
+        )}
+
         {activeTab === 'simulator' && (
           <div className="space-y-10">
             <ObjectiveExecutor
@@ -160,6 +168,7 @@ export default function App() {
           <SlamStudio
             onOpenBarrier={setBarrierModalData}
             onNavigateToPricing={() => setActiveTab('pricing')}
+            onOpenVideoStudio={() => setActiveTab('video-producer')}
           />
         )}
 

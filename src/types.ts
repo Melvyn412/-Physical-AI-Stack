@@ -27,6 +27,7 @@ export type ActiveTab =
   | 'defense-pack'
   | 'secure-deployment'
   | 'video-producer'
+  | 'tutorials'
   | 'analytics';
 
 export type InnovationModuleId = 

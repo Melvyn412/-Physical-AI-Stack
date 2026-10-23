@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Sparkles, ArrowRight, ArrowLeft, Check, X, Play, Shield, Cpu,
   Database, Stethoscope, Server, Sliders, Target, GitFork, RefreshCw,
-  ExternalLink, HelpCircle, Layers, CheckCircle2, Zap, Calendar, AlertOctagon, Terminal
+  ExternalLink, HelpCircle, Layers, CheckCircle2, Zap, Calendar, AlertOctagon, Terminal, BookOpen
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 
@@ -129,6 +129,24 @@ const TOUR_STEPS: TourStep[] = [
     tabLabel: 'Edge-to-Cloud & Export',
     icon: Server,
     proTip: 'Visit the "Export" or "Edge-to-Cloud" tabs to download ready-to-run ROS 2 launch files.'
+  },
+  {
+    id: 'step_7_tutorials',
+    stepNumber: 7,
+    category: 'Hands-On Labs & Project Library',
+    title: 'Interactive Tutorials, Project Blueprints & Tool Showcase',
+    badge: '18+ Studios Hub',
+    badgeColor: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/30',
+    description: 'Practice with guided step-by-step interactive labs, load production-ready robotics blueprints (Cobot workcell, AMR swarm, laparoscopic wrist, Coandă jet, defence rover), and launch any of our 18+ specialized physical AI studios.',
+    keyFeatures: [
+      'Interactive parameter sliders with live step verification & syntax-highlighted code',
+      '6 production blueprints complete with ROS 2 and Isaac Sim CLI bringup commands',
+      'Instant 1-click launcher for all 18+ specialized simulation & verification studios'
+    ],
+    targetTab: 'tutorials',
+    tabLabel: 'Tutorials & Showcase',
+    icon: BookOpen,
+    proTip: 'Head to "Tutorials & Showcase" in the top navigation bar to explore all guided labs anytime!'
   }
 ];
 
