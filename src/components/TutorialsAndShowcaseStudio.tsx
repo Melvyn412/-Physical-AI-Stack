@@ -774,6 +774,25 @@ const PLATFORM_TOOLS: PlatformToolShowcase[] = [
     ],
     supportedStandards: ['HTML5 WebM VP9', 'MediaRecorder API', 'Web Speech API', '16:9 Landscape HD'],
     outputArtifacts: ['simulation_demo.webm', 'social_media_post.txt', 'university_outreach_email.txt']
+  },
+  {
+    id: 'tool-innovations-lab',
+    title: 'Next-Gen Innovations Lab (13 SOTA Breakthroughs)',
+    category: 'Bleeding-Edge Physical AI',
+    targetTab: 'innovations',
+    icon: Sparkles,
+    oneLiner: '13 cutting-edge physical AI modules including 3DGS, 28-DOF Humanoid Teleop, Soft Continuum, and FNO Aerodynamics.',
+    description: 'Interactive sandbox housing 13 cutting-edge physical AI research breakthroughs: 4D Gaussian Splatting radiance twins, 28-DOF humanoid bimanual force-reflection teleop, Cosserat soft catheter mechanics, 77 GHz NLOS radar, real-time FNO Navier-Stokes, CBBA mesh swarms, and coupled battery degradation.',
+    capabilities: [
+      '4D Gaussian Splatting (3DGS) 120+ FPS radiance fields & sub-mm SDF collision mesh',
+      'Whole-body humanoid bimanual teleop with wave passivity bilateral force reflection',
+      'Soft continuum catheter mechanics (Cosserat PDEs with FDA puncture guardrails)',
+      '77 GHz FMCW micro-Doppler radar & 64-element acoustic phased array in 100% brownout',
+      'Fourier Neural Operator (FNO) Navier-Stokes aerodynamic solver in 1.8 milliseconds',
+      'Decentralized CBBA mesh swarm task bidding & electro-thermal battery drop simulation'
+    ],
+    supportedStandards: ['NVIDIA Isaac Sim USD', 'ROS 2 Humble C++20', 'PyTorch TensorRT', 'Cosserat PDE', 'FDA ISO 14971'],
+    outputArtifacts: ['gaussian_splat_world.ply', 'humanoid_teleop_node.cpp', 'cosserat_solver.cpp', 'fno_aero_weights.pt']
   }
 ];
 

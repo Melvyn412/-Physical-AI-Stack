@@ -36,7 +36,14 @@ export type InnovationModuleId =
   | 'gps-denied'
   | 'sim2real-cert'
   | 'firmware-synth'
-  | 'neuromorphic-dvs';
+  | 'neuromorphic-dvs'
+  | 'gaussian-splatting'
+  | 'humanoid-teleop'
+  | 'soft-continuum'
+  | 'nlos-radar-acoustic'
+  | 'fno-aerodynamics'
+  | 'mesh-swarm-consensus'
+  | 'electro-thermal-battery';
 
 export interface VisitorSessionEvent {
   id: string;

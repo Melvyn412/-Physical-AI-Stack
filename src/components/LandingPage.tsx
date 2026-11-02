@@ -3,7 +3,7 @@ import {
   Cpu, Activity, Terminal, Network, Box, ShieldCheck, Sparkles, 
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
-  Calculator, ChevronDown, DollarSign, ExternalLink, Compass, Sliders,
+  Calculator, ChevronDown, ExternalLink, Compass, Sliders,
   Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen
 } from 'lucide-react';
 import { ActiveTab } from '../types';
@@ -92,16 +92,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       title: 'Next-Gen Innovations Lab (2025–2026 SOTA)',
       category: 'Physical AI & Cutting-Edge Autonomy',
       icon: Sparkles,
-      badge: '6 Bleeding-Edge Modules',
+      badge: '13 Bleeding-Edge Modules',
       badgeColor: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
-      description: '6 state-of-the-art physical AI breakthroughs: VLA foundation model distillation to 1000 Hz, <3ms optical tactile slip reflex, GPS-denied & EW navigation, Sim2Real digital certification, bare-metal EtherCAT firmware, and neuromorphic DVS vision.',
+      description: '13 state-of-the-art physical AI breakthroughs: 4D Gaussian Splatting (3DGS), 28-DOF humanoid bimanual teleop, soft continuum catheter mechanics, 77 GHz NLOS radar, real-time FNO aerodynamics, CBBA mesh swarms, electro-thermal batteries, VLA distillation, tactile reflexes, and microsecond DVS vision.',
       deliverables: [
-        'VLA Action Distillation (OpenVLA / Octo / π₀ continuous joint flows)',
-        'Optical Tactile Array & <3ms closed-loop micro-slip reflex governor',
-        'Electronic-Warfare & GPS-denied VIO + UWB swarm navigation',
-        'Sim2Real Monte Carlo certification (ISO 26262, IEC 62304, MIL-STD-810H)',
-        'Bare-metal C++20 / Rust firmware synthesizer for STM32, TI & Orin',
-        'Event-based neuromorphic vision (DVS) with zero motion blur'
+        '4D Gaussian Splatting (3DGS) 120+ FPS radiance field world twin & sub-mm SDF mesh',
+        '28-DOF Humanoid bilateral force reflection teleoperation with wave passivity',
+        'Soft continuum catheter mechanics (Cosserat PDEs with FDA puncture guardrails)',
+        '77 GHz FMCW radar & 64-element acoustic phased-array non-line-of-sight sensing',
+        'Fourier Neural Operator (FNO / PINN) solving Navier-Stokes in 1.8 milliseconds',
+        'Decentralized CBBA mesh swarm task allocation & electro-thermal battery physics'
       ],
       targetTab: 'innovations' as ActiveTab,
       btnText: 'Explore Innovations Lab'
@@ -630,15 +630,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <span>Tutorials & Project Library</span>
             </button>
 
-            {/* Prominent Pricing & Plans Button */}
-            <button
-              onClick={() => onNavigate('pricing')}
-              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-sm transition-all shadow-xl shadow-amber-500/20 hover:scale-[1.02] cursor-pointer"
-            >
-              <DollarSign className="w-4 h-4 text-slate-950 stroke-[3]" />
-              <span>View Pricing & Enterprise Plans</span>
-            </button>
-
             <button
               onClick={onOpenCustomModal}
               className="flex items-center gap-2 px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-bold rounded-2xl text-sm transition-all shadow-md cursor-pointer"
@@ -705,153 +696,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* 2. Prominent Pricing & Plans Showcase Section */}
-      <section className="bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-10 space-y-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border-b border-slate-800 pb-8 relative z-10">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-xs font-mono font-bold">
-              <DollarSign className="w-3.5 h-3.5 text-amber-400" />
-              <span>Transparent Pricing & Licensing</span>
-            </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-tight">
-              Flexible Plans for Startups to Defense Primes
-            </h2>
-            <p className="text-sm text-slate-400 max-w-2xl font-sans">
-              Choose the right tier to accelerate your robotics development. All plans include 1000 Hz physics simulation, ROS 2 export, and compliance audits.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            {onOpenProTrialModal ? (
-              <button
-                onClick={onOpenProTrialModal}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition cursor-pointer"
-              >
-                <Zap className="w-4 h-4" />
-                <span>Start 14-Day Free Trial</span>
-              </button>
-            ) : null}
-
-            <button
-              onClick={() => onNavigate('pricing')}
-              className="flex items-center gap-2 px-5 py-2.5 bg-slate-950 border border-slate-700 hover:border-amber-400 text-slate-200 hover:text-white font-mono font-bold text-xs rounded-xl transition cursor-pointer"
-            >
-              <span>Compare All Plan Details</span>
-              <ArrowRight className="w-4 h-4 text-amber-400" />
-            </button>
-          </div>
-        </div>
-
-        {/* 3 Featured Pricing Plan Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-          {/* Plan 1: Developer */}
-          <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 space-y-5 flex flex-col justify-between transition-all">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">Developer</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300">Free Tier</span>
-              </div>
-              <div>
-                <div className="text-3xl font-extrabold text-white font-mono">£0</div>
-                <div className="text-xs text-slate-500 font-mono mt-0.5">Free forever / Sandbox evaluation</div>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Ideal for individual researchers and hardware prototyping engineers exploring physical reasoning.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-900 pt-4">
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 100 daily simulation syntheses</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 5-Layer stack visualization</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Community ROS 2 export</li>
-              </ul>
-            </div>
-
-            <button
-              onClick={() => onNavigate('pricing')}
-              className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-mono text-xs font-bold border border-slate-800 transition cursor-pointer"
-            >
-              Current Plan
-            </button>
-          </div>
-
-          {/* Plan 2: Pro (Highlighted) */}
-          <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-2 border-emerald-500/60 shadow-xl shadow-emerald-500/10 space-y-5 flex flex-col justify-between relative">
-            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-mono font-black text-[10px] uppercase tracking-wider shadow-md">
-              Most Popular
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Professional</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">14-Day Free Trial</span>
-              </div>
-              <div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-white font-mono">£2,500</span>
-                  <span className="text-xs text-slate-400 font-mono">/month</span>
-                </div>
-                <div className="text-xs text-emerald-400 font-mono mt-0.5">Includes full 14-day zero-risk trial</div>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Full-stack physical AI for growing robotics teams shipping commercial manipulators and drones.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-200 font-sans border-t border-slate-900 pt-4">
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> <strong>1,000 daily compute units</strong></li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Coandă & Twin Trust calibration loops</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> 1-click V&V Evidence Pack export</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-emerald-400" /> Automated Fault-Injection & Sobol Search</li>
-              </ul>
-            </div>
-
-            <button
-              onClick={() => {
-                if (onOpenProTrialModal) onOpenProTrialModal();
-                else onNavigate('pricing');
-              }}
-              className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs font-black shadow-lg shadow-emerald-500/25 transition cursor-pointer"
-            >
-              Start 14-Day Free Pro Trial
-            </button>
-          </div>
-
-          {/* Plan 3: Enterprise */}
-          <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 space-y-5 flex flex-col justify-between transition-all">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Enterprise Air-Gapped</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/30">Defense & Regulated</span>
-              </div>
-              <div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-white font-mono">£100,000</span>
-                  <span className="text-xs text-slate-400 font-mono">/month</span>
-                </div>
-                <div className="text-xs text-slate-500 font-mono mt-0.5">Air-gapped VPC / Dedicated Cluster</div>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Mission-critical deployments for aerospace primes, defense contractors, and medical device leaders.
-              </p>
-              <ul className="space-y-2 text-xs text-slate-300 font-sans border-t border-slate-900 pt-4">
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> Unlimited parallel simulation rollouts</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> Air-gapped on-premise Kubernetes cluster</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> ISO 10218, IEC 62304 & MIL-STD audits</li>
-                <li className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-amber-400" /> 15-minute SLA dedicated robotics engineer</li>
-              </ul>
-            </div>
-
-            <button
-              onClick={() => onNavigate('pricing')}
-              className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-mono text-xs font-bold border border-slate-800 hover:border-amber-400/50 transition cursor-pointer"
-            >
-              Contact Enterprise Sales
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Core Services Offered Section */}
+      {/* 2. Core Services Offered Section */}
       <section className="space-y-8">
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 text-xs font-mono font-semibold">
@@ -937,11 +782,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
 
           <button
-            onClick={() => onNavigate('pricing')}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold text-xs rounded-xl hover:bg-emerald-500/30 transition-all"
+            onClick={() => onNavigate('mechanism-sim')}
+            className="flex items-center gap-2 px-4 py-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold text-xs rounded-xl hover:bg-emerald-500/30 transition-all cursor-pointer"
           >
-            <DollarSign className="w-4 h-4 text-emerald-400" />
-            <span>View Pricing & API Plans</span>
+            <Cpu className="w-4 h-4 text-emerald-400" />
+            <span>Simulate Mechanism & Savings</span>
           </button>
         </div>
 

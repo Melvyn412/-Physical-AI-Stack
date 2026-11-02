@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Sparkles, Brain, Fingerprint, Radio, Award, Cpu, Eye, 
-  ChevronRight, ArrowUpRight, Zap, ShieldCheck, Download, Share2
+  ChevronRight, ArrowUpRight, Zap, ShieldCheck, Download, Share2,
+  Hand, Stethoscope, Wind, Network, BatteryCharging, Box, Waves
 } from 'lucide-react';
 import { InnovationModuleId, ActiveTab } from '../types';
 import { VlaDistillationStudio } from './innovations/VlaDistillationStudio';
@@ -10,6 +11,13 @@ import { GpsDeniedNavStudio } from './innovations/GpsDeniedNavStudio';
 import { Sim2RealCertStudio } from './innovations/Sim2RealCertStudio';
 import { FirmwareSynthStudio } from './innovations/FirmwareSynthStudio';
 import { NeuromorphicDvsStudio } from './innovations/NeuromorphicDvsStudio';
+import { GaussianSplattingStudio } from './innovations/GaussianSplattingStudio';
+import { HumanoidTeleopStudio } from './innovations/HumanoidTeleopStudio';
+import { SoftContinuumStudio } from './innovations/SoftContinuumStudio';
+import { NlosRadarAcousticStudio } from './innovations/NlosRadarAcousticStudio';
+import { FnoAerodynamicsStudio } from './innovations/FnoAerodynamicsStudio';
+import { MeshSwarmConsensusStudio } from './innovations/MeshSwarmConsensusStudio';
+import { ElectroThermalBatteryStudio } from './innovations/ElectroThermalBatteryStudio';
 
 interface InnovationsLabProps {
   initialModule?: InnovationModuleId;
@@ -77,6 +85,62 @@ export const InnovationsLab: React.FC<InnovationsLabProps> = ({
       icon: Eye,
       tag: 'Neuromorphic AI',
       tagColor: 'bg-blue-500/10 text-blue-300 border-blue-500/30'
+    },
+    {
+      id: 'gaussian-splatting',
+      title: '7. 4D Gaussian Splatting (3DGS)',
+      subtitle: '120+ FPS Radiance Twin & Sub-mm SDF Hull',
+      icon: Box,
+      tag: 'World Models',
+      tagColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'
+    },
+    {
+      id: 'humanoid-teleop',
+      title: '8. Humanoid Bimanual Teleop',
+      subtitle: '28-DOF Dual-Arm Bilateral Force Reflection',
+      icon: Hand,
+      tag: 'Humanoid Robotics',
+      tagColor: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30'
+    },
+    {
+      id: 'soft-continuum',
+      title: '9. Soft Robotics & Continuum',
+      subtitle: 'Cosserat Rod Catheter Mechanics & FDA Limits',
+      icon: Stethoscope,
+      tag: 'Surgical Robotics',
+      tagColor: 'bg-rose-500/10 text-rose-300 border-rose-500/30'
+    },
+    {
+      id: 'nlos-radar-acoustic',
+      title: '10. mmWave & Acoustic NLOS',
+      subtitle: '77 GHz Radar + Phased Array in 100% Smoke',
+      icon: Radio,
+      tag: 'Contested Perception',
+      tagColor: 'bg-amber-500/10 text-amber-300 border-amber-500/30'
+    },
+    {
+      id: 'fno-aerodynamics',
+      title: '11. FNO Real-Time Aerodynamics',
+      subtitle: '1.8ms Navier-Stokes Replacing 6h OpenFOAM',
+      icon: Wind,
+      tag: 'Aerospace & eVTOL',
+      tagColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30'
+    },
+    {
+      id: 'mesh-swarm-consensus',
+      title: '12. Mesh Swarm Consensus',
+      subtitle: 'P2P CBBA Auction Bidding with Zero Server',
+      icon: Network,
+      tag: 'Swarm Intelligence',
+      tagColor: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+    },
+    {
+      id: 'electro-thermal-battery',
+      title: '13. Electro-Thermal Battery & Drop',
+      subtitle: 'Thevenin 2-RC Sag Model & High-G Crash Shock',
+      icon: BatteryCharging,
+      tag: 'Hardware Protection',
+      tagColor: 'bg-amber-500/10 text-amber-300 border-amber-500/30'
     }
   ];
 
@@ -96,7 +160,7 @@ export const InnovationsLab: React.FC<InnovationsLabProps> = ({
               AIGenesis Innovations Lab (2025–2026 SOTA)
             </h1>
             <p className="text-sm text-slate-300 font-sans max-w-3xl leading-relaxed">
-              Explore 6 bleeding-edge physical intelligence breakthroughs: from VLA foundation model distillation to &lt;3ms tactile slip reflexes, EW-hardened navigation, Sim2Real digital verification, bare-metal EtherCAT firmware, and neuromorphic DVS vision.
+              Explore 13 bleeding-edge physical intelligence breakthroughs: from VLA foundation models and 4D Gaussian Splatting to 28-DOF humanoid teleoperation, soft continuum catheter mechanics, 77 GHz NLOS radar, real-time Fourier Neural Operators, decentralized CBBA swarms, and coupled electro-thermal battery physics.
             </p>
           </div>
 
@@ -107,13 +171,13 @@ export const InnovationsLab: React.FC<InnovationsLabProps> = ({
             </div>
             <div className="p-3 bg-slate-950/80 border border-slate-800 rounded-2xl text-center">
               <span className="text-[10px] text-slate-500 block uppercase">Innovations Active</span>
-              <span className="text-emerald-400 font-extrabold text-sm">6 / 6 Modules</span>
+              <span className="text-emerald-400 font-extrabold text-sm">13 / 13 Modules</span>
             </div>
           </div>
         </div>
 
-        {/* 6 Innovations Navigation Pills */}
-        <div className="pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        {/* 13 Innovations Navigation Grid */}
+        <div className="pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-2">
           {MODULES.map((mod) => {
             const IconComponent = mod.icon;
             const isSelected = activeModule === mod.id;
@@ -151,6 +215,13 @@ export const InnovationsLab: React.FC<InnovationsLabProps> = ({
         {activeModule === 'sim2real-cert' && <Sim2RealCertStudio />}
         {activeModule === 'firmware-synth' && <FirmwareSynthStudio />}
         {activeModule === 'neuromorphic-dvs' && <NeuromorphicDvsStudio />}
+        {activeModule === 'gaussian-splatting' && <GaussianSplattingStudio />}
+        {activeModule === 'humanoid-teleop' && <HumanoidTeleopStudio />}
+        {activeModule === 'soft-continuum' && <SoftContinuumStudio />}
+        {activeModule === 'nlos-radar-acoustic' && <NlosRadarAcousticStudio />}
+        {activeModule === 'fno-aerodynamics' && <FnoAerodynamicsStudio />}
+        {activeModule === 'mesh-swarm-consensus' && <MeshSwarmConsensusStudio />}
+        {activeModule === 'electro-thermal-battery' && <ElectroThermalBatteryStudio />}
       </div>
     </div>
   );
