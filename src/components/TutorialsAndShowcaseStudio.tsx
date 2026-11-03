@@ -3,7 +3,7 @@ import {
   BookOpen, FolderGit2, Layers, Search, Filter, Play, CheckCircle2,
   ExternalLink, Download, Copy, Check, ArrowRight, Sparkles, Sliders,
   Compass, Target, GitFork, Database, Stethoscope, Shield, Server,
-  Cpu, Activity, Zap, RefreshCw, Terminal, Eye, Boxes, Award, AlertTriangle, Film
+  Cpu, Activity, Zap, RefreshCw, Terminal, Eye, Boxes, Award, AlertTriangle, Film, Globe
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 
@@ -793,6 +793,25 @@ const PLATFORM_TOOLS: PlatformToolShowcase[] = [
     ],
     supportedStandards: ['NVIDIA Isaac Sim USD', 'ROS 2 Humble C++20', 'PyTorch TensorRT', 'Cosserat PDE', 'FDA ISO 14971'],
     outputArtifacts: ['gaussian_splat_world.ply', 'humanoid_teleop_node.cpp', 'cosserat_solver.cpp', 'fno_aero_weights.pt']
+  },
+  {
+    id: 'tool-fleet-command',
+    title: 'Global Fleet Operations & Live Hardware Command Deck',
+    category: 'Planetary Fleet & Physical Hardware Rig',
+    targetTab: 'fleet-command',
+    icon: Globe,
+    oneLiner: 'Orchestrates 162+ robots, direct WebSerial/WebHID 6-DoF, BLDC Dyno FOC auto-tuning, and Z3 SMT proofs.',
+    description: 'Enterprise physical command center. Coordinates heterogeneous robot clusters across four global theaters, interfaces directly with physical USB/WebSerial and WebHID 6-DoF SpaceMouse hardware, runs BLDC motor dyno Field-Oriented Control (FOC) auto-tuning, inverts physics parameters via rosbag2 SysID, and proves safety invariants via Z3 SMT formal methods.',
+    capabilities: [
+      'Interactive 3D tactical command globe tracking 162 robots across UK, US, North Sea, and Baltic theaters',
+      'Direct browser-to-hardware WebSerial, WebHID 6-DoF SpaceMouse, and ROS 2 WebSocket gateway',
+      'BLDC Motor Dyno & Field-Oriented Control (FOC) workbench with 3-phase current sweep & Park dq plane',
+      'Live CAN-FD and EtherCAT oscilloscope sniffer with real-time hardware fault injection',
+      'Rosbag2 and MCAP Levenberg-Marquardt physics parameter inversion reducing Sim-to-Real gap to 0.28%',
+      'Z3 SMT formal theorem prover generating audit-ready LaTeX certificates for ISO 26262 / IEC 62304'
+    ],
+    supportedStandards: ['Zenoh P2P / CycloneDDS', 'WebSerial & WebHID API', 'CAN-FD ISO 11898-1', 'ODrive FOC / Libfranka', 'Z3 Theorem Prover'],
+    outputArtifacts: ['hardware_bridge_gateway.cpp', 'motor_foc_calibration.json', 'fleet_zenoh_orchestrator.py', 'formal_safety_proof.tex']
   }
 ];
 

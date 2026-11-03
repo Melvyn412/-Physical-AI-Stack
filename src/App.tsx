@@ -32,6 +32,7 @@ import { DefenseRoboticsAssuranceStudio } from './components/DefenseRoboticsAssu
 import { SecureDeploymentArchitectureStudio } from './components/SecureDeploymentArchitectureStudio';
 import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio';
 import { TutorialsAndShowcaseStudio } from './components/TutorialsAndShowcaseStudio';
+import { EnterpriseOperationsSuite } from './components/EnterpriseOperationsSuite';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -281,6 +282,13 @@ export default function App() {
 
         {activeTab === 'video-producer' && (
           <AutoVideoGeneratorStudio />
+        )}
+
+        {(activeTab === 'fleet-command' || activeTab === 'hil-bus-sniffer' || activeTab === 'sysid-replay' || activeTab === 'formal-prover' || activeTab === 'live-hardware') && (
+          <EnterpriseOperationsSuite
+            initialMode={activeTab as any}
+            onNavigateTab={setActiveTab}
+          />
         )}
 
         {activeTab === 'pillars' && (

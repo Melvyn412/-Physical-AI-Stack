@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle, BookOpen
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle, BookOpen, Radio
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -38,6 +38,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'tutorials',
     label: 'Tutorials & Showcase',
     icon: BookOpen
+  },
+  {
+    id: 'tab-fleet-command',
+    tab: 'fleet-command',
+    label: 'Fleet Operations',
+    icon: Radio
   },
   {
     id: 'tab-simulator',
@@ -358,8 +364,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800/90 shadow-inner overflow-x-auto no-scrollbar scroll-smooth"
         >
           {NAV_ITEMS.map((item) => {
+            const isActive = 
+              activeTab === item.tab || 
+              (item.tab === 'fleet-command' && (
+                activeTab === 'hil-bus-sniffer' || 
+                activeTab === 'sysid-replay' || 
+                activeTab === 'formal-prover' || 
+                activeTab === 'live-hardware'
+              ));
             const Icon = item.icon;
-            const isActive = activeTab === item.tab;
 
             return (
               <button

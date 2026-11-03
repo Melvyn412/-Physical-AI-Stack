@@ -28,7 +28,12 @@ export type ActiveTab =
   | 'secure-deployment'
   | 'video-producer'
   | 'tutorials'
-  | 'analytics';
+  | 'analytics'
+  | 'fleet-command'
+  | 'hil-bus-sniffer'
+  | 'sysid-replay'
+  | 'formal-prover'
+  | 'live-hardware';
 
 export type InnovationModuleId = 
   | 'vla-distillation'

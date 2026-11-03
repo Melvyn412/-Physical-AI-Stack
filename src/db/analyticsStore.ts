@@ -404,6 +404,11 @@ class AnalyticsStore {
       'defense-pack': 'Defence Robotics Assurance Studio',
       'secure-deployment': 'Secure Edge-to-Cloud Deployment Studio',
       'video-producer': 'Automated Video Production Studio',
+      'fleet-command': 'Global Fleet Operations & Command Deck',
+      'hil-bus-sniffer': 'HiL CAN-FD & EtherCAT Bus Sniffer',
+      'sysid-replay': 'Auto-SysID & Rosbag2 Ingestion Studio',
+      'formal-prover': 'Formal Methods & Lyapunov Safety Prover',
+      'live-hardware': 'Live Hardware Gateway & Actuator Dyno Studio',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

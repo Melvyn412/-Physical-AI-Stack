@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -36,6 +36,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const hazardReductionPercent = 99.8;
 
   const servicesList = [
+    {
+      id: 'fleet-command',
+      title: 'Global Fleet Operations & Live Hardware Command Suite',
+      category: 'Planetary Fleet Ops & Physical Hardware Rig',
+      icon: Radio,
+      badge: '162 Units · Live WebSerial & FOC',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'Orchestrate 162+ autonomous robots worldwide on an interactive 3D tactical command globe, interface directly with physical hardware via WebSerial and WebHID 6-DoF, auto-tune BLDC motor dynos at 20 kHz FOC, invert friction via rosbag2 SysID, and prove safety via Z3 SMT formal methods.',
+      deliverables: [
+        'Global 3D tactical command globe across 4 continental theaters with Canary OTA',
+        'Direct browser-to-hardware WebSerial, WebHID 6-DoF SpaceMouse & ROS 2 bridge',
+        'BLDC Motor Dyno Field-Oriented Control (FOC) 3-phase oscilloscope & calibration',
+        'Live CAN-FD / EtherCAT packet sniffer, SysID parameter inversion & Z3 SMT proofs'
+      ],
+      targetTab: 'fleet-command' as ActiveTab,
+      btnText: 'Open Fleet Operations & Hardware Suite'
+    },
     {
       id: 'tutorials',
       title: 'Hands-On Interactive Tutorials & Project Library',
@@ -628,6 +645,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <BookOpen className="w-4 h-4 text-indigo-400" />
               <span>Tutorials & Project Library</span>
+            </button>
+
+            {/* Global Fleet Operations & HiL Suite Button */}
+            <button
+              onClick={() => onNavigate('fleet-command')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-cyan-950/70 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/50 hover:border-cyan-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-cyan-500/15 hover:scale-[1.02] cursor-pointer"
+            >
+              <Radio className="w-4 h-4 text-cyan-400" />
+              <span>Global Fleet Operations & HiL Suite</span>
             </button>
 
             <button
