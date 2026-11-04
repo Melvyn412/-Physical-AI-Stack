@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { useQuota } from '../hooks/useQuota';
 
-export type DemoScenarioId = 'slam_3d_in_progress' | 'tactile_slip_fix' | 'coanda_stall_fix' | 'surgical_singularity_fix';
+export type DemoScenarioId = 'physical_frontier_embodiment' | 'slam_3d_in_progress' | 'tactile_slip_fix' | 'coanda_stall_fix' | 'surgical_singularity_fix';
 
 interface SceneStep {
   startSec: number;
@@ -39,6 +39,105 @@ interface DemoVideoScript {
 }
 
 const DEMO_SCRIPTS: Record<DemoScenarioId, DemoVideoScript> = {
+  physical_frontier_embodiment: {
+    id: 'physical_frontier_embodiment',
+    name: '3D Physical Frontier: Edge Silicon & Autonomous Factory Embodiment',
+    targetDomain: 'Physical AI Realization · Jetson Orin Silicon, VDA 5050 AMR & 5-Axis CNC',
+    aspectRatio: '16:9 (Landscape HD)',
+    durationSeconds: 12,
+    headline: 'From Model Weights to Physical Metal: Flashing Edge Silicon & Autonomous Cell Dispatch',
+    exportFilename: 'AIGENESIS_Physical_Frontier_Edge_Silicon_Demo.webm',
+    steps: [
+      {
+        startSec: 0,
+        endSec: 3,
+        phaseLabel: '01. CLOUD LATENCY BOTTLENECK',
+        badgeType: 'problem',
+        title: '342ms Cloud Round-Trip Destabilizes 1 kHz Motor Control',
+        narrationVoiceover: 'Cloud-hosted vision-language-action models suffer severe 342 millisecond network lag, causing robotic arms to violently oscillate and fail physical grasping.',
+        subtitle: '🚨 Cloud VLA model latency (342ms) exceeds 1 kHz motor control budget, destabilizing physical robot arm...',
+        metricLabel: 'Inference Lag',
+        metricValue: '342.6 ms (MOTOR STALL)',
+      },
+      {
+        startSec: 3,
+        endSec: 6,
+        phaseLabel: '02. SILICON COMPILATION & ROOFLINE',
+        badgeType: 'analysis',
+        title: 'TensorRT-LLM FP8 Quantization on Jetson AGX Orin',
+        narrationVoiceover: 'AIGENESIS compiles the VLA into FP8 TensorRT-LLM kernels, saturating the Jetson Orin compute roofline and dropping motor loop latency to 3.8 milliseconds.',
+        subtitle: '⚡ AIGENESIS compiles VLA into FP8 TensorRT-LLM engine on Jetson Orin silicon, achieving 3.8ms motor loop.',
+        metricLabel: 'Edge Motor Latency',
+        metricValue: '3.8 ms (1000 Hz READY)',
+      },
+      {
+        startSec: 6,
+        endSec: 9,
+        phaseLabel: '03. VDA 5050 FACTORY ORCHESTRATION',
+        badgeType: 'ai_fix',
+        title: 'Autonomous AMR Fleet & 5-Axis CNC Workcell Dispatch',
+        narrationVoiceover: 'VDA 5050 multi-agent orchestrator dispatches autonomous mobile robots with titanium blanks directly to 5-axis CNC Haas milling cells without human intervention.',
+        subtitle: '🏭 VDA 5050 autonomous fleet dispatches raw titanium workpiece to 5-axis CNC machining station.',
+        metricLabel: 'Cell OEE & Cadence',
+        metricValue: '96.4% OEE (18.2s Cycle)',
+      },
+      {
+        startSec: 9,
+        endSec: 12,
+        phaseLabel: '04. CERTIFIED REAL-WORLD EMBODIMENT',
+        badgeType: 'success',
+        title: 'Sub-10μm Precision Machined & Wave-Passive Teleoperation',
+        narrationVoiceover: 'The physical cycloidal gearbox is machined with 8 micron precision, while wave passivity guarantees zero haptic lag across intercontinental satellite links.',
+        subtitle: '✅ Titanium cycloidal gearbox realized with 8μm tolerance. Full physical deployment verified.',
+        metricLabel: 'Physical Realization',
+        metricValue: '100% REAL HARDWARE ACTIVE',
+      },
+    ],
+    socialPostCaption: `🚀 Beyond Simulation: The Physical Frontier in Action:
+    
+Virtual physics simulations are only the beginning. The real breakthrough is physical embodiment—taking Vision-Language-Action (VLA) models directly into physical silicon, autonomous factories, and 5-axis CNC machines.
+
+Inside AIGENESIS Physical Frontier Suite:
+• Flashing OpenVLA into FP8 TensorRT-LLM on NVIDIA Jetson AGX Orin (3.8ms motor latency)
+• Autonomous VDA 5050 AMR fleet dispatching titanium workpieces to 5-axis CNC mills
+• Niemeyer-Slotine wave passivity eliminating operator instability over 240ms satellite lag
+• Sub-10μm precision machined physical hardware
+
+Explore the physical frontier: https://aigenesis.tech
+
+#PhysicalAI #Robotics #Jetson #EdgeAI #Manufacturing #CNC #AutonomousFleet`,
+    universityOutreachEmail: {
+      subject: 'Physical AI Edge Silicon & Autonomous Factory Testbed for [University Name]',
+      targetDepartments: 'Robotics Institutes, Mechanical & Aerospace Engineering, Edge AI Labs',
+      emailBody: `Dear Professor [Last Name] / Robotics Research Group,
+
+I hope you are well.
+
+I am reaching out from AIGENESIS (https://aigenesis.tech). We are bridging multi-physics simulation directly into physical edge silicon (NVIDIA Jetson AGX Orin, Hailo-8, Tenstorrent) and autonomous factory workcells.
+
+We recently recorded a demonstration showing how our Edge Silicon Compiler quantizes 7B VLA models down to a 3.8ms motor control loop on Jetson Orin, while orchestrating VDA 5050 AMRs and 5-axis CNC machining (3D video attached).
+
+We would love to provide your department with a complimentary 14-day zero-risk trial of our Pro Physical Frontier Tier.
+
+Available to your research group:
+• Direct TensorRT-LLM and Hailo Dataflow edge compiler with Roofline saturation modeling
+• VDA 5050 multi-agent AMR and robotic manipulator workcell scheduler
+• Generative 5-axis CNC G-Code & DMLS additive titanium toolpath synthesizer
+• Wave-variable passivity controller for long-distance teleoperation
+
+You can activate your lab's trial here:
+https://aigenesis.tech
+
+Could we schedule a quick 10-minute demonstration with your researchers to see how this can accelerate your hardware deployments?
+
+Best regards,
+
+[Your Name]
+Physical AI & Academic Research | AIGENESIS
+https://aigenesis.tech
+[Your Email / Phone]`,
+    },
+  },
   slam_3d_in_progress: {
     id: 'slam_3d_in_progress',
     name: '3D LiDAR SLAM Studio: Ceres Graph Optimization & Real-Time Mapping in Progress',
@@ -433,7 +532,7 @@ https://aigenesis.tech
 };
 
 export const AutoVideoGeneratorStudio: React.FC = () => {
-  const [selectedScenarioId, setSelectedScenarioId] = useState<DemoScenarioId>('slam_3d_in_progress');
+  const [selectedScenarioId, setSelectedScenarioId] = useState<DemoScenarioId>('physical_frontier_embodiment');
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [currentTimeSec, setCurrentTimeSec] = useState<number>(0);
   const [isVoiceoverEnabled, setIsVoiceoverEnabled] = useState<boolean>(true);
@@ -508,7 +607,10 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
         const h = canvas.height;
         const progress = Math.min(Math.max(elapsedSec / script.durationSeconds, 0), 1);
         const activeStep = script.steps.find(s => elapsedSec >= s.startSec && elapsedSec < s.endSec) || script.steps[0];
-        const isProblemPhase = activeStep.badgeType === 'problem' || activeStep.badgeType === 'analysis';
+        const isProblemPhase = activeStep.badgeType === 'problem';
+        const isAnalysisPhase = activeStep.badgeType === 'analysis';
+        const isAiFixPhase = activeStep.badgeType === 'ai_fix';
+        const isSuccessPhase = activeStep.badgeType === 'success';
 
       // 1. Cinema Dark Gradient Background
       const bgGradient = ctx.createLinearGradient(0, 0, w, h);
@@ -549,8 +651,262 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
       ctx.fillText(activeStep.phaseLabel, w - 204, 33);
 
       // 4. ANIMATED PHYSICAL 3D / 2D VISUALIZATION
-      // SCENARIO 0: 3D LIDAR SLAM STUDIO IN PROGRESS
-      if (selectedScenarioId === 'slam_3d_in_progress') {
+      // SCENARIO 0: PHYSICAL FRONTIER - EDGE SILICON & FACTORY EMBODIMENT
+      if (selectedScenarioId === 'physical_frontier_embodiment') {
+        const originX = 260;
+        const originY = 285;
+        const iso = (x: number, y: number, z: number) => ({
+          sx: originX + (x - y) * 0.866 * 0.72,
+          sy: originY + (x + y) * 0.5 * 0.72 * 0.62 - z * 0.72
+        });
+
+        // 4.1 Ground Floor Grid (Isometric Factory Shop Floor)
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 1;
+        for (let gx = -140; gx <= 180; gx += 30) {
+          const p1 = iso(gx, -140, 0);
+          const p2 = iso(gx, 180, 0);
+          ctx.beginPath();
+          ctx.moveTo(p1.sx, p1.sy);
+          ctx.lineTo(p2.sx, p2.sy);
+          ctx.stroke();
+        }
+        for (let gy = -140; gy <= 180; gy += 30) {
+          const p1 = iso(-140, gy, 0);
+          const p2 = iso(180, gy, 0);
+          ctx.beginPath();
+          ctx.moveTo(p1.sx, p1.sy);
+          ctx.lineTo(p2.sx, p2.sy);
+          ctx.stroke();
+        }
+
+        // 4.2 VDA 5050 Optical Guide Track
+        const trackPts = [
+          iso(-110, -110, 1),
+          iso(150, -110, 1),
+          iso(150, 150, 1),
+          iso(-110, 150, 1)
+        ];
+        ctx.strokeStyle = '#06b6d4';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([8, 6]);
+        ctx.beginPath();
+        ctx.moveTo(trackPts[0].sx, trackPts[0].sy);
+        ctx.lineTo(trackPts[1].sx, trackPts[1].sy);
+        ctx.lineTo(trackPts[2].sx, trackPts[2].sy);
+        ctx.lineTo(trackPts[3].sx, trackPts[3].sy);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Helper for 3D boxes (machines & compute blocks)
+        const drawBox3D = (bx: number, by: number, bw: number, bh: number, bz: number, fillTop: string, fillSide: string, edgeColor: string) => {
+          const b0 = iso(bx, by, 0);
+          const b1 = iso(bx + bw, by, 0);
+          const b2 = iso(bx + bw, by + bh, 0);
+          const b3 = iso(bx, by + bh, 0);
+          const t0 = iso(bx, by, bz);
+          const t1 = iso(bx + bw, by, bz);
+          const t2 = iso(bx + bw, by + bh, bz);
+          const t3 = iso(bx, by + bh, bz);
+
+          // Left/front
+          ctx.fillStyle = fillSide;
+          ctx.beginPath();
+          ctx.moveTo(b0.sx, b0.sy);
+          ctx.lineTo(b1.sx, b1.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.lineTo(t0.sx, t0.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.strokeStyle = edgeColor;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Right
+          ctx.beginPath();
+          ctx.moveTo(b1.sx, b1.sy);
+          ctx.lineTo(b2.sx, b2.sy);
+          ctx.lineTo(t2.sx, t2.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+
+          // Top
+          ctx.fillStyle = fillTop;
+          ctx.beginPath();
+          ctx.moveTo(t0.sx, t0.sy);
+          ctx.lineTo(t1.sx, t1.sy);
+          ctx.lineTo(t2.sx, t2.sy);
+          ctx.lineTo(t3.sx, t3.sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        };
+
+        // 4.3 3D Machines on Floor
+        // 5-Axis Haas CNC Machine Enclosure
+        drawBox3D(60, -90, 75, 75, 80, '#1e293b', '#0f172a', '#38bdf8');
+        // Machine Label
+        const cncLabelPos = iso(97, -52, 85);
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = 'bold 9px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('5-AXIS CNC UMC-750', cncLabelPos.sx, cncLabelPos.sy);
+
+        // 4.4 3D NVIDIA Jetson AGX Orin Silicon Package (Left Station)
+        drawBox3D(-120, -70, 50, 50, 22, '#0f172a', '#020617', '#10b981');
+        // Glowing Heatsink Fins
+        for (let fx = -115; fx <= -75; fx += 8) {
+          const f0 = iso(fx, -68, 22);
+          const f1 = iso(fx, -25, 22);
+          const f2 = iso(fx, -25, 30);
+          const f3 = iso(fx, -68, 30);
+          ctx.fillStyle = '#1e293b';
+          ctx.beginPath();
+          ctx.moveTo(f0.sx, f0.sy); ctx.lineTo(f1.sx, f1.sy); ctx.lineTo(f2.sx, f2.sy); ctx.lineTo(f3.sx, f3.sy);
+          ctx.closePath(); ctx.fill();
+        }
+        // Silicon Die Glow
+        const dieCenter = iso(-95, -45, 31);
+        ctx.fillStyle = isProblemPhase ? '#ef4444' : '#10b981';
+        ctx.beginPath();
+        ctx.arc(dieCenter.sx, dieCenter.sy, isProblemPhase ? 5 : 7, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillText('JETSON ORIN (FP8)', dieCenter.sx, dieCenter.sy - 12);
+
+        // 4.5 3D Autonomous Mobile Robot (AMR) on VDA 5050 Track
+        const amrCycleT = (elapsedSec * 0.15) % 1;
+        let amrX = -110;
+        let amrY = -110;
+        if (amrCycleT < 0.25) {
+          amrX = -110 + (amrCycleT / 0.25) * 260;
+          amrY = -110;
+        } else if (amrCycleT < 0.5) {
+          amrX = 150;
+          amrY = -110 + ((amrCycleT - 0.25) / 0.25) * 260;
+        } else if (amrCycleT < 0.75) {
+          amrX = 150 - ((amrCycleT - 0.5) / 0.25) * 260;
+          amrY = 150;
+        } else {
+          amrX = -110;
+          amrY = 150 - ((amrCycleT - 0.75) / 0.25) * 260;
+        }
+
+        // Draw AMR Chassis
+        drawBox3D(amrX - 16, amrY - 16, 32, 32, 14, '#334155', '#1e293b', '#06b6d4');
+        // Pallet workpiece on AMR
+        drawBox3D(amrX - 8, amrY - 8, 16, 16, 24, '#f59e0b', '#b45309', '#fde047');
+        // AMR Safety LiDAR pulse ring
+        const amrCenter = iso(amrX, amrY, 7);
+        ctx.strokeStyle = 'rgba(6, 182, 212, 0.45)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(amrCenter.sx, amrCenter.sy, 26, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        // 4.6 3D Industrial 6-Axis Robot Arm & Gripper
+        const armBaseX = -10;
+        const armBaseY = 30;
+        // Base Pedestal
+        drawBox3D(armBaseX - 18, armBaseY - 18, 36, 36, 18, '#1e293b', '#0f172a', '#64748b');
+
+        // Dynamic joint kinematics
+        const joint0 = iso(armBaseX, armBaseY, 18);
+        const armJitter = isProblemPhase ? Math.sin(elapsedSec * 18.0) * 8 : Math.sin(elapsedSec * 2.0) * 1.5;
+        
+        // Shoulder
+        const shoulderPos = iso(armBaseX, armBaseY, 52);
+        // Elbow
+        const elbowX = armBaseX + 35 + (isProblemPhase ? armJitter : 15);
+        const elbowY = armBaseY + 25;
+        const elbowPos = iso(elbowX, elbowY, 95);
+        // Wrist
+        const wristX = elbowX + 30;
+        const wristY = elbowY - 10 + (isSuccessPhase ? 15 : 0);
+        const wristPos = iso(wristX, wristY, 68);
+        // Tool Flange & Gripper TCP
+        const tcpX = wristX + 18;
+        const tcpY = wristY;
+        const tcpPos = iso(tcpX, tcpY, 52);
+
+        // Draw robot links
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#475569';
+        ctx.lineWidth = 14;
+        ctx.beginPath(); ctx.moveTo(joint0.sx, joint0.sy); ctx.lineTo(shoulderPos.sx, shoulderPos.sy); ctx.stroke();
+
+        ctx.strokeStyle = '#64748b';
+        ctx.lineWidth = 11;
+        ctx.beginPath(); ctx.moveTo(shoulderPos.sx, shoulderPos.sy); ctx.lineTo(elbowPos.sx, elbowPos.sy); ctx.stroke();
+
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 8;
+        ctx.beginPath(); ctx.moveTo(elbowPos.sx, elbowPos.sy); ctx.lineTo(wristPos.sx, wristPos.sy); ctx.stroke();
+
+        ctx.strokeStyle = isProblemPhase ? '#f43f5e' : '#06b6d4';
+        ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.moveTo(wristPos.sx, wristPos.sy); ctx.lineTo(tcpPos.sx, tcpPos.sy); ctx.stroke();
+
+        // Joint Spheres
+        [joint0, shoulderPos, elbowPos, wristPos].forEach(jp => {
+          ctx.fillStyle = '#0f172a';
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(jp.sx, jp.sy, 5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+        });
+
+        // Gripper Jaws
+        const jawL = iso(tcpX + 6, tcpY - 8, 44);
+        const jawR = iso(tcpX + 6, tcpY + 8, 44);
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(tcpPos.sx, tcpPos.sy); ctx.lineTo(jawL.sx, jawL.sy); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(tcpPos.sx, tcpPos.sy); ctx.lineTo(jawR.sx, jawR.sy); ctx.stroke();
+
+        // Workpiece held in Gripper / Being Machined
+        const partCenter = iso(tcpX + 12, tcpY, 40);
+        if (isProblemPhase) {
+          ctx.strokeStyle = '#ef4444';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(partCenter.sx, partCenter.sy, 14, 0, 2 * Math.PI); ctx.stroke();
+          ctx.fillStyle = '#ef4444';
+          ctx.font = '8px monospace';
+          ctx.fillText('MOTOR JITTER > 300ms', partCenter.sx, partCenter.sy - 18);
+        } else if (isAnalysisPhase) {
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath(); ctx.moveTo(dieCenter.sx, dieCenter.sy); ctx.lineTo(partCenter.sx, partCenter.sy); ctx.stroke();
+          ctx.setLineDash([]);
+        } else if (isAiFixPhase) {
+          ctx.fillStyle = '#f59e0b';
+          for (let sp = 0; sp < 8; sp++) {
+            const sparkAngle = Math.random() * Math.PI * 2;
+            const sparkDist = Math.random() * 22;
+            ctx.fillRect(partCenter.sx + Math.cos(sparkAngle) * sparkDist, partCenter.sy + Math.sin(sparkAngle) * sparkDist, 2, 2);
+          }
+          ctx.fillStyle = '#38bdf8';
+          ctx.font = '8px monospace';
+          ctx.fillText('5-AXIS CNC ROUGHING F1250', partCenter.sx, partCenter.sy - 18);
+        } else {
+          ctx.fillStyle = '#eab308';
+          ctx.beginPath(); ctx.arc(partCenter.sx, partCenter.sy, 11, 0, 2 * Math.PI); ctx.fill();
+          ctx.strokeStyle = '#fef08a';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.7)';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.arc(partCenter.sx, partCenter.sy, 18, 0, 2 * Math.PI); ctx.stroke();
+          ctx.fillStyle = '#10b981';
+          ctx.font = 'bold 9px monospace';
+          ctx.fillText('ISO 10218 CERTIFIED (8μm)', partCenter.sx, partCenter.sy - 22);
+        }
+      }
+
+      // SCENARIO 1: 3D LIDAR SLAM STUDIO IN PROGRESS
+      else if (selectedScenarioId === 'slam_3d_in_progress') {
         // 3D Isometric projection helper
         const originX = 265;
         const originY = 275;
@@ -1129,7 +1485,7 @@ export const AutoVideoGeneratorStudio: React.FC = () => {
       )}
 
       {/* Scenario Picker Selector Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {(Object.keys(DEMO_SCRIPTS) as DemoScenarioId[]).map((id) => {
           const item = DEMO_SCRIPTS[id];
           const isSelected = selectedScenarioId === id;

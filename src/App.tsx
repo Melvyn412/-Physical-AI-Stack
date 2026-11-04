@@ -33,6 +33,7 @@ import { SecureDeploymentArchitectureStudio } from './components/SecureDeploymen
 import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio';
 import { TutorialsAndShowcaseStudio } from './components/TutorialsAndShowcaseStudio';
 import { EnterpriseOperationsSuite } from './components/EnterpriseOperationsSuite';
+import { PhysicalFrontierSuite } from './components/frontier/PhysicalFrontierSuite';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -289,6 +290,10 @@ export default function App() {
             initialMode={activeTab as any}
             onNavigateTab={setActiveTab}
           />
+        )}
+
+        {activeTab === 'frontier' && (
+          <PhysicalFrontierSuite onNavigateTab={setActiveTab} />
         )}
 
         {activeTab === 'pillars' && (

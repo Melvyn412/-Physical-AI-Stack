@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio, Rocket
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -52,6 +52,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       ],
       targetTab: 'fleet-command' as ActiveTab,
       btnText: 'Open Fleet Operations & Hardware Suite'
+    },
+    {
+      id: 'frontier',
+      title: 'The Physical Frontier: Edge Silicon & Factory Engine',
+      category: 'Real-World Embodiment Beyond Simulation',
+      icon: Rocket,
+      badge: 'Edge Silicon · VDA 5050 · CNC',
+      badgeColor: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+      description: 'Move beyond virtual simulation: compile Vision-Language-Action models into physical edge silicon (Jetson Orin, Hailo, Tenstorrent), coordinate autonomous VDA 5050 factory cells, generate production 5-axis CNC G-Code, and teleoperate sub-orbital avatars with wave passivity.',
+      deliverables: [
+        'TensorRT-LLM & Hailo Dataflow Compiler with Williams-Patterson roofline modeling',
+        'VDA 5050 v2.1 autonomous AMR & machine workcell orchestrator (OPC-UA)',
+        'Generative 5-axis CNC G-Code & DMLS additive titanium manufacturing toolpaths',
+        'Niemeyer-Slotine wave-variable passivity controller for 240ms satellite teleoperation'
+      ],
+      targetTab: 'frontier' as ActiveTab,
+      btnText: 'Launch Physical Frontier Suite'
     },
     {
       id: 'tutorials',
@@ -654,6 +671,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <Radio className="w-4 h-4 text-cyan-400" />
               <span>Global Fleet Operations & HiL Suite</span>
+            </button>
+
+            {/* The Physical Frontier Button */}
+            <button
+              onClick={() => onNavigate('frontier')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-900 hover:from-indigo-900 hover:to-purple-900 text-indigo-300 border border-indigo-500/50 hover:border-indigo-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-indigo-500/20 hover:scale-[1.02] cursor-pointer"
+            >
+              <Rocket className="w-4 h-4 text-indigo-400" />
+              <span>The Physical Frontier: Edge Silicon & Factory</span>
             </button>
 
             <button

@@ -409,6 +409,7 @@ class AnalyticsStore {
       'sysid-replay': 'Auto-SysID & Rosbag2 Ingestion Studio',
       'formal-prover': 'Formal Methods & Lyapunov Safety Prover',
       'live-hardware': 'Live Hardware Gateway & Actuator Dyno Studio',
+      frontier: 'Physical Frontier: Real-World Embodiment Engine',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

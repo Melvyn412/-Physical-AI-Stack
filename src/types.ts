@@ -33,7 +33,8 @@ export type ActiveTab =
   | 'hil-bus-sniffer'
   | 'sysid-replay'
   | 'formal-prover'
-  | 'live-hardware';
+  | 'live-hardware'
+  | 'frontier';
 
 export type InnovationModuleId = 
   | 'vla-distillation'

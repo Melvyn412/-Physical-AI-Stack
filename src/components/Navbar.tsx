@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   Cpu, Globe, Activity, Compass, Sliders, Target, GitFork, 
   Terminal, Network, Box, ShieldCheck, Layers, DollarSign, 
-  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle, BookOpen, Radio
+  Gauge, Sparkles, Boxes, Zap, BarChart3, Hand, RefreshCw, Wind, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Shield, Server, Film, HelpCircle, BookOpen, Radio, Rocket
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
@@ -44,6 +44,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     tab: 'fleet-command',
     label: 'Fleet Operations',
     icon: Radio
+  },
+  {
+    id: 'tab-frontier',
+    tab: 'frontier',
+    label: 'Physical Frontier',
+    icon: Rocket
   },
   {
     id: 'tab-simulator',
