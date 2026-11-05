@@ -34,7 +34,8 @@ export type ActiveTab =
   | 'sysid-replay'
   | 'formal-prover'
   | 'live-hardware'
-  | 'frontier';
+  | 'frontier'
+  | 'commercial';
 
 export type InnovationModuleId = 
   | 'vla-distillation'

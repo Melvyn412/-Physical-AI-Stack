@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio, Rocket
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio, Rocket, DollarSign
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -680,6 +680,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             >
               <Rocket className="w-4 h-4 text-indigo-400" />
               <span>The Physical Frontier: Edge Silicon & Factory</span>
+            </button>
+
+            {/* Enterprise Commercial & SOW Button */}
+            <button
+              onClick={() => onNavigate('commercial')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-emerald-950 via-teal-950 to-emerald-900 hover:from-emerald-900 hover:to-teal-900 text-emerald-300 border border-emerald-500/50 hover:border-emerald-400 font-extrabold rounded-2xl text-sm transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.02] cursor-pointer"
+            >
+              <DollarSign className="w-4 h-4 text-emerald-400" />
+              <span>Enterprise Pilot SOW & Commercial Store</span>
             </button>
 
             <button

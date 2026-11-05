@@ -410,6 +410,7 @@ class AnalyticsStore {
       'formal-prover': 'Formal Methods & Lyapunov Safety Prover',
       'live-hardware': 'Live Hardware Gateway & Actuator Dyno Studio',
       frontier: 'Physical Frontier: Real-World Embodiment Engine',
+      commercial: 'Enterprise Commercial & Monetization Hub',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

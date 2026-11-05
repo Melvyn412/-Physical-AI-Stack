@@ -52,6 +52,12 @@ export const NAV_ITEMS: NavItemConfig[] = [
     icon: Rocket
   },
   {
+    id: 'tab-commercial',
+    tab: 'commercial',
+    label: 'Commercial & Store',
+    icon: DollarSign
+  },
+  {
     id: 'tab-simulator',
     tab: 'simulator',
     label: '5-Layer Engine',

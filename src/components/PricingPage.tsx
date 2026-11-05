@@ -4,7 +4,7 @@ import {
   HelpCircle, Download, FileText, Lock, Globe, Layers, Award, CreditCard, CheckCircle2,
   X, RefreshCw, ChevronDown, ChevronUp, DollarSign, Gauge, AlertTriangle, ExternalLink, Key
 } from 'lucide-react';
-import { PlanTier } from '../types';
+import { PlanTier, ActiveTab } from '../types';
 import { useQuota } from '../hooks/useQuota';
 import { PLAN_DEFINITIONS } from '../utils/quotaManager';
 import { PayPalCheckoutModal } from './PayPalCheckoutModal';
@@ -13,9 +13,10 @@ import { EnterpriseFeaturesSection } from './EnterpriseFeaturesSection';
 interface PricingPageProps {
   onOpenQuotaModal?: () => void;
   onOpenProTrialModal?: () => void;
+  onNavigateTab?: (tab: ActiveTab) => void;
 }
 
-export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOpenProTrialModal }) => {
+export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOpenProTrialModal, onNavigateTab }) => {
   const { quota, limits, changePlan, activatePayPal, startTrial, reset, fillToLimit } = useQuota();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [isPayPalModalOpen, setIsPayPalModalOpen] = useState<boolean>(false);
@@ -178,6 +179,39 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
             )}
           </div>
         </div>
+
+        {/* Enterprise SOW & Commercial Store Banner */}
+        {onNavigateTab && (
+          <div className="mt-4 p-5 bg-gradient-to-r from-emerald-950/60 via-slate-900 to-teal-950/60 border border-emerald-500/40 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-left">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-2xl shrink-0">
+                <DollarSign className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-wider">
+                    High-Ticket Enterprise
+                  </span>
+                  <span className="text-xs font-mono text-emerald-300 font-bold">6 Revenue Streams Active</span>
+                </div>
+                <h3 className="text-sm sm:text-base font-bold text-white font-mono mt-1">
+                  Enterprise SOW Pilot Generator, Regulatory Dossiers & Hardware Kits
+                </h3>
+                <p className="text-xs text-slate-400 font-sans mt-0.5">
+                  Need a formal £25k–£75k Pilot SOW for corporate procurement, pre-trained synthetic datasets, or physical HiL dongles?
+                </p>
+              </div>
+            </div>
+
+            <button
+              onClick={() => onNavigateTab('commercial')}
+              className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
+            >
+              <span>Open Commercial Store</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
         {/* Current Active Plan Status Bar */}
         <div className="mt-4 p-4 bg-slate-900/90 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">

@@ -34,6 +34,7 @@ import { AutoVideoGeneratorStudio } from './components/AutoVideoGeneratorStudio'
 import { TutorialsAndShowcaseStudio } from './components/TutorialsAndShowcaseStudio';
 import { EnterpriseOperationsSuite } from './components/EnterpriseOperationsSuite';
 import { PhysicalFrontierSuite } from './components/frontier/PhysicalFrontierSuite';
+import { EnterpriseMonetizationHub } from './components/commercial/EnterpriseMonetizationHub';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -296,6 +297,13 @@ export default function App() {
           <PhysicalFrontierSuite onNavigateTab={setActiveTab} />
         )}
 
+        {activeTab === 'commercial' && (
+          <EnterpriseMonetizationHub 
+            onNavigateTab={setActiveTab} 
+            onOpenPricing={() => setActiveTab('pricing')} 
+          />
+        )}
+
         {activeTab === 'pillars' && (
           <StackOverview onSelectPillar={handleSelectPillarFromOverview} />
         )}
@@ -308,6 +316,7 @@ export default function App() {
           <PricingPage
             onOpenQuotaModal={() => setIsQuotaModalOpen(true)}
             onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onNavigateTab={setActiveTab}
           />
         )}
       </main>
