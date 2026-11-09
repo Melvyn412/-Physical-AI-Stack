@@ -35,6 +35,7 @@ import { TutorialsAndShowcaseStudio } from './components/TutorialsAndShowcaseStu
 import { EnterpriseOperationsSuite } from './components/EnterpriseOperationsSuite';
 import { PhysicalFrontierSuite } from './components/frontier/PhysicalFrontierSuite';
 import { EnterpriseMonetizationHub } from './components/commercial/EnterpriseMonetizationHub';
+import { SuperLeagueSuite } from './components/superleague/SuperLeagueSuite';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -302,6 +303,10 @@ export default function App() {
             onNavigateTab={setActiveTab} 
             onOpenPricing={() => setActiveTab('pricing')} 
           />
+        )}
+
+        {activeTab === 'super-league' && (
+          <SuperLeagueSuite onNavigateTab={setActiveTab} />
         )}
 
         {activeTab === 'pillars' && (

@@ -411,6 +411,7 @@ class AnalyticsStore {
       'live-hardware': 'Live Hardware Gateway & Actuator Dyno Studio',
       frontier: 'Physical Frontier: Real-World Embodiment Engine',
       commercial: 'Enterprise Commercial & Monetization Hub',
+      'super-league': 'Super League: Lattice Global Command & Policy Arena',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

@@ -35,7 +35,8 @@ export type ActiveTab =
   | 'formal-prover'
   | 'live-hardware'
   | 'frontier'
-  | 'commercial';
+  | 'commercial'
+  | 'super-league';
 
 export type InnovationModuleId = 
   | 'vla-distillation'

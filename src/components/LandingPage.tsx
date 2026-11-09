@@ -4,7 +4,7 @@ import {
   ArrowRight, CheckCircle2, Zap, Layers, Play, Check, Shield, 
   Building2, Globe, FileCode, Flame, ChevronRight, Users, Wrench, 
   Calculator, ChevronDown, ExternalLink, Compass, Sliders,
-  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio, Rocket, DollarSign
+  Target, GitFork, BarChart3, FileCheck, AlertOctagon, Scale, Calendar, Database, Stethoscope, Server, Film, HelpCircle, BookOpen, Radio, Rocket, DollarSign, Crosshair
 } from 'lucide-react';
 import { ActiveTab } from '../types';
 import { SurgicalCaseStudySection } from './SurgicalCaseStudySection';
@@ -36,6 +36,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const hazardReductionPercent = 99.8;
 
   const servicesList = [
+    {
+      id: 'super-league',
+      title: 'Super League: Lattice Global Command & Policy Arena',
+      category: 'Planetary 3D Digital Twin & Frontier Benchmarks',
+      icon: Crosshair,
+      badge: 'Tier-1 Defense · 3D Three.js · LMSYS',
+      badgeColor: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      description: 'The operational zenith of AIGENESIS: full-screen Three.js 3D planetary digital twin with continuous orbit-to-joint camera zoom, head-to-head physical foundation policy arena (π0 vs OpenVLA vs Octo), tactical military-grade voice intercom, and edge silicon compilation.',
+      deliverables: [
+        'Interactive Three.js 3D Earth Globe with 6 global strategic fleet stations',
+        'Head-to-head LMSYS-style foundation policy bake-off with live physics',
+        'Hands-free tactical voice intercom with Web Audio radar/radio squelch',
+        'Universal silicon cross-compiler for Jetson Orin, Tenstorrent, and Hailo-8'
+      ],
+      targetTab: 'super-league' as ActiveTab,
+      btnText: 'Launch Super League Ops'
+    },
     {
       id: 'fleet-command',
       title: 'Global Fleet Operations & Live Hardware Command Suite',
@@ -625,6 +642,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* CTA Buttons */}
         <div className="space-y-4 font-mono">
           <div className="flex flex-wrap items-center justify-center gap-4">
+            {/* Super League Command Deck Hero Button */}
+            <button
+              onClick={() => onNavigate('super-league')}
+              className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 hover:from-cyan-500 hover:to-purple-500 text-white font-black rounded-2xl text-sm transition-all shadow-xl shadow-cyan-500/30 hover:scale-[1.03] cursor-pointer ring-2 ring-cyan-400/40"
+            >
+              <Crosshair className="w-4 h-4 text-cyan-200 animate-pulse" />
+              <span>Super League: Planetary 3D Command & Arena</span>
+            </button>
+
             <button
               onClick={() => onNavigate('simulator')}
               className="flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-black rounded-2xl text-sm transition-all shadow-xl shadow-cyan-500/25 hover:scale-[1.02] cursor-pointer"
