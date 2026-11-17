@@ -412,6 +412,12 @@ class AnalyticsStore {
       frontier: 'Physical Frontier: Real-World Embodiment Engine',
       commercial: 'Enterprise Commercial & Monetization Hub',
       'super-league': 'Super League: Lattice Global Command & Policy Arena',
+      'landing-ros2': 'Solution Landing: ROS 2 Simulation',
+      'landing-digital-twins': 'Solution Landing: Digital Twins & Physics',
+      'landing-robotic-arms': 'Solution Landing: Robotic Arm Validation',
+      'landing-fleet-ops': 'Solution Landing: Fleet Operations',
+      'landing-reasoning': 'Solution Landing: AI Physical Reasoning',
+      'landing-safety': 'Solution Landing: Safety & Verification',
       pricing: 'Pricing & 14-Day Trial',
       export: 'ROS 2 / Isaac Sim Exporter',
     };

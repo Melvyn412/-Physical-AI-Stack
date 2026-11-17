@@ -36,6 +36,7 @@ import { EnterpriseOperationsSuite } from './components/EnterpriseOperationsSuit
 import { PhysicalFrontierSuite } from './components/frontier/PhysicalFrontierSuite';
 import { EnterpriseMonetizationHub } from './components/commercial/EnterpriseMonetizationHub';
 import { SuperLeagueSuite } from './components/superleague/SuperLeagueSuite';
+import { DedicatedSolutionLanding } from './components/landing/DedicatedSolutionLanding';
 import { GettingStartedTourOverlay } from './components/GettingStartedTourOverlay';
 import { QuotaBarrierModal, BarrierData } from './components/QuotaBarrierModal';
 import { QuotaUsageModal } from './components/QuotaUsageModal';
@@ -127,6 +128,61 @@ export default function App() {
           <LandingPage
             onNavigate={setActiveTab}
             onOpenCustomModal={() => setIsCustomModalOpen(true)}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {/* Dedicated Specialized Solution Landing Pages */}
+        {activeTab === 'landing-ros2' && (
+          <DedicatedSolutionLanding
+            initialSolution="ros2"
+            onNavigateTab={setActiveTab}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {activeTab === 'landing-digital-twins' && (
+          <DedicatedSolutionLanding
+            initialSolution="digital-twins"
+            onNavigateTab={setActiveTab}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {activeTab === 'landing-robotic-arms' && (
+          <DedicatedSolutionLanding
+            initialSolution="robotic-arms"
+            onNavigateTab={setActiveTab}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {activeTab === 'landing-fleet-ops' && (
+          <DedicatedSolutionLanding
+            initialSolution="fleet-ops"
+            onNavigateTab={setActiveTab}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {activeTab === 'landing-reasoning' && (
+          <DedicatedSolutionLanding
+            initialSolution="reasoning"
+            onNavigateTab={setActiveTab}
+            onOpenProTrialModal={() => setIsTrialModalOpen(true)}
+            onOpenTour={() => setIsTourOpen(true)}
+          />
+        )}
+
+        {activeTab === 'landing-safety' && (
+          <DedicatedSolutionLanding
+            initialSolution="safety"
+            onNavigateTab={setActiveTab}
             onOpenProTrialModal={() => setIsTrialModalOpen(true)}
             onOpenTour={() => setIsTourOpen(true)}
           />

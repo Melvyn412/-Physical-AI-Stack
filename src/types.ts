@@ -36,7 +36,21 @@ export type ActiveTab =
   | 'live-hardware'
   | 'frontier'
   | 'commercial'
-  | 'super-league';
+  | 'super-league'
+  | 'landing-ros2'
+  | 'landing-digital-twins'
+  | 'landing-robotic-arms'
+  | 'landing-fleet-ops'
+  | 'landing-reasoning'
+  | 'landing-safety';
+
+export type DedicatedLandingId = 
+  | 'ros2'
+  | 'digital-twins'
+  | 'robotic-arms'
+  | 'fleet-ops'
+  | 'reasoning'
+  | 'safety';
 
 export type InnovationModuleId = 
   | 'vla-distillation'
