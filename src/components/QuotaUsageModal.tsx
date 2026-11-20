@@ -117,12 +117,12 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
             <span className="text-[10px] text-slate-500">Period: {quota.billingPeriodStart} to {quota.billingPeriodEnd}</span>
           </h4>
 
-          {/* Meter 1: AI Goal Syntheses */}
+          {/* Meter 1: Formal Z3 Safety Audits */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-slate-300 flex items-center gap-1.5 font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Custom AI Goal Syntheses (Gemini):</span>
+                <span>Formal Z3 Clause Audits:</span>
               </span>
               <span className={`font-bold ${aiPercent >= 100 ? 'text-red-400' : aiPercent >= 80 ? 'text-amber-400' : 'text-cyan-300'}`}>
                 {quota.aiSynthesesUsed} / {limits.aiSynthesesLimit >= 100000 ? 'Unlimited' : limits.aiSynthesesLimit}
@@ -135,17 +135,17 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
             {aiPercent >= 100 && (
               <p className="text-[10px] text-red-400 flex items-center gap-1">
                 <AlertTriangle className="w-3 h-3 shrink-0" />
-                <span>Barrier Active: Limit reached. Further AI syntheses will prompt an upgrade.</span>
+                <span>Barrier Active: Limit reached. Upgrade Dossier license to continue audits.</span>
               </p>
             )}
           </div>
 
-          {/* Meter 2: Physical Simulation Rollouts */}
+          {/* Meter 2: Under-the-Hood 1 kHz Physics Verification Sweeps */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-slate-300 flex items-center gap-1.5 font-semibold">
                 <Activity className="w-3.5 h-3.5 text-emerald-400" />
-                <span>1000Hz Physical Simulation Rollouts:</span>
+                <span>1 kHz Safety Twin Verification Runs:</span>
               </span>
               <span className={`font-bold ${simPercent >= 100 ? 'text-red-400' : 'text-emerald-300'}`}>
                 {quota.simulationsUsed} / {limits.simulationsLimit >= 100000 ? 'Unlimited' : limits.simulationsLimit}
@@ -157,12 +157,12 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
             </div>
           </div>
 
-          {/* Meter 3: Hardware Stress & Fault Tests */}
+          {/* Meter 3: FMEA Adversarial Fault Sweeps */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-slate-300 flex items-center gap-1.5 font-semibold">
                 <Flame className="w-3.5 h-3.5 text-amber-400" />
-                <span>Hardware Stress & Edge Fault Injections:</span>
+                <span>FMEA Adversarial Hazard Sweeps:</span>
               </span>
               <span className={`font-bold ${stressPercent >= 100 ? 'text-red-400' : 'text-amber-300'}`}>
                 {quota.stressTestsUsed} / {limits.stressTestsLimit >= 100000 ? 'Unlimited' : limits.stressTestsLimit}
@@ -174,12 +174,12 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
             </div>
           </div>
 
-          {/* Meter 4: Code & Kinematic Exports */}
+          {/* Meter 4: Signed Dossier Exports */}
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between items-center">
               <span className="text-slate-300 flex items-center gap-1.5 font-semibold">
                 <Terminal className="w-3.5 h-3.5 text-indigo-400" />
-                <span>ROS 2 / Isaac Sim Code Exports:</span>
+                <span>Signed Dossier &amp; Manifest Exports:</span>
               </span>
               <span className={`font-bold ${exportPercent >= 100 ? 'text-red-400' : 'text-indigo-300'}`}>
                 {quota.exportsUsed} / {limits.exportsLimit >= 100000 ? 'Unlimited' : limits.exportsLimit}
@@ -195,39 +195,39 @@ export const QuotaUsageModal: React.FC<QuotaUsageModalProps> = ({
         {/* Feature Entitlements Matrix Checklist */}
         <div className="space-y-2">
           <h4 className="text-[10px] text-slate-400 uppercase tracking-wider">
-            Tier Feature Entitlements:
+            License Entitlements:
           </h4>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasComplianceAudit ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Unwatermarked ISO &amp; FDA Dossiers</span>
+              </span>
+              {limits.hasComplianceAudit ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
+            </div>
+
             <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasRos2Export ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
               <span className="flex items-center gap-2">
                 <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                <span>ROS 2 Python / C++ Generator</span>
+                <span>CI/CD Git Safety Gatekeeper</span>
               </span>
               {limits.hasRos2Export ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
             </div>
 
-            <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasIsaacSim ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
-              <span className="flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-                <span>NVIDIA Isaac Sim Exporter</span>
-              </span>
-              {limits.hasIsaacSim ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
-            </div>
-
             <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasSyntheticDataset ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
               <span className="flex items-center gap-2">
-                <Activity className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Synthetic Sensor Datasets</span>
+                <Activity className="w-3.5 h-3.5 text-indigo-400" />
+                <span>Multi-Repo Team RTM Binders</span>
               </span>
               {limits.hasSyntheticDataset ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
             </div>
 
-            <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasComplianceAudit ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
+            <div className={`p-2.5 rounded-xl border flex items-center justify-between ${limits.hasAirGapped ? 'bg-slate-950 border-emerald-500/30 text-slate-200' : 'bg-slate-950/40 border-slate-800/60 text-slate-500'}`}>
               <span className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                <span>ISO 10218 / FDA Safety Audit</span>
+                <Crown className="w-3.5 h-3.5 text-amber-400" />
+                <span>Air-Gapped SCIF Enclave Seal</span>
               </span>
-              {limits.hasComplianceAudit ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
+              {limits.hasAirGapped ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-slate-600" />}
             </div>
           </div>
         </div>

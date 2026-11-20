@@ -165,15 +165,15 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
             <ul className="space-y-1.5 text-[11px] text-slate-300 font-sans">
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span><strong>{recommendedPlanDef.aiSynthesesLimit >= 100000 ? 'Unlimited' : recommendedPlanDef.aiSynthesesLimit.toLocaleString()}</strong> Custom AI Goal Syntheses / mo</span>
+                <span><strong>{recommendedPlanDef.aiSynthesesLimit >= 100000 ? 'Unlimited' : recommendedPlanDef.aiSynthesesLimit.toLocaleString()}</strong> Formal Z3 Safety Audits / mo</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span><strong>{recommendedPlanDef.simulationsLimit >= 100000 ? 'Unlimited' : recommendedPlanDef.simulationsLimit.toLocaleString()}</strong> 1000Hz Physical Simulation Rollouts</span>
+                <span>Unwatermarked ISO 10218, ISO 3691-4 &amp; FDA 21 CFR 820 Dossiers</span>
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span>Full ROS 2 & NVIDIA Isaac Sim Code Exporters</span>
+                <span>ISO 14971 FMEA Risk Matrix &amp; CI/CD Git Gatekeeper</span>
               </li>
             </ul>
 
@@ -185,10 +185,10 @@ export const QuotaBarrierModal: React.FC<QuotaBarrierModalProps> = ({
                   className="w-full py-2.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
                 >
                   <Zap className="w-4 h-4 fill-slate-950" />
-                  <span>Unlock Instantly: 14-Day Free Pro Trial</span>
+                  <span>Unlock Instantly: 14-Day Dossier Pro Trial</span>
                 </button>
                 <div className="text-[10px] text-center text-emerald-400/90 font-mono">
-                  ✓ No credit card required • Instant 1 kHz access
+                  ✓ No credit card required • Instant Notified Body Binder access
                 </div>
               </div>
             )}

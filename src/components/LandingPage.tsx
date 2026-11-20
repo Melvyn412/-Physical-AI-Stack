@@ -7,6 +7,7 @@ import {
   Stethoscope, Radio, Rocket, Box, Activity, DollarSign
 } from 'lucide-react';
 import { ActiveTab } from '../types';
+import { FEATURE_FLAGS } from '../config/featureFlags';
 
 interface LandingPageProps {
   onNavigate: (tab: ActiveTab) => void;
@@ -539,7 +540,8 @@ Digital Signature: SHA256-VERIFIED-AIGENESIS-NOTIFIED-BODY-2026
         </div>
       </section>
 
-      {/* 5. Framed Under the Hood: The 1 kHz Multi-Physics Engine */}
+      {/* 5. Framed Under the Hood: The 1 kHz Multi-Physics Engine (Hidden via FEATURE_FLAGS until ready) */}
+      {FEATURE_FLAGS.SHOW_MULTI_PHYSICS_TOOLS && (
       <section className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 font-mono">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
           <div>
@@ -577,6 +579,7 @@ Digital Signature: SHA256-VERIFIED-AIGENESIS-NOTIFIED-BODY-2026
           </div>
         </div>
       </section>
+      )}
 
       {/* 6. Frequently Asked Questions */}
       <section className="space-y-4 max-w-3xl mx-auto">
@@ -600,8 +603,8 @@ Digital Signature: SHA256-VERIFIED-AIGENESIS-NOTIFIED-BODY-2026
               a: 'No. We provide 100% air-gapped sovereign deployments (Tier-4 SCIF and on-premise Docker/Kubernetes) with zero outbound telemetry egress. All CAD models, weights, and audit certificates remain strictly your exclusive intellectual property.'
             },
             {
-              q: 'Can we purchase audit packs for specific pre-submission filings?',
-              a: 'Yes. In addition to enterprise platform subscriptions, we offer pre-packaged regulatory dossiers for FDA Surgical Robotics ($9,999), STANAG 4586 Defense UAVs ($8,499), and ISO 3691-4 AMRs ($4,999), payable via corporate Purchase Order (PO) or wire transfer.'
+              q: 'Can we purchase single-submission dossier packs or pay via Corporate PO?',
+              a: 'Yes. Alongside Dossier Pro (£499/mo), QA Team Studio (£1,499/mo), and Sovereign Enterprise (£4,999/mo) subscriptions via PayPal or card, we offer pre-packaged turnkey submission dossiers for FDA Surgical Robotics (£7,999), STANAG 4586 Defense UAV/UGVs (£6,999), ISO 3691-4 AMRs (£3,999), and ISO 10218 Cobots (£3,499), payable via Net-30 corporate Purchase Order (PO) or wire transfer.'
             }
           ].map((faq, idx) => {
             const isOpen = openFaq === idx;

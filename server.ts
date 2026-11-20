@@ -1,6 +1,8 @@
 import express from "express";
 import path from "path";
+import dns from "dns";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import { SubscriptionDatabase, StoredSubscription } from "./src/db/subscriptionStore";
@@ -34,10 +36,10 @@ function getGeminiClient(): GoogleGenAI | null {
 
 // Rate-limiting and quota enforcement limits per plan tier
 const TIER_QUOTAS: Record<string, { aiLimit: number; name: string }> = {
-  developer: { aiLimit: 5, name: "Developer / Free" },
-  pro: { aiLimit: 250, name: "Pro Innovator" },
-  team: { aiLimit: 2000, name: "Team / Studio" },
-  enterprise: { aiLimit: 100000, name: "Enterprise & Safety" },
+  developer: { aiLimit: 5, name: "Evaluation Sandbox" },
+  pro: { aiLimit: 250, name: "Dossier Pro" },
+  team: { aiLimit: 2000, name: "QA Team Studio" },
+  enterprise: { aiLimit: 100000, name: "Sovereign Enterprise" },
 };
 
 // In-memory request counters per client token/IP
@@ -131,13 +133,13 @@ app.post("/api/decompose-objective", async (req, res) => {
     // Enforce quota limit barrier
     if (usage.count >= tierConfig.aiLimit) {
       return res.status(429).json({
-        error: `Monthly quota barrier reached: ${usage.count}/${tierConfig.aiLimit} Custom AI Goal Syntheses used on ${tierConfig.name}.`,
+        error: `Monthly quota barrier reached: ${usage.count}/${tierConfig.aiLimit} Formal Z3 Clause Audits used on ${tierConfig.name}.`,
         barrier: true,
         currentPlan: plan,
         recommendedPlan: plan === "developer" ? "pro" : "team",
         used: usage.count,
         limit: tierConfig.aiLimit,
-        featureName: "AI Goal Synthesizer",
+        featureName: "Formal Z3 Clause Audit Engine",
       });
     }
 
@@ -498,9 +500,9 @@ app.post("/api/paypal/create-order", async (req, res) => {
     } = req.body;
 
     const prices: Record<string, { monthly: number; annual: number; name: string }> = {
-      pro: { monthly: 79, annual: 63 * 12, name: 'Pro Innovator' },
-      team: { monthly: 399, annual: 319 * 12, name: 'Team / Studio' },
-      enterprise: { monthly: 100000, annual: 80000 * 12, name: 'Enterprise & Safety' },
+      pro: { monthly: 499, annual: 399 * 12, name: 'Dossier Pro (Single Robot Program)' },
+      team: { monthly: 1499, annual: 1199 * 12, name: 'QA Team Studio (Multi-Line Compliance)' },
+      enterprise: { monthly: 4999, annual: 3999 * 12, name: 'Sovereign Enterprise (Air-Gapped SCIF)' },
     };
 
     const planInfo = prices[tier] || prices.pro;
@@ -516,7 +518,7 @@ app.post("/api/paypal/create-order", async (req, res) => {
           purchase_units: [
             {
               reference_id: `aigenesis_${tier}_${Date.now()}`,
-              description: `AIGENESIS.TECH ${planInfo.name} Plan (${billingCycle})`,
+              description: `AIGENESIS.SAFETY ${planInfo.name} (${billingCycle})`,
               custom_id: JSON.stringify({ tier, billingCycle, email, organization }),
               amount: {
                 currency_code: currency,
@@ -530,8 +532,8 @@ app.post("/api/paypal/create-order", async (req, res) => {
               },
               items: [
                 {
-                  name: `AIGENESIS.TECH ${planInfo.name}`,
-                  description: `Physical AI Cloud Platform • ${billingCycle === 'annual' ? '12 Months' : '1 Month'} Access`,
+                  name: `AIGENESIS.SAFETY ${planInfo.name}`,
+                  description: `Automated Robotics Regulatory & Safety Dossier Engine • ${billingCycle === 'annual' ? '12 Months' : '1 Month'} License`,
                   unit_amount: {
                     currency_code: currency,
                     value: amountValue.toFixed(2)
@@ -543,7 +545,7 @@ app.post("/api/paypal/create-order", async (req, res) => {
             }
           ],
           application_context: {
-            brand_name: 'AIGENESIS.TECH',
+            brand_name: 'AIGENESIS.SAFETY',
             landing_page: 'NO_PREFERENCE',
             user_action: 'PAY_NOW',
             return_url: `${appUrl}?paypal_status=success&tier=${tier}&cycle=${billingCycle}`,
@@ -708,7 +710,13 @@ app.post("/api/paypal/capture-order", async (req, res) => {
     // Sandbox / Simulation Order Capture
     const licenseKey = `PAYPAL-AIGEN-${tier.toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
     const payerId = `PAYER-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-    const amount = tier === 'team' ? 399 : tier === 'enterprise' ? 1500 : 79;
+    const tierPrices: Record<string, { monthly: number; annual: number }> = {
+      pro: { monthly: 499, annual: 399 * 12 },
+      team: { monthly: 1499, annual: 1199 * 12 },
+      enterprise: { monthly: 4999, annual: 3999 * 12 },
+    };
+    const matchedTier = tierPrices[tier] || tierPrices.pro;
+    const amount = billingCycle === 'annual' ? matchedTier.annual : matchedTier.monthly;
 
     const savedSub = SubscriptionDatabase.upsert({
       orderId,
@@ -921,7 +929,7 @@ app.post("/api/paypal/test-webhook", express.json(), (req, res) => {
     payerEmail: email,
     tier: updatedTier as any,
     billingCycle: 'annual',
-    amount: updatedTier === 'enterprise' ? 100000 : updatedTier === 'team' ? 399 : 79,
+    amount: updatedTier === 'enterprise' ? 3999 * 12 : updatedTier === 'team' ? 1199 * 12 : 399 * 12,
     currency: 'GBP',
     lastWebhookEvent: eventType
   });
@@ -1219,6 +1227,197 @@ app.get("/sitemap.xml", (req, res) => {
   res.setHeader("Content-Type", "application/xml; charset=utf-8");
   res.setHeader("Cache-Control", "public, max-age=86400");
   res.send(sitemapXml);
+});
+
+// ============================================================================
+// HIGH-DELIVERABILITY 1:1 OUTREACH & DOMAIN AUTHENTICATION ENDPOINTS
+// ============================================================================
+
+app.get("/api/email/config", (_req, res) => {
+  const hasResend = Boolean(process.env.RESEND_API_KEY);
+  const hasSmtp = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
+  const provider = hasResend ? "resend" : hasSmtp ? "smtp" : "draft-only";
+
+  res.json({
+    configured: hasResend || hasSmtp,
+    provider,
+    fromAddress: process.env.EMAIL_FROM || process.env.SMTP_USER || null,
+  });
+});
+
+app.post("/api/email/check-domain", async (req, res) => {
+  try {
+    const rawDomain = String(req.body?.domain || "").trim().toLowerCase();
+    const cleanDomain = rawDomain
+      .replace(/^https?:\/\//, "")
+      .replace(/^.*@/, "")
+      .split("/")[0]
+      .replace(/[^a-z0-9.-]/g, "");
+
+    if (!cleanDomain || !cleanDomain.includes(".")) {
+      return res.status(400).json({ error: "Please provide a valid sending domain (e.g. aigenesis.tech)." });
+    }
+
+    let mxRecords: dns.MxRecord[] = [];
+    let rootTxtRecords: string[] = [];
+    let dmarcTxtRecords: string[] = [];
+    const dkimHits: { selector: string; record: string }[] = [];
+
+    try {
+      mxRecords = await dns.promises.resolveMx(cleanDomain);
+    } catch {
+      mxRecords = [];
+    }
+
+    try {
+      const rawTxt = await dns.promises.resolveTxt(cleanDomain);
+      rootTxtRecords = rawTxt.map((chunks) => chunks.join(""));
+    } catch {
+      rootTxtRecords = [];
+    }
+
+    try {
+      const rawDmarc = await dns.promises.resolveTxt(`_dmarc.${cleanDomain}`);
+      dmarcTxtRecords = rawDmarc.map((chunks) => chunks.join(""));
+    } catch {
+      dmarcTxtRecords = [];
+    }
+
+    const commonSelectors = ["google", "resend", "selector1", "selector2", "k1", "default", "mail"];
+    await Promise.all(
+      commonSelectors.map(async (selector) => {
+        try {
+          const rec = await dns.promises.resolveTxt(`${selector}._domainkey.${cleanDomain}`);
+          const joined = rec.map((c) => c.join("")).join(" ");
+          if (joined.toLowerCase().includes("v=dkim1") || joined.toLowerCase().includes("p=")) {
+            dkimHits.push({ selector, record: joined.slice(0, 140) });
+          }
+        } catch {
+          // Selector not present
+        }
+      })
+    );
+
+    const spfRecord = rootTxtRecords.find((r) => r.toLowerCase().startsWith("v=spf1")) || null;
+    const dmarcRecord = dmarcTxtRecords.find((r) => r.toLowerCase().startsWith("v=dmarc1")) || null;
+
+    let dmarcPolicy: string = "none";
+    if (dmarcRecord) {
+      const match = dmarcRecord.match(/p=([a-zA-Z]+)/i);
+      dmarcPolicy = match ? match[1].toLowerCase() : "none";
+    }
+
+    const score =
+      (mxRecords.length > 0 ? 20 : 0) +
+      (spfRecord ? 30 : 0) +
+      (dkimHits.length > 0 ? 25 : 0) +
+      (dmarcRecord ? (dmarcPolicy === "quarantine" || dmarcPolicy === "reject" ? 25 : 15) : 0);
+
+    res.json({
+      domain: cleanDomain,
+      score,
+      mx: { found: mxRecords.length > 0, count: mxRecords.length, primary: mxRecords[0]?.exchange || null },
+      spf: { found: Boolean(spfRecord), record: spfRecord },
+      dmarc: { found: Boolean(dmarcRecord), policy: dmarcPolicy, record: dmarcRecord },
+      dkim: { found: dkimHits.length > 0, selectors: dkimHits },
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error?.message || "DNS verification failed." });
+  }
+});
+
+app.post("/api/email/send", async (req, res) => {
+  try {
+    const { to, subject, body, replyTo } = req.body || {};
+    const recipient = String(to || "").trim();
+    const cleanSubject = String(subject || "").trim();
+    const cleanBody = String(body || "").trim();
+
+    if (!recipient || !recipient.includes("@")) {
+      return res.status(400).json({ error: "Valid recipient email address is required." });
+    }
+    if (!cleanSubject || !cleanBody) {
+      return res.status(400).json({ error: "Subject and plain-text body are required." });
+    }
+
+    const fromAddress =
+      process.env.EMAIL_FROM ||
+      process.env.SMTP_USER ||
+      "safety@aigenesis.tech";
+
+    // Option 1: Resend API (Plain-text 1:1 mode — no promotional HTML wrapper)
+    if (process.env.RESEND_API_KEY) {
+      const resendResp = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: fromAddress,
+          to: [recipient],
+          subject: cleanSubject,
+          text: cleanBody,
+          ...(replyTo ? { reply_to: String(replyTo).trim() } : {}),
+        }),
+      });
+
+      const resendData = await resendResp.json();
+      if (!resendResp.ok) {
+        return res.status(resendResp.status).json({
+          error: resendData?.message || "Resend API rejected email dispatch.",
+        });
+      }
+
+      return res.json({
+        sent: true,
+        provider: "resend",
+        messageId: resendData?.id || `resend-${Date.now()}`,
+        from: fromAddress,
+        to: recipient,
+      });
+    }
+
+    // Option 2: Standard SMTP via Nodemailer (Google Workspace / Microsoft 365 / Postmark)
+    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+      const port = Number(process.env.SMTP_PORT || 587);
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port,
+        secure: port === 465,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: fromAddress,
+        to: recipient,
+        ...(replyTo ? { replyTo: String(replyTo).trim() } : {}),
+        subject: cleanSubject,
+        text: cleanBody,
+      });
+
+      return res.json({
+        sent: true,
+        provider: "smtp",
+        messageId: info.messageId,
+        from: fromAddress,
+        to: recipient,
+      });
+    }
+
+    // Option 3: No server-side mail secret configured — return honest draft-only notice
+    return res.status(200).json({
+      sent: false,
+      draftOnly: true,
+      message:
+        "No RESEND_API_KEY or SMTP credentials are configured on the server yet. Use 'Open in Mail App' or download the .eml file to send directly from your personal inbox.",
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error?.message || "Failed to dispatch email." });
+  }
 });
 
 

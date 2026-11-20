@@ -3,7 +3,7 @@ import { PlanTier, PlanLimits, QuotaUsage } from '../types';
 export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
   developer: {
     tier: 'developer',
-    name: 'Developer / Free',
+    name: 'Evaluation Sandbox',
     badge: 'Free Forever',
     priceMonthly: 0,
     aiSynthesesLimit: 5,
@@ -16,13 +16,13 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     hasComplianceAudit: false,
     hasAirGapped: false,
     seats: 1,
-    description: 'Essential sandbox for physical AI evaluation, students, and open research.'
+    description: 'Interactive URDF/YAML gap analyzer, FMEA risk matrix, and watermarked draft safety dossiers.'
   },
   pro: {
     tier: 'pro',
-    name: 'Pro Innovator',
-    badge: '★ Most Popular',
-    priceMonthly: 79,
+    name: 'Dossier Pro',
+    badge: '★ Single Robot Program',
+    priceMonthly: 499,
     aiSynthesesLimit: 250,
     simulationsLimit: 2500,
     stressTestsLimit: 500,
@@ -30,16 +30,16 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     hasRos2Export: true,
     hasIsaacSim: true,
     hasSyntheticDataset: false,
-    hasComplianceAudit: false,
+    hasComplianceAudit: true,
     hasAirGapped: false,
     seats: 1,
-    description: 'High-throughput goal synthesizer with ROS 2 and Isaac Sim export pipelines.'
+    description: 'Full automated ISO 10218, ISO 3691-4 & FDA 21 CFR 820 dossiers, Z3 barrier proofs, and CI/CD Gatekeeper for 1 robot line.'
   },
   team: {
     tier: 'team',
-    name: 'Team / Studio',
-    badge: 'High Velocity',
-    priceMonthly: 399,
+    name: 'QA Team Studio',
+    badge: 'Multi-Line Quality Team',
+    priceMonthly: 1499,
     aiSynthesesLimit: 2000,
     simulationsLimit: 25000,
     stressTestsLimit: 5000,
@@ -47,16 +47,16 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     hasRos2Export: true,
     hasIsaacSim: true,
     hasSyntheticDataset: true,
-    hasComplianceAudit: false,
+    hasComplianceAudit: true,
     hasAirGapped: false,
     seats: 10,
-    description: 'Collaborative robotics engineering suites with shared synthetic dataset pipelines.'
+    description: '10 QA & Robotics seats, unlimited product lines, multi-repo GitHub/GitLab PR blocking, and Notified Body RTM binders.'
   },
   enterprise: {
     tier: 'enterprise',
-    name: 'Enterprise & Safety',
-    badge: 'Zero-Risk SLA',
-    priceMonthly: 100000,
+    name: 'Sovereign Enterprise',
+    badge: 'Air-Gapped SCIF SLA',
+    priceMonthly: 4999,
     aiSynthesesLimit: 100000, // Effectively Unlimited
     simulationsLimit: 1000000,
     stressTestsLimit: 1000000,
@@ -67,7 +67,7 @@ export const PLAN_DEFINITIONS: Record<PlanTier, PlanLimits> = {
     hasComplianceAudit: true,
     hasAirGapped: true,
     seats: 100,
-    description: 'Air-gapped VPC clusters, ISO 10218 & FDA safety certification, custom foundation fine-tuning, and dedicated solutions architects.'
+    description: 'Air-gapped SCIF Kubernetes deployment, cryptographic Notified Body seals, custom regulatory templates, and dedicated QA architect.'
   }
 };
 
@@ -159,7 +159,7 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (current >= limit) {
         return {
           allowed: false,
-          reason: `You have reached your limit of ${limit} Custom AI Goal Syntheses on the ${limits.name} plan.`,
+          reason: `You have reached your monthly limit of ${limit} Formal Z3 Clause Audits on the ${limits.name} plan.`,
           current,
           limit,
           remaining: 0,
@@ -177,7 +177,7 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (current >= limit) {
         return {
           allowed: false,
-          reason: `You have reached your monthly limit of ${limit} 1000Hz physical simulation runs on the ${limits.name} plan.`,
+          reason: `You have reached your monthly limit of ${limit} Safety Twin Verification Runs on the ${limits.name} plan.`,
           current,
           limit,
           remaining: 0,
@@ -195,7 +195,7 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (current >= limit) {
         return {
           allowed: false,
-          reason: `You have reached your limit of ${limit} hardware stress tests on the ${limits.name} plan.`,
+          reason: `You have reached your monthly limit of ${limit} FMEA Adversarial Hazard Sweeps on the ${limits.name} plan.`,
           current,
           limit,
           remaining: 0,
@@ -213,7 +213,7 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (!limits.hasRos2Export && current >= limit) {
         return {
           allowed: false,
-          reason: `Free tier allows up to ${limit} preview exports. Upgrade to Pro Innovator for unlimited ROS 2 & NVIDIA Isaac Sim scripts.`,
+          reason: `Evaluation Sandbox allows up to ${limit} watermarked draft exports. Upgrade to Dossier Pro (£499/mo) for unwatermarked PDF/HTML, Markdown & SHA-256 JSON Dossiers.`,
           current,
           limit,
           remaining: 0,
@@ -225,7 +225,7 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (current >= limit) {
         return {
           allowed: false,
-          reason: `Monthly export limit of ${limit} scripts reached on ${limits.name}.`,
+          reason: `Monthly dossier & manifest export limit of ${limit} reached on ${limits.name}.`,
           current,
           limit,
           remaining: 0,
@@ -240,12 +240,12 @@ export function checkQuota(action: 'ai_synthesize' | 'simulation_run' | 'stress_
       if (!limits.hasComplianceAudit) {
         return {
           allowed: false,
-          reason: `Formal ISO 10218 and FDA 14971 Safety Audit certification requires the Enterprise & Safety tier.`,
+          reason: `Unwatermarked ISO 10218, ISO 3691-4, FDA 21 CFR 820 & STANAG 4586 Dossier Exports require Dossier Pro (£499/mo) or higher.`,
           current: 0,
           limit: 0,
           remaining: 0,
           featureLocked: true,
-          requiredPlan: 'enterprise',
+          requiredPlan: 'pro',
           planName: limits.name
         };
       }

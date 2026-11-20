@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import { ActiveTab, PlanTier } from '../types';
 import { useQuota } from '../hooks/useQuota';
+import { FEATURE_FLAGS } from '../config/featureFlags';
 
 interface NavbarProps {
   activeTab: ActiveTab;
@@ -69,7 +70,7 @@ export const CORE_NAV_ITEMS: NavItemConfig[] = [
   {
     id: 'tab-commercial',
     tab: 'commercial',
-    label: 'Commercial & SOW Store',
+    label: 'PO & Dossier Store',
     icon: DollarSign
   },
   {
@@ -300,7 +301,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* Deep Multi-Physics Engine Dropdown (Under-The-Hood Modules) */}
+        {/* Deep Multi-Physics Engine Dropdown (Under-The-Hood Modules — Hidden via FEATURE_FLAGS until ready) */}
+        {FEATURE_FLAGS.SHOW_MULTI_PHYSICS_TOOLS && (
         <div className="relative shrink-0" ref={dropdownRef}>
           <button
             onClick={() => setIsToolsDropdownOpen(!isToolsDropdownOpen)}
@@ -373,6 +375,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
         </div>
+        )}
       </div>
     </header>
   );

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Check, Zap, Shield, Sparkles, Building2, Users, Cpu, ArrowRight, 
-  HelpCircle, Download, FileText, Lock, Globe, Layers, Award, CreditCard, CheckCircle2,
-  X, RefreshCw, ChevronDown, ChevronUp, DollarSign, Gauge, AlertTriangle, ExternalLink, Key
+import {
+  Check, Zap, Shield, Sparkles, ArrowRight, HelpCircle, Globe, Layers, Award,
+  CheckCircle2, ChevronDown, ChevronUp, DollarSign, Gauge, Key, ShieldCheck, FileText
 } from 'lucide-react';
 import { PlanTier, ActiveTab } from '../types';
 import { useQuota } from '../hooks/useQuota';
-import { PLAN_DEFINITIONS } from '../utils/quotaManager';
 import { PayPalCheckoutModal } from './PayPalCheckoutModal';
 import { EnterpriseFeaturesSection } from './EnterpriseFeaturesSection';
 
@@ -16,27 +14,29 @@ interface PricingPageProps {
   onNavigateTab?: (tab: ActiveTab) => void;
 }
 
-export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOpenProTrialModal, onNavigateTab }) => {
-  const { quota, limits, changePlan, activatePayPal, startTrial, reset, fillToLimit } = useQuota();
+export const PricingPage: React.FC<PricingPageProps> = ({
+  onOpenQuotaModal,
+  onOpenProTrialModal,
+  onNavigateTab
+}) => {
+  const { quota, limits, changePlan, activatePayPal, startTrial } = useQuota();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('annual');
   const [isPayPalModalOpen, setIsPayPalModalOpen] = useState<boolean>(false);
   const [selectedTierForCheckout, setSelectedTierForCheckout] = useState<PlanTier>('pro');
-  const [simulationsPerMonth, setSimulationsPerMonth] = useState<number>(500);
-  const [hardwareCostPerTest, setHardwareCostPerTest] = useState<number>(1200);
+  const [consultantRetainerGbp, setConsultantRetainerGbp] = useState<number>(220000);
+  const [auditWeeksSaved, setAuditWeeksSaved] = useState<number>(18);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
-  // Pricing calculations
+  // Unified Single-Service Regulatory Pricing
   const isAnnual = billingCycle === 'annual';
-  const discountMultiplier = isAnnual ? 0.8 : 1.0;
+  const proMonthlyDisplay = isAnnual ? 399 : 499;
+  const teamMonthlyDisplay = isAnnual ? 1199 : 1499;
+  const enterpriseMonthlyDisplay = isAnnual ? 3999 : 4999;
 
-  const proPrice = Math.round(79 * discountMultiplier);
-  const teamPrice = Math.round(399 * discountMultiplier);
-  const enterprisePrice = Math.round(100000 * discountMultiplier);
-
-  // Hardware cost savings calculation
-  const physicalTestingCost = (simulationsPerMonth * hardwareCostPerTest);
-  const virtualSimCost = 399 * 12; // Team annual plan
-  const annualSavings = Math.max(0, (physicalTestingCost * 12) - virtualSimCost);
+  // Regulatory Cost & Consultant Fee Savings Calculator
+  const engineeringLaborSaved = auditWeeksSaved * 40 * 120; // £120/hr loaded QA/robotics rate
+  const annualProLicenseCost = 399 * 12;
+  const annualSavings = Math.max(0, consultantRetainerGbp + engineeringLaborSaved - annualProLicenseCost);
 
   const handleOpenPayPalCheckout = (tier: PlanTier) => {
     setSelectedTierForCheckout(tier);
@@ -67,20 +67,20 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
 
   const faqs = [
     {
-      q: "Can I export telemetry and kinematic trajectories to ROS 2 and NVIDIA Isaac Sim?",
-      a: "Yes. Pro, Team, and Enterprise tiers include export pipelines for standard ROS 2 joint trajectory messages (`trajectory_msgs/JointTrajectory`), URDF spatial anchors, and raw CSV/JSON logs compatible with NVIDIA Isaac Sim and Gazebo."
+      q: "What is included in a single AIGENESIS.SAFETY Regulatory Dossier license?",
+      a: "Every paid license covers the full Automated Regulatory & Safety Dossier Engine: URDF/YAML clause-by-clause gap analysis, interactive ISO 14971 FMEA risk matrices, bi-directional Requirements Traceability Matrices (RTM), CI/CD GitHub/GitLab Safety Gatekeeper workflows, and unwatermarked PDF/HTML, Markdown, and signed JSON Design History Files."
     },
     {
-      q: "How does the 5-layer physical AI stack decomposition engine operate?",
-      a: "Our engine uses Gemini 3.6 Flash combined with real-time domain physics models to translate natural language real-world goals into an integrated 5-layer execution plan: Multimodality (sensor fusion), World Models (3D spatial rollout), Reasoning (System 2 safety bounds), Agents (sub-goal DAG), and Robotics (1000Hz motor torque closed loops)."
+      q: "Which international robotics & medical regulatory standards are supported?",
+      a: "Out of the box, the engine compiles audit-ready dossiers for ISO 10218-1/2 & ISO/TS 15066 (Collaborative Cobots), ISO 3691-4 & ANSI/RIA R15.08 (Warehouse AMRs), FDA 21 CFR Part 820.30 / ISO 13485 / IEC 62304 Class C (Surgical Robotics), and STANAG 4586 / MIL-STD-810H (Defense Autonomy)."
     },
     {
-      q: "Can we deploy the platform on-premises for defense or surgical medical compliance?",
-      a: "Yes. Enterprise plans support single-tenant VPC deployments or fully air-gapped Docker/Kubernetes containers. All AI reasoning and 3D simulation loops run inside your security perimeter without external telemetry outbound."
+      q: "Can we buy a single regulatory dossier pack or pay by Corporate PO instead of PayPal?",
+      a: "Yes. You can subscribe directly via PayPal or Corporate Card below, start a 14-day free trial with no card required, or open the Commercial & SOW Store to pay via Net-30 Corporate Purchase Order (PO) / wire transfer for single pre-submission audit packs or Sovereign SCIF annual contracts."
     },
     {
-      q: "What is the difference between Monthly and Billed Annually?",
-      a: "Billed Annually saves 20% on all Pro and Team tier subscriptions, billed as a single annual payment. Enterprise licenses can be paid annually or via custom perpetual CapEx site licenses."
+      q: "Can we deploy air-gapped so proprietary CAD and firmware never leave our network?",
+      a: "Yes. The Sovereign Enterprise tier provides self-contained Docker/Kubernetes SCIF containers with zero outbound telemetry egress. All URDFs, control laws, and Z3 safety proofs stay 100% inside your corporate firewall."
     }
   ];
 
@@ -89,16 +89,16 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
       {/* Top Banner Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-indigo-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono font-semibold">
-          <DollarSign className="w-4 h-4 text-cyan-400" />
-          <span>Flexible Enterprise Licensing & API Plans</span>
+          <ShieldCheck className="w-4 h-4 text-cyan-400" />
+          <span>Single-Service Licensing • Automated Regulatory &amp; Safety Dossier Engine</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight font-mono">
-          Accelerate Physical AI Deployment
+          Simple Licensing for Audit-Ready Robotics Dossiers
         </h1>
 
         <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-          From surgical robotics to autonomous field rovers—simulate physical dynamics, verify System 2 safety reasoning, and orchestrate motor closed-loops before touching physical hardware.
+          One focused platform: turn your URDF/ROS 2 codebase into mathematically verified ISO 10218, ISO 3691-4, and FDA 21 CFR 820 compliance dossiers backed by Z3 formal proofs.
         </p>
 
         {/* Monthly vs Annual Toggle */}
@@ -110,7 +110,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           <button
             id="btn-billing-toggle"
             onClick={() => setBillingCycle(isAnnual ? 'monthly' : 'annual')}
-            className="relative w-14 h-7 bg-slate-800 rounded-full p-1 border border-slate-700 transition-colors focus:outline-none"
+            className="relative w-14 h-7 bg-slate-800 rounded-full p-1 border border-slate-700 transition-colors focus:outline-none cursor-pointer"
           >
             <div
               className={`w-5 h-5 rounded-full bg-cyan-400 shadow-md transform transition-transform ${
@@ -129,7 +129,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           </div>
         </div>
 
-        {/* 14-Day Pro Trial Banner (No Credit Card Required) */}
+        {/* 14-Day Free Dossier Pro Trial Banner */}
         <div className="mt-4 p-5 bg-gradient-to-r from-cyan-950/60 via-slate-900 to-indigo-950/60 border border-cyan-500/40 rounded-3xl shadow-xl shadow-cyan-500/5 flex flex-col md:flex-row items-center justify-between gap-4 text-left">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-cyan-500/15 border border-cyan-500/30 rounded-2xl shrink-0">
@@ -140,13 +140,13 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-wider">
                   No Credit Card Required
                 </span>
-                <span className="text-xs font-mono text-cyan-300 font-bold">Approach A: Frictionless Evaluation</span>
+                <span className="text-xs font-mono text-cyan-300 font-bold">Instant QA Evaluation</span>
               </div>
               <h3 className="text-sm sm:text-base font-bold text-white font-mono mt-1">
-                Evaluate Pro Innovator Free for 14 Days
+                Evaluate Dossier Pro Free for 14 Days
               </h3>
               <p className="text-xs text-slate-400 font-sans mt-0.5">
-                Robotics and clinical engineers shouldn't need a corporate card to test 1 kHz kinematics and ROS 2 exports. Instant 1-click access.
+                Let your Quality &amp; Robotics engineers run live URDF gap audits, FMEA risk matrices, and unwatermarked DHF exports before procurement.
               </p>
             </div>
           </div>
@@ -169,45 +169,45 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
                 className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
               >
                 <Zap className="w-4 h-4 fill-slate-950" />
-                <span>Start 14-Day Free Pro Trial</span>
+                <span>Start 14-Day Free Trial</span>
               </button>
             ) : (
               <div className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs font-mono text-slate-300 flex items-center justify-center gap-2">
                 <Check className="w-4 h-4 text-cyan-400" />
-                <span>Full Pro/Enterprise Active</span>
+                <span>Paid Dossier License Active</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* Enterprise SOW & Commercial Store Banner */}
+        {/* One-Off Filing / Corporate PO Banner */}
         {onNavigateTab && (
           <div className="mt-4 p-5 bg-gradient-to-r from-emerald-950/60 via-slate-900 to-teal-950/60 border border-emerald-500/40 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-left">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-emerald-500/15 border border-emerald-500/30 rounded-2xl shrink-0">
-                <DollarSign className="w-6 h-6 text-emerald-400" />
+                <FileText className="w-6 h-6 text-emerald-400" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold uppercase tracking-wider">
-                    High-Ticket Enterprise
+                    Corporate PO &amp; Single-Filing Packs
                   </span>
-                  <span className="text-xs font-mono text-emerald-300 font-bold">6 Revenue Streams Active</span>
+                  <span className="text-xs font-mono text-emerald-300 font-bold">Net-30 Wire / Invoice</span>
                 </div>
                 <h3 className="text-sm sm:text-base font-bold text-white font-mono mt-1">
-                  Enterprise SOW Pilot Generator, Regulatory Dossiers & Hardware Kits
+                  Prefer a One-Off Regulatory Audit Pack or Pilot SOW via Purchase Order?
                 </h3>
                 <p className="text-xs text-slate-400 font-sans mt-0.5">
-                  Need a formal £25k–£75k Pilot SOW for corporate procurement, pre-trained synthetic datasets, or physical HiL dongles?
+                  Generate a formal CFO ROI memo, 1-click MNDA, £3,999–£7,999 single-submission dossier packs, or Net-30 corporate PO invoices.
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => onNavigateTab('commercial')}
-              className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
+              className="w-full md:w-auto px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-mono font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] shrink-0"
             >
-              <span>Open Commercial Store</span>
+              <span>Open PO &amp; SOW Desk</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -217,18 +217,20 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
         <div className="mt-4 p-4 bg-slate-900/90 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
           <div className="flex items-center gap-2.5">
             <Gauge className="w-4 h-4 text-cyan-400" />
-            <span className="text-slate-300">Your Current Workspace Tier:</span>
+            <span className="text-slate-300">Active Compliance License:</span>
             <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-full font-bold">
               {limits.name} {quota.isTrialActive ? `(14-Day Trial: ${quota.trialDaysRemaining ?? 14}d left)` : ''}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-slate-400">AI Goals Used: <strong>{quota.aiSynthesesUsed} / {limits.aiSynthesesLimit >= 100000 ? 'Unlimited' : limits.aiSynthesesLimit}</strong></span>
+            <span className="text-slate-400">
+              Formal Audits Used: <strong>{quota.aiSynthesesUsed} / {limits.aiSynthesesLimit >= 100000 ? 'Unlimited' : limits.aiSynthesesLimit}</strong>
+            </span>
             {onOpenQuotaModal && (
               <button
                 onClick={onOpenQuotaModal}
-                className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-[11px] font-semibold border border-slate-700 transition-all flex items-center gap-1.5"
+                className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-[11px] font-semibold border border-slate-700 transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <Gauge className="w-3 h-3 text-cyan-400" />
                 <span>Inspect Quota Meters</span>
@@ -240,42 +242,42 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
 
       {/* Pricing Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Plan 1: Developer / Free */}
+        {/* Plan 1: Evaluation Sandbox (Free) */}
         <div className={`bg-slate-900/80 rounded-3xl p-6 flex flex-col justify-between space-y-6 transition-all ${
           quota.plan === 'developer' ? 'border-2 border-emerald-500 shadow-xl shadow-emerald-500/10' : 'border border-slate-800 hover:border-slate-700'
         }`}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="inline-block px-3 py-1 bg-slate-800 text-slate-300 rounded-lg text-xs font-mono font-semibold">
-                Developer / Free
+                Evaluation Sandbox
               </div>
               {quota.plan === 'developer' && (
                 <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-[10px] font-bold font-mono">
-                  ✓ Active Plan
+                  ✓ Active
                 </span>
               )}
             </div>
             <div>
               <div className="text-3xl font-extrabold text-white font-mono">£0</div>
-              <p className="text-xs text-slate-400 mt-1">Free forever for evaluation & students</p>
+              <p className="text-xs text-slate-400 mt-1">Free forever for interactive audit testing</p>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-300 font-sans pt-2">
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span><strong>5 Custom Goal Decompositions / mo</strong></span>
+                <span><strong>URDF / ROS 2 Clause Gap Analyzer</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>25 Physical Simulation Rollouts / mo</span>
+                <span>Interactive ISO 14971 FMEA Matrix</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>3 Code & Script Exports</span>
+                <span>Watermarked Draft Dossier Previews</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Standard Preset Domain Scenarios</span>
+                <span>5 Z3 SMT Verification Audits / mo</span>
               </li>
             </ul>
           </div>
@@ -283,65 +285,65 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           <button
             id="plan-btn-developer"
             onClick={() => handleQuickActivate('developer')}
-            className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold transition-all ${
+            className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
               quota.plan === 'developer'
                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 cursor-default'
                 : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
             }`}
           >
-            {quota.plan === 'developer' ? '✓ Currently Active' : 'Switch to Free Tier'}
+            {quota.plan === 'developer' ? '✓ Currently Active' : 'Switch to Sandbox'}
           </button>
         </div>
 
-        {/* Plan 2: Pro Innovator (POPULAR) */}
+        {/* Plan 2: Dossier Pro (POPULAR) */}
         <div className={`relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 rounded-3xl p-6 flex flex-col justify-between space-y-6 shadow-2xl scale-105 z-10 ${
           quota.plan === 'pro' ? 'border-2 border-cyan-400 shadow-cyan-500/20 ring-2 ring-cyan-500/30' : 'border-2 border-cyan-500/60 shadow-cyan-500/10'
         }`}>
-          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 rounded-full text-[10px] font-mono font-extrabold uppercase tracking-wider shadow-lg">
-            {quota.plan === 'pro' ? '★ Current Plan' : '★ Most Popular'}
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 rounded-full text-[10px] font-mono font-extrabold uppercase tracking-wider shadow-lg whitespace-nowrap">
+            {quota.plan === 'pro' ? '★ Current License' : '★ Single Robot Program'}
           </div>
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="inline-block px-3 py-1 bg-cyan-500/10 text-cyan-300 rounded-lg text-xs font-mono font-semibold border border-cyan-500/30">
-                Pro Innovator
+                Dossier Pro
               </div>
               {quota.plan === 'pro' && (
                 <span className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-full text-[10px] font-bold font-mono">
-                  ✓ Active Plan
+                  ✓ Active
                 </span>
               )}
             </div>
             <div>
               <div className="flex items-baseline gap-1 font-mono">
-                <span className="text-3xl font-extrabold text-white">£{proPrice}</span>
+                <span className="text-3xl font-extrabold text-white">£{proMonthlyDisplay}</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                {isAnnual ? 'Billed £756 annually (20% off)' : 'Billed monthly'}
+                {isAnnual ? 'Billed £4,788 annually (20% off)' : 'Billed monthly • 1 Robot Line'}
               </p>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-200 font-sans pt-2">
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <span><strong>250 Custom AI Goal Syntheses / mo</strong></span>
+                <span><strong>250 Formal Z3 Clause Audits / mo</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <span><strong>500 Simulation Rollouts / mo</strong></span>
+                <span><strong>Unwatermarked ISO &amp; FDA DHF Exports</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <span>ROS 2 & Isaac Sim Code Exporter</span>
+                <span>Print-Ready HTML/PDF, MD &amp; JSON Binders</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <span>1000Hz Motor Torque Telemetry</span>
+                <span>Bi-Directional RTM with SHA-256 Digest</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                <span>Priority Gemini 3.6 Flash Processing</span>
+                <span>GitHub &amp; GitLab CI Safety Gatekeeper</span>
               </li>
             </ul>
           </div>
@@ -359,7 +361,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
                   className="w-full py-2 bg-[#FFC439] hover:bg-[#F2BA36] text-[#003087] font-bold text-xs font-mono rounded-xl shadow-md transition-all flex items-center justify-center gap-1 cursor-pointer"
                 >
                   <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
-                  <span className="font-sans font-bold text-slate-900 ml-1">Lock In Annual Pro (20% Off)</span>
+                  <span className="font-sans font-bold text-slate-900 ml-1">Activate Pro (£{proMonthlyDisplay}/mo)</span>
                 </button>
               </div>
             ) : quota.plan === 'developer' ? (
@@ -386,7 +388,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
                   onClick={() => handleOpenPayPalCheckout('pro')}
                   className="w-full py-1.5 bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-[11px] font-mono transition-all flex items-center justify-center gap-1 cursor-pointer"
                 >
-                  <span>Or Subscribe Direct (£{proPrice}/mo)</span>
+                  <span>Or Pay via PayPal (£{proMonthlyDisplay}/mo)</span>
                 </button>
               </div>
             ) : (
@@ -401,51 +403,51 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           </div>
         </div>
 
-        {/* Plan 3: Team / Studio */}
+        {/* Plan 3: QA Team Studio */}
         <div className={`bg-slate-900/80 rounded-3xl p-6 flex flex-col justify-between space-y-6 transition-all ${
           quota.plan === 'team' ? 'border-2 border-indigo-500 shadow-xl shadow-indigo-500/10' : 'border border-slate-800 hover:border-slate-700'
         }`}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="inline-block px-3 py-1 bg-indigo-500/10 text-indigo-300 rounded-lg text-xs font-mono font-semibold border border-indigo-500/30">
-                Team / Studio
+                QA Team Studio
               </div>
               {quota.plan === 'team' && (
                 <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 rounded-full text-[10px] font-bold font-mono">
-                  ✓ Active Plan
+                  ✓ Active
                 </span>
               )}
             </div>
             <div>
               <div className="flex items-baseline gap-1 font-mono">
-                <span className="text-3xl font-extrabold text-white">£{teamPrice}</span>
+                <span className="text-3xl font-extrabold text-white">£{teamMonthlyDisplay.toLocaleString()}</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                {isAnnual ? 'Billed £3,828 annually (20% off)' : 'Billed monthly'}
+                {isAnnual ? 'Billed £14,388 annually (20% off)' : 'Billed monthly • Up to 10 QA Seats'}
               </p>
             </div>
 
             <ul className="space-y-2.5 text-xs text-slate-300 font-sans pt-2">
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span><strong>2,000 Custom AI Syntheses / mo</strong></span>
+                <span><strong>2,000 Formal Z3 Safety Audits / mo</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>10 Team Member Workspace Seats</span>
+                <span>10 Quality &amp; Robotics Engineering Seats</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>Unlimited ROS 2 & Isaac Sim Exports</span>
+                <span>Unlimited Product Lines &amp; Revisions</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>Synthetic Sensor Dataset Generator</span>
+                <span>Multi-Repo CI/CD PR Merge Blocking</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
-                <span>Shared Scenario & Asset Library</span>
+                <span>Shared FMEA Hazard &amp; RTM Library</span>
               </li>
             </ul>
           </div>
@@ -456,7 +458,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
               if (quota.plan === 'team') return;
               handleOpenPayPalCheckout('team');
             }}
-            className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 ${
+            className={`w-full py-2.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               quota.plan === 'team'
                 ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/50 cursor-default'
                 : 'bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] shadow-lg'
@@ -467,69 +469,61 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
             ) : (
               <>
                 <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
-                <span className="font-sans font-bold text-slate-900 ml-1">Subscribe to Team</span>
+                <span className="font-sans font-bold text-slate-900 ml-1">Subscribe to QA Team</span>
               </>
             )}
           </button>
         </div>
 
-        {/* Plan 4: Enterprise AI & Safety */}
+        {/* Plan 4: Sovereign Enterprise */}
         <div className={`bg-slate-900/80 rounded-3xl p-6 flex flex-col justify-between space-y-6 transition-all ${
           quota.plan === 'enterprise' ? 'border-2 border-amber-500 shadow-xl shadow-amber-500/10' : 'border border-slate-800 hover:border-slate-700'
         }`}>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="inline-block px-3 py-1 bg-amber-500/10 text-amber-300 rounded-lg text-xs font-mono font-semibold border border-amber-500/30">
-                Enterprise & Safety
+                Sovereign Enterprise
               </div>
               {quota.plan === 'enterprise' && (
                 <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-full text-[10px] font-bold font-mono">
-                  ✓ Active Plan
+                  ✓ Active
                 </span>
               )}
             </div>
             <div>
               <div className="flex items-baseline gap-1 font-mono">
-                <span className="text-3xl font-extrabold text-white">£{enterprisePrice.toLocaleString()}</span>
+                <span className="text-3xl font-extrabold text-white">£{enterpriseMonthlyDisplay.toLocaleString()}</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
               <p className="text-xs text-slate-400 mt-1">
-                {isAnnual ? 'Billed £960,000 annually (20% off)' : 'Billed £100,000 monthly or CapEx'}
+                {isAnnual ? 'Billed £47,988 annually (or Net-30 PO)' : 'Billed monthly or Corporate PO'}
               </p>
             </div>
 
             <ul className="space-y-2 text-xs text-slate-300 font-sans pt-2">
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span><strong>Unlimited 5-Layer AI Pipeline & 1M Sims</strong></span>
+                <span><strong>Unlimited Formal Audits &amp; 100 Seats</strong></span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>1 kHz Hardware-in-the-Loop CAN / EtherCAT Bridge</span>
+                <span>Air-Gapped SCIF / On-Prem Kubernetes</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>ISO 10218 (PL-e) & FDA Audit Dossier Generator</span>
+                <span>Hardware Enclave Notified-Body Seals</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Air-Gapped VPC & On-Prem Kubernetes Cluster</span>
+                <span>1 kHz Calibrated Dyno Residual Proofs</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>100+ Robot Fleet & VDA 5050 AMR Orchestration</span>
+                <span>Custom FDA 510(k) / CE / STANAG Templates</span>
               </li>
               <li className="flex items-start gap-2">
                 <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Proprietary VLA Foundation Model Fine-Tuning</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Auto SolidWorks / STEP / MuJoCo Kinematic Ingestion</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <span>Named Field Robotics Architect & 15-Min SLA</span>
+                <span>Named Safety Compliance Architect SLA</span>
               </li>
             </ul>
           </div>
@@ -540,7 +534,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
               if (quota.plan === 'enterprise') return;
               handleOpenPayPalCheckout('enterprise');
             }}
-            className={`w-full py-2.5 rounded-xl text-xs font-mono font-extrabold transition-all flex items-center justify-center gap-1.5 ${
+            className={`w-full py-2.5 rounded-xl text-xs font-mono font-extrabold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               quota.plan === 'enterprise'
                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 cursor-default'
                 : 'bg-[#FFC439] hover:bg-[#F2BA36] active:bg-[#E2AF32] text-[#003087] shadow-lg'
@@ -551,14 +545,14 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
             ) : (
               <>
                 <span className="font-extrabold italic"><span className="text-[#003087]">Pay</span><span className="text-[#0079C1]">Pal</span></span>
-                <span className="font-sans font-bold text-slate-900 ml-1">Activate Enterprise</span>
+                <span className="font-sans font-bold text-slate-900 ml-1">Activate Sovereign</span>
               </>
             )}
           </button>
         </div>
       </div>
 
-      {/* PayPal Trust & Active Subscription Card */}
+      {/* PayPal Active Subscription Card */}
       {quota.isPayPalActive && (
         <div className="p-6 bg-gradient-to-r from-[#003087]/20 via-slate-900 to-[#0079C1]/20 border border-[#0079C1]/40 rounded-3xl space-y-4 font-mono">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -569,7 +563,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="text-sm font-bold text-white">Active PayPal Subscription</h4>
+                  <h4 className="text-sm font-bold text-white">Active PayPal Compliance License</h4>
                   <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full text-[10px] font-bold">
                     PayPal Verified
                   </span>
@@ -582,7 +576,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
 
             <div className="text-xs text-slate-300 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 flex items-center gap-2">
               <Key className="w-3.5 h-3.5 text-cyan-400" />
-              <span>License: <strong className="text-cyan-300 font-bold">{quota.licenseKey || 'PAYPAL-AIGEN-PRO-ACTIVE'}</strong></span>
+              <span>License: <strong className="text-cyan-300 font-bold">{quota.licenseKey || 'PAYPAL-AIGEN-DOSSIER-ACTIVE'}</strong></span>
             </div>
           </div>
 
@@ -593,11 +587,11 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
             </div>
             <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
               <span className="text-slate-500 text-[10px] block">Customer Email</span>
-              <span className="text-slate-200 font-semibold">{quota.customerEmail || 'engineer@company.com'}</span>
+              <span className="text-slate-200 font-semibold">{quota.customerEmail || 'qa@robotics-oem.com'}</span>
             </div>
             <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-              <span className="text-slate-500 text-[10px] block">Current Plan Tier</span>
-              <span className="text-emerald-300 font-semibold uppercase">{quota.plan}</span>
+              <span className="text-slate-500 text-[10px] block">Current License Tier</span>
+              <span className="text-emerald-300 font-semibold uppercase">{limits.name}</span>
             </div>
           </div>
         </div>
@@ -609,7 +603,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           <span className="font-extrabold italic text-base">
             <span className="text-[#0079C1]">Pay</span><span className="text-[#00457C]">Pal</span>
           </span>
-          <span>Payments securely processed with <strong>PayPal Buyer Protection</strong> & Card Checkout.</span>
+          <span>Payments securely processed with <strong>PayPal Buyer Protection</strong>, Card Checkout &amp; Corporate POs.</span>
         </div>
         <div className="flex items-center gap-4 text-[11px] text-slate-400">
           <span className="flex items-center gap-1">
@@ -618,33 +612,33 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
           </span>
           <span className="flex items-center gap-1">
             <Globe className="w-3.5 h-3.5 text-cyan-400" />
-            <span>200+ Countries & Currencies</span>
+            <span>GBP / USD / EUR Supported</span>
           </span>
           <span className="flex items-center gap-1">
             <Zap className="w-3.5 h-3.5 text-amber-400" />
-            <span>Instant API Key Provisioning</span>
+            <span>Instant Dossier License Key</span>
           </span>
         </div>
       </div>
 
-      {/* ROI & Cost Savings Calculator Section */}
+      {/* Regulatory ROI & Consultant Cost Savings Calculator */}
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
           <div>
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 text-xs font-mono font-semibold mb-2">
               <Award className="w-3.5 h-3.5" />
-              <span>Interactive ROI Calculator</span>
+              <span>Regulatory Certification ROI Calculator</span>
             </div>
             <h2 className="text-xl sm:text-2xl font-bold text-white font-mono">
-              Hardware Risk Reduction & Testing Cost Calculator
+              External Consultant Fee &amp; Audit Timeline Savings
             </h2>
             <p className="text-xs text-slate-400 mt-1">
-              Estimate annual savings by catching kinematic collisions and System 2 safety failures virtually before physical prototype testing.
+              Compare manual regulatory consulting retainers and 9-month paperwork cycles against automated Dossier synthesis.
             </p>
           </div>
 
           <div className="bg-slate-950 border border-emerald-500/30 p-4 rounded-2xl text-right font-mono">
-            <span className="text-[10px] text-slate-400 block uppercase">Estimated Annual Cost Savings</span>
+            <span className="text-[10px] text-slate-400 block uppercase">Net Annual Certification Savings</span>
             <span className="text-2xl sm:text-3xl font-extrabold text-emerald-400">
               £{annualSavings.toLocaleString()}
             </span>
@@ -655,39 +649,39 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-mono">
-              <label className="text-slate-300 font-semibold">Monthly Virtual Physical Simulations:</label>
-              <span className="text-cyan-400 font-bold text-sm">{simulationsPerMonth} runs/mo</span>
+              <label className="text-slate-300 font-semibold">External Safety Consultant Retainer Replaced:</label>
+              <span className="text-cyan-400 font-bold text-sm">£{consultantRetainerGbp.toLocaleString()}</span>
             </div>
             <input
               type="range"
-              min="50"
-              max="5000"
-              step="50"
-              value={simulationsPerMonth}
-              onChange={(e) => setSimulationsPerMonth(Number(e.target.value))}
+              min="50000"
+              max="450000"
+              step="10000"
+              value={consultantRetainerGbp}
+              onChange={(e) => setConsultantRetainerGbp(Number(e.target.value))}
               className="w-full accent-cyan-400 bg-slate-950 h-2 rounded-lg cursor-pointer"
             />
             <p className="text-[11px] text-slate-500">
-              Number of physical goal scenarios and trajectory rollouts executed per month.
+              Typical third-party fees for ISO 10218, ISO 3691-4, or FDA 510(k) DHF documentation &amp; gap audits.
             </p>
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between text-xs font-mono">
-              <label className="text-slate-300 font-semibold">Avg. Cost Per Physical Rig Test:</label>
-              <span className="text-emerald-400 font-bold text-sm">£{hardwareCostPerTest} / test</span>
+              <label className="text-slate-300 font-semibold">Internal QA &amp; Engineering Weeks Saved:</label>
+              <span className="text-emerald-400 font-bold text-sm">{auditWeeksSaved} weeks/yr</span>
             </div>
             <input
               type="range"
-              min="200"
-              max="10000"
-              step="100"
-              value={hardwareCostPerTest}
-              onChange={(e) => setHardwareCostPerTest(Number(e.target.value))}
+              min="4"
+              max="36"
+              step="2"
+              value={auditWeeksSaved}
+              onChange={(e) => setAuditWeeksSaved(Number(e.target.value))}
               className="w-full accent-emerald-400 bg-slate-950 h-2 rounded-lg cursor-pointer"
             />
             <p className="text-[11px] text-slate-500">
-              Cost of technician hours, hardware wear-and-tear, and physical test bench resets.
+              Engineering hours reclaimed by automated FMEA updates, RTM linking, and CI/CD Pull Request checks.
             </p>
           </div>
         </div>
@@ -697,104 +691,62 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
         <h2 className="text-xl font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
           <Layers className="w-5 h-5 text-cyan-400" />
-          <span>Full Feature & Infrastructure Matrix</span>
+          <span>Regulatory Dossier Engine Capability Matrix</span>
         </h2>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono border-collapse">
             <thead>
               <tr className="border-b border-slate-800 text-slate-400">
-                <th className="py-3 px-4 font-semibold">Capability / Layer</th>
-                <th className="py-3 px-4 text-center">Developer</th>
-                <th className="py-3 px-4 text-center text-cyan-400">Pro Innovator</th>
-                <th className="py-3 px-4 text-center text-indigo-400">Team / Studio</th>
-                <th className="py-3 px-4 text-center text-amber-400">Enterprise</th>
+                <th className="py-3 px-4 font-semibold">Compliance Capability</th>
+                <th className="py-3 px-4 text-center">Sandbox</th>
+                <th className="py-3 px-4 text-center text-cyan-400">Dossier Pro</th>
+                <th className="py-3 px-4 text-center text-indigo-400">QA Team Studio</th>
+                <th className="py-3 px-4 text-center text-amber-400">Sovereign</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-slate-300">
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Gemini 3.6 Flash Custom Goal Synthesizer</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Formal Z3 Clause Gap Audits</td>
                 <td className="py-3.5 px-4 text-center text-slate-400">5 / mo</td>
                 <td className="py-3.5 px-4 text-center font-bold text-cyan-300">250 / mo</td>
                 <td className="py-3.5 px-4 text-center font-bold text-indigo-300">2,000 / mo</td>
                 <td className="py-3.5 px-4 text-center font-bold text-amber-300">Unlimited</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">3D WebGL Real-Time Physical Simulator</td>
+                <td className="py-3.5 px-4 font-semibold text-white">ROS 2 YAML / URDF Safety Ingestion</td>
                 <td className="py-3.5 px-4 text-center">✓</td>
                 <td className="py-3.5 px-4 text-center text-cyan-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-indigo-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">ROS 2 JointTrajectory & URDF Exporter</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Interactive ISO 14971 FMEA Matrix</td>
+                <td className="py-3.5 px-4 text-center">✓</td>
                 <td className="py-3.5 px-4 text-center text-cyan-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-indigo-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">1000Hz Actuator Kinematics & Torque Logs</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Unwatermarked Printable PDF/HTML, MD &amp; JSON Dossiers</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">Draft Only</td>
                 <td className="py-3.5 px-4 text-center text-cyan-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-indigo-400">✓</td>
                 <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Synthetic Sensor Dataset Generator</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-indigo-400">✓</td>
-                <td className="py-3.5 px-4 text-center text-amber-400">✓</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Bi-Directional RTM &amp; CI/CD Git Gatekeeper</td>
+                <td className="py-3.5 px-4 text-center text-slate-600">Simulator</td>
+                <td className="py-3.5 px-4 text-center text-cyan-400">✓ (1 Repo)</td>
+                <td className="py-3.5 px-4 text-center text-indigo-400">✓ (Multi-Repo)</td>
+                <td className="py-3.5 px-4 text-center text-amber-400">✓ (Org-Wide)</td>
               </tr>
               <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Hardware-in-the-Loop (HIL) CAN / EtherCAT Bridge</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (1 kHz Real-Time)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">ISO 10218, ISO 13849 & FDA Safety Dossiers</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Audit-Ready PL-e)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Air-Gapped Dedicated VPC Cluster & Helm Charts</td>
+                <td className="py-3.5 px-4 font-semibold text-white">Air-Gapped SCIF Enclave &amp; Notified-Body Seal</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
                 <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Zero Egress)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Custom VLA Model Fine-Tuning on Fleet Data</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Dedicated GPUs)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">100+ Robot Fleet & VDA 5050 AMR Orchestration</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (MAPF & CBS)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Automated SolidWorks / STEP / MJCF Ingestion</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (Auto-Inertia)</td>
-              </tr>
-              <tr>
-                <td className="py-3.5 px-4 font-semibold text-white">Dedicated Field Robotics Architect & 15-Min SLA</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-slate-600">✕</td>
-                <td className="py-3.5 px-4 text-center text-amber-400 font-bold">✓ (24/7/365)</td>
               </tr>
             </tbody>
           </table>
@@ -808,7 +760,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
         <h2 className="text-xl font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
           <HelpCircle className="w-5 h-5 text-cyan-400" />
-          <span>Frequently Asked Questions</span>
+          <span>Licensing &amp; Payment FAQs</span>
         </h2>
 
         <div className="space-y-3 font-sans">
@@ -821,7 +773,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full flex items-center justify-between p-4 text-left font-mono text-xs font-semibold text-white hover:text-cyan-300 transition-colors"
+                  className="w-full flex items-center justify-between p-4 text-left font-mono text-xs font-semibold text-white hover:text-cyan-300 transition-colors cursor-pointer"
                 >
                   <span>{faq.q}</span>
                   {isOpen ? <ChevronUp className="w-4 h-4 text-cyan-400" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
@@ -849,4 +801,3 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onOpenQuotaModal, onOp
     </div>
   );
 };
-

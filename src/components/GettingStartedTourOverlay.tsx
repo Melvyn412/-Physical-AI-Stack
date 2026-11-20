@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
   Sparkles, ArrowRight, ArrowLeft, Check, X, Play, Shield, Cpu,
   Database, Stethoscope, Server, Sliders, Target, GitFork, RefreshCw,
-  ExternalLink, HelpCircle, Layers, CheckCircle2, Zap, Calendar, AlertOctagon, Terminal, BookOpen
+  ExternalLink, HelpCircle, Layers, CheckCircle2, Zap, Calendar, AlertOctagon, Terminal, BookOpen,
+  ShieldCheck, FileCheck, Scale, Briefcase
 } from 'lucide-react';
 import { ActiveTab } from '../types';
+import { FEATURE_FLAGS } from '../config/featureFlags';
 
 export interface TourStep {
   id: string;
@@ -21,7 +23,82 @@ export interface TourStep {
   proTip: string;
 }
 
-const TOUR_STEPS: TourStep[] = [
+const SAFETY_ENGINE_TOUR_STEPS: TourStep[] = [
+  {
+    id: 'safety_step_1_audit',
+    stepNumber: 1,
+    category: 'Regulatory Workbench · Step 1',
+    title: 'URDF / YAML Ingestion & Automated Clause Gap Analyzer',
+    badge: 'ISO / FDA / STANAG',
+    badgeColor: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/30',
+    description: 'Upload or paste ROS 2 controller YAML or URDF joint limits, evaluate compliance clauses in real time across ISO 10218, ISO 3691-4, FDA 21 CFR 820, and STANAG 4586, and auto-synthesize compliant Z3 CBF bounds.',
+    keyFeatures: [
+      'Real-time URDF/YAML parameter parsing with live safety margin scoring',
+      'Interactive ISO 14971 FMEA risk matrix with Pre/Post RPN calculations',
+      '1-click Auto-Synthesize Compliant Bounds for failing clauses'
+    ],
+    targetTab: 'compliance',
+    tabLabel: 'Safety Audit Studio',
+    icon: FileCheck,
+    proTip: 'Use "Simulate Unsafe Edge-Case Fault" inside the Safety Audit Studio to watch failing clauses turn red.'
+  },
+  {
+    id: 'safety_step_2_prover',
+    stepNumber: 2,
+    category: 'Mathematical Proof · Step 2',
+    title: 'Formal Z3 SMT Solver & Control Barrier Verification',
+    badge: 'Forward Invariance',
+    badgeColor: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
+    description: 'Move beyond empirical guesses. Generate mathematically proven forward-invariant Control Barrier Functions (h(x) >= 0) and inspect Bi-Directional Requirements Traceability Matrices.',
+    keyFeatures: [
+      'Formal Z3 SMT constraint proofs for joint torques, speed, and braking distance',
+      'Bi-Directional RTM linking regulatory clauses to source files and CI tests',
+      'GitHub Actions & GitLab CI Gatekeeper YAML generator to block unsafe PRs'
+    ],
+    targetTab: 'formal-prover',
+    tabLabel: 'Formal Z3 Prover',
+    icon: Scale,
+    proTip: 'Copy the generated GitHub Actions YAML right out of Tab 3 in the Safety Audit Studio.'
+  },
+  {
+    id: 'safety_step_3_verticals',
+    stepNumber: 3,
+    category: 'Notified-Body Binders · Step 3',
+    title: 'Surgical DHF, Defence Assurance & V&V Evidence Packs',
+    badge: 'SHA-256 Sealed',
+    badgeColor: 'text-purple-400 bg-purple-500/10 border-purple-500/30',
+    description: 'Export print-ready PDF/HTML regulatory dossiers, Markdown Design History Files, and cryptographic SHA-256 signed JSON evidence manifests formatted for notified bodies.',
+    keyFeatures: [
+      'Surgical & Medical DHF aligned with FDA 21 CFR 820.30 & ISO 13485',
+      'Defence Assurance Pack supporting STANAG 4586 & MIL-STD-810H',
+      'Printable audit binders with commit SHA and Quality Officer sign-off'
+    ],
+    targetTab: 'vv-evidence',
+    tabLabel: 'V&V Evidence Pack',
+    icon: ShieldCheck,
+    proTip: 'Export an HTML binder from Tab 4 of the Safety Audit Studio and press Print -> Save as PDF.'
+  },
+  {
+    id: 'safety_step_4_licensing',
+    stepNumber: 4,
+    category: 'Turnkey Licensing · Step 4',
+    title: 'Dossier Pro Subscriptions, Single-Filing Packs & Corporate POs',
+    badge: 'PayPal & Net-30 PO',
+    badgeColor: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
+    description: 'Start with a 14-day free Dossier Pro trial, activate Dossier Pro (£499/mo), QA Team Studio (£1,499/mo), or Sovereign Enterprise (£4,999/mo), or generate a Net-30 PO for turnkey single-submission packs.',
+    keyFeatures: [
+      'Instant PayPal & card activation for monthly or annual licensing',
+      'Turnkey single-submission dossier packs (£3,499 – £7,999)',
+      '1-click Mutual NDA, SIG Lite InfoSec CSV, and CFO Compliance ROI memo'
+    ],
+    targetTab: 'commercial',
+    tabLabel: 'PO & Dossier Store',
+    icon: Briefcase,
+    proTip: 'Try the CFO Compliance ROI Calculator in the PO & Dossier Store to quantify consultant fees saved.'
+  }
+];
+
+const LEGACY_MULTI_PHYSICS_TOUR_STEPS: TourStep[] = [
   {
     id: 'step_1_intent',
     stepNumber: 1,
@@ -149,6 +226,10 @@ const TOUR_STEPS: TourStep[] = [
     proTip: 'Head to "Tutorials & Showcase" in the top navigation bar to explore all guided labs anytime!'
   }
 ];
+
+const TOUR_STEPS: TourStep[] = FEATURE_FLAGS.SHOW_MULTI_PHYSICS_TOOLS
+  ? LEGACY_MULTI_PHYSICS_TOUR_STEPS
+  : SAFETY_ENGINE_TOUR_STEPS;
 
 interface GettingStartedTourOverlayProps {
   isOpen: boolean;

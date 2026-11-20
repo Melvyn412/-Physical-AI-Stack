@@ -70,9 +70,9 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
 
   const prices: Record<PlanTier, { monthly: number; annual: number }> = {
     developer: { monthly: 0, annual: 0 },
-    pro: { monthly: 79, annual: 63 * 12 },
-    team: { monthly: 399, annual: 319 * 12 },
-    enterprise: { monthly: 100000, annual: 80000 * 12 }
+    pro: { monthly: 499, annual: 399 * 12 },
+    team: { monthly: 1499, annual: 1199 * 12 },
+    enterprise: { monthly: 4999, annual: 3999 * 12 }
   };
 
   const currentPrice = billingCycle === 'annual' ? prices[tier].annual : prices[tier].monthly;
@@ -201,12 +201,12 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
           </div>
 
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            {successData ? 'Payment Confirmed & Workspace Upgraded' : `Activate ${planDef.name}`}
+            {successData ? 'Compliance License Confirmed & Active' : `Activate ${planDef.name}`}
           </h3>
           <p className="text-xs text-slate-400 font-sans">
             {successData 
-              ? 'Your PayPal subscription is active. Production API keys and advanced Physical AI toolchains are unlocked.'
-              : 'Securely subscribe via PayPal with instant API key and cloud workspace provisioning.'}
+              ? 'Your PayPal subscription is active. Unwatermarked ISO/FDA Audit Dossiers, FMEA seals, and CI/CD Git Gatekeeper tokens are unlocked.'
+              : 'Securely subscribe via PayPal with instant Regulatory Dossier license provisioning and Corporate Invoice receipt.'}
           </p>
         </div>
 
@@ -284,19 +284,19 @@ export const PayPalCheckoutModal: React.FC<PayPalCheckoutModalProps> = ({
                 <ul className="space-y-1.5 text-[11px] text-slate-300">
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>{planDef.aiSynthesesLimit.toLocaleString()} AI Syntheses / month</span>
+                    <span>{planDef.aiSynthesesLimit >= 100000 ? 'Unlimited' : planDef.aiSynthesesLimit.toLocaleString()} Formal Z3 Audits / mo</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>{planDef.simulationsLimit.toLocaleString()} Physics Sim Runs</span>
+                    <span>Unwatermarked ISO 10218, 3691-4 &amp; FDA DHF Exports</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>ROS 2 Humble & Isaac Sim Exporters</span>
+                    <span>ISO 14971 FMEA Matrix &amp; Bi-Directional RTM</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Instant API Key Provisioning</span>
+                    <span>CI/CD GitHub &amp; GitLab Safety Gatekeeper</span>
                   </li>
                 </ul>
               </div>

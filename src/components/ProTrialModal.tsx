@@ -79,10 +79,10 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
                   <span>No Credit Card Required • Zero Risk</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-                  Start Your 14-Day Pro Trial
+                  Start Your 14-Day Dossier Pro Trial
                 </h3>
                 <p className="text-xs text-slate-400 font-sans">
-                  Evaluate real-time 1 kHz kinematics, ROS 2 pipelines, and AI goal syntheses before seeking team procurement.
+                  Evaluate automated ISO 10218, ISO 3691-4, and FDA 21 CFR 820 Design History Files backed by Z3 formal proofs before procurement sign-off.
                 </p>
               </div>
             </div>
@@ -95,15 +95,15 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
               <ul className="space-y-2 text-slate-300">
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span><strong>250 Custom AI Goal Syntheses</strong> across 5 stack layers</span>
+                  <span><strong>250 Formal Z3 Safety Audits</strong> &amp; URDF/YAML Clause Gap Checks</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span><strong>2,500 Physical Simulation Rollouts</strong> at 1000Hz motor loop</span>
+                  <span><strong>Unwatermarked Print-Ready PDF, Markdown &amp; JSON</strong> Dossier Binders</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Full <strong>ROS 2, MoveIt 2 & NVIDIA Isaac Sim</strong> code exports</span>
+                  <span>Full <strong>ISO 14971 FMEA Risk Matrix</strong> &amp; CI/CD Git Gatekeeper</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -116,11 +116,11 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
             <form onSubmit={handleActivateTrial} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs text-slate-300 font-bold block">
-                  Work / University Email <span className="text-slate-500 font-normal">(optional for receipt & key)</span>:
+                  Work / Regulatory QA Email <span className="text-slate-500 font-normal">(optional for dossier stamp &amp; key)</span>:
                 </label>
                 <input
                   type="email"
-                  placeholder="e.g. alex.chen@robotics-lab.com"
+                  placeholder="e.g. quality.director@robotics-oem.com"
                   value={workEmail}
                   onChange={(e) => setWorkEmail(e.target.value)}
                   className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition-colors font-mono"
@@ -135,17 +135,17 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
                   className="w-full py-3 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-600 hover:from-emerald-400 hover:to-indigo-500 text-slate-950 font-black text-xs rounded-xl shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isActivating ? (
-                    <span>Provisioning 14-Day Sandbox...</span>
+                    <span>Provisioning 14-Day Compliance Sandbox...</span>
                   ) : (
                     <>
                       <Zap className="w-4 h-4 fill-slate-950" />
-                      <span>Activate 14-Day Pro Access (Instant)</span>
+                      <span>Activate 14-Day Dossier Pro Access (Instant)</span>
                     </>
                   )}
                 </button>
 
                 <p className="text-[10px] text-center text-slate-500">
-                  By activating, you receive 14 days of full Pro tier access. No commitment, cancel anytime.
+                  By activating, you receive 14 days of full Dossier Pro access. No commitment, cancel anytime.
                 </p>
               </div>
             </form>
@@ -159,17 +159,17 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
 
             <div className="space-y-1">
               <h3 className="text-2xl font-bold text-white">
-                Pro Trial Activated!
+                Dossier Pro Trial Activated!
               </h3>
               <p className="text-xs text-emerald-300 font-mono">
-                14 Days of Full Pro Access Unlocked
+                14 Days of Full Regulatory Safety Dossier Access Unlocked
               </p>
             </div>
 
             <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl max-w-md mx-auto space-y-2 text-xs font-mono text-left">
               <div className="flex justify-between text-slate-400">
                 <span>Active Tier:</span>
-                <span className="text-cyan-400 font-bold">Pro Innovator (14d Trial)</span>
+                <span className="text-cyan-400 font-bold">Dossier Pro (14d Trial)</span>
               </div>
               <div className="flex justify-between text-slate-400">
                 <span>Credit Card Status:</span>
@@ -185,7 +185,7 @@ export const ProTrialModal: React.FC<ProTrialModalProps> = ({
               onClick={onClose}
               className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-xl transition-all shadow-lg shadow-cyan-500/20 cursor-pointer"
             >
-              Start Testing in 5-Layer Simulator →
+              Launch Safety Audit Studio →
             </button>
           </div>
         )}

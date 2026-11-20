@@ -163,8 +163,8 @@ export const EnterpriseFeaturesSection: React.FC = () => {
 
   const handleDownloadSpecSheet = () => {
     const specSheet = {
-      title: "AiGenesis Enterprise Physical AI & Robotics Spec Sheet",
-      tier: "Enterprise & Safety (£100,000 / month)",
+      title: "AiGenesis Regulatory & Safety Dossier Engine Spec Sheet",
+      tier: "Sovereign Enterprise (£4,999 / month)",
       generatedAt: new Date().toISOString(),
       capabilities: ENTERPRISE_FEATURES.map(f => ({
         name: f.title,
@@ -333,7 +333,7 @@ export const EnterpriseFeaturesSection: React.FC = () => {
 
           <div className="pt-4 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
             <span className="text-slate-400 text-[11px]">
-              Available on <strong>Enterprise & Safety (£100k/mo)</strong> and Custom CapEx site licenses.
+              Available on <strong>Sovereign Enterprise (£4,999/mo)</strong> and annual Corporate PO site licenses.
             </span>
             <button
               onClick={handleDownloadSpecSheet}
